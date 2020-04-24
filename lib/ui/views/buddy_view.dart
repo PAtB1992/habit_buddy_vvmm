@@ -24,7 +24,7 @@ class BuddyView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
                   Text(
-                    'Dein Habit Buddy',
+                    'Dein Schmabit Buddy',
                     style: TextStyle(
                       color: primaryText,
                       fontSize: 20.0,
