@@ -44,6 +44,7 @@ class FirestoreService {
     // Register the handler for when the posts data changes
     _messagesCollectionReference.snapshots().listen((messagesSnapshot) {
       if (messagesSnapshot.documents.isNotEmpty) {
+        print('not empty');
         var messages = messagesSnapshot.documents
             .map((snapshot) =>
                 Message.fromMap(snapshot.data, snapshot.documentID))

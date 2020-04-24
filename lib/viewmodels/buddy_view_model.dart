@@ -43,6 +43,7 @@ class BuddyViewModel extends BaseModel {
 
     _firestoreService.listenToMessagesRealTime().listen((messagesData) {
       List<Message> updatedMessages = messagesData;
+      print('messages data $messagesData');
       if (updatedMessages != null && updatedMessages.length > 0) {
         _messages = updatedMessages;
         notifyListeners();
