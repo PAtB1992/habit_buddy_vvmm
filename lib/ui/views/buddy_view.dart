@@ -62,12 +62,31 @@ class BuddyView extends StatelessWidget {
                       text: 'lalelulilo', receiverID: 'The Patriots');
                 },
               ),
+              ReusableCard(
+                color1: primaryBlue,
+                color2: secondaryBlue,
+                cardChild: Text('Lalelulilo1'),
+                onPress: () {
+                  model.sendMessage(
+                      text: 'lalelulilo1', receiverID: 'The Patriots');
+                },
+              ),
+              ReusableCard(
+                color1: primaryBlue,
+                color2: secondaryBlue,
+                cardChild: Text('Lalelulilo2'),
+                onPress: () {
+                  model.sendMessage(
+                      text: 'lalelulilo2', receiverID: 'The Patriots');
+                },
+              ),
               Expanded(
                 child: model.messages != null
                     ? ListView.builder(
-                        itemCount: model.messages.length,
-                        itemBuilder: (context, index) => MessageItem(
+                        itemCount: 3,
+                        itemBuilder: (context, index) => MessageBubble(
                           message: model.messages[index],
+                          isMe: model.isMe(index: index) ? true : false,
                         ),
                       )
                     : Center(

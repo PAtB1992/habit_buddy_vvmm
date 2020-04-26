@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 
 class Message {
@@ -5,12 +6,14 @@ class Message {
   final String userID;
   final String receiverID;
   final String documentID;
+  final timestamp;
 
   Message({
     @required this.text,
     @required this.receiverID,
     @required this.userID,
     this.documentID,
+    this.timestamp,
   });
 
   Map<String, dynamic> toMap() {
@@ -18,6 +21,7 @@ class Message {
       'text': text,
       'userID': userID,
       'receiverID': receiverID,
+      'timestamp': timestamp,
     };
   }
 
@@ -28,7 +32,7 @@ class Message {
     if (map == null) return null;
 
     return Message(
-      text: map['title'],
+      text: map['text'],
       receiverID: map['receiverId'],
       userID: map['userId'],
       documentID: documentID,
