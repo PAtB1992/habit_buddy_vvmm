@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:habitbuddyvvmm/constants/route_names.dart';
+import 'package:habitbuddyvvmm/ui/views/add_habit_view.dart';
 import 'package:habitbuddyvvmm/ui/views/home_view.dart';
 import 'package:habitbuddyvvmm/ui/views/login_view.dart';
 import 'package:habitbuddyvvmm/ui/views/start_view.dart';
@@ -19,10 +20,10 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         viewToShow: LoginView(),
       );
     case RegistrationViewRoute:
-    return _getPageRoute(
-      routeName: settings.name,
-      viewToShow: RegistrationView(),
-    );
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: RegistrationView(),
+      );
     case HomeViewRoute:
       return _getPageRoute(
         routeName: settings.name,
@@ -32,6 +33,11 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(
         routeName: settings.name,
         viewToShow: BuddyView(),
+      );
+    case AddHabitViewRoute:
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: AddHabitView(),
       );
     default:
       return MaterialPageRoute(

@@ -18,7 +18,9 @@ class HomeView extends StatelessWidget {
       builder: (context, model, child) => Scaffold(
         floatingActionButton: FloatingActionButton(
           backgroundColor: accentColor,
-          onPressed: () {},
+          onPressed: () {
+            model.navigateToAddHabitView();
+          },
           child: Icon(Icons.add),
         ),
         body: Column(

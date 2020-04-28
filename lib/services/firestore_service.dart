@@ -63,4 +63,6 @@ class FirestoreService {
 
     return _messagesController.stream;
   }
+
+//  TODO write function getHabitTemplate()
 }

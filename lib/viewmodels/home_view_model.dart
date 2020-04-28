@@ -7,7 +7,7 @@ import 'package:habitbuddyvvmm/viewmodels/buddy_view_model.dart';
 class HomeViewModel extends BaseModel {
   final NavigationService _navigationService = locator<NavigationService>();
 
-  Future navigateToCreateView() async {
-    await _navigationService.navigateTo(BuddyViewRoute);
+  Future navigateToAddHabitView() async {
+    await _navigationService.navigateTo(AddHabitViewRoute);
   }
 }
