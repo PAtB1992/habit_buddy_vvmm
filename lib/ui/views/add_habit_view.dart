@@ -10,6 +10,24 @@ class AddHabitView extends StatelessWidget {
     return ViewModelBuilder<AddHabitViewModel>.reactive(
       viewModelBuilder: () => AddHabitViewModel(),
       builder: (context, model, child) => Scaffold(
+        appBar: AppBar(
+          title: RichText(
+            text: TextSpan(
+              text: 'Verbessere ',
+              style: TextStyle(
+                  fontSize: 30,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold),
+              children: <TextSpan>[
+                TextSpan(text: 'Dein ', style: TextStyle(color: accentColor)),
+                TextSpan(
+                  text: 'Leben',
+                ),
+              ],
+            ),
+          ),
+          backgroundColor: primaryBlue,
+        ),
         body: SafeArea(
           child: Container(
             padding: EdgeInsets.only(
@@ -20,22 +38,6 @@ class AddHabitView extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                RichText(
-                  text: TextSpan(
-                    text: 'Verbessere ',
-                    style: TextStyle(
-                        fontSize: 35,
-                        color: primaryText,
-                        fontWeight: FontWeight.bold),
-                    children: <TextSpan>[
-                      TextSpan(
-                          text: 'Dein ', style: TextStyle(color: accentColor)),
-                      TextSpan(
-                        text: 'Leben',
-                      ),
-                    ],
-                  ),
-                ),
                 SizedBox(
                   height: 15,
                 ),
