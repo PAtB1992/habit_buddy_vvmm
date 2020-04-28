@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:habitbuddyvvmm/ui/components/message_item.dart';
-import 'package:habitbuddyvvmm/ui/components/input_field.dart';
+import 'package:habitbuddyvvmm/ui/components/message_bubble.dart';
 import 'package:habitbuddyvvmm/ui/components/reusable_card.dart';
-import 'package:provider_architecture/viewmodel_provider.dart';
+import 'package:stacked/stacked.dart';
 import 'package:habitbuddyvvmm/viewmodels/buddy_view_model.dart';
 import 'package:habitbuddyvvmm/constants/app_colors.dart';
 
 class BuddyView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ViewModelProvider<BuddyViewModel>.withConsumer(
-      viewModel: BuddyViewModel(),
+    return ViewModelBuilder<BuddyViewModel>.reactive(
+      viewModelBuilder: () => BuddyViewModel(),
+      disposeViewModel: false,
       onModelReady: (model) => model.listenToMessages(),
       builder: (context, model, child) => Scaffold(
         body: SafeArea(
@@ -85,10 +85,9 @@ class BuddyView extends StatelessWidget {
                     ? ListView.builder(
                         itemCount: 3,
                         itemBuilder: (context, index) => MessageBubble(
-                          message: model.messages[index],
-                          isMe: model.isMe(index: index) ? true : false,
-                        ),
-                      )
+                              message: model.messages[index],
+                              isMe: model.isMe(index: index),
+                            ))
                     : Center(
                         child: CircularProgressIndicator(
                           valueColor: AlwaysStoppedAnimation(

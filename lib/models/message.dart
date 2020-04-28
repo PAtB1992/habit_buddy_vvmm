@@ -33,8 +33,8 @@ class Message {
 
     return Message(
       text: map['text'],
-      receiverID: map['receiverId'],
-      userID: map['userId'],
+      receiverID: map['receiverID'],
+      userID: map['userID'],
       documentID: documentID,
     );
   }

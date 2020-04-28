@@ -3,7 +3,7 @@ import 'package:habitbuddyvvmm/constants/app_colors.dart';
 import 'package:habitbuddyvvmm/ui/components/busy_button.dart';
 import 'package:habitbuddyvvmm/ui/components/input_field.dart';
 import 'package:habitbuddyvvmm/viewmodels/registration_view_model.dart';
-import 'package:provider_architecture/provider_architecture.dart';
+import 'package:stacked/stacked.dart';
 
 class RegistrationView extends StatelessWidget {
   final emailController = TextEditingController();
@@ -11,8 +11,8 @@ class RegistrationView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelProvider<RegistrationViewModel>.withConsumer(
-      viewModel: RegistrationViewModel(),
+    return ViewModelBuilder<RegistrationViewModel>.reactive(
+      viewModelBuilder: () => RegistrationViewModel(),
       builder: (context, model, child) => Scaffold(
         backgroundColor: Colors.white,
         body: Padding(

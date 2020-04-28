@@ -4,7 +4,7 @@ import 'package:habitbuddyvvmm/constants/route_names.dart';
 import 'package:habitbuddyvvmm/services/navigation_service.dart';
 import 'package:habitbuddyvvmm/ui/components/rounded_button.dart';
 import 'package:habitbuddyvvmm/viewmodels/start_view_model.dart';
-import 'package:provider_architecture/provider_architecture.dart';
+import 'package:stacked/stacked.dart';
 import 'package:habitbuddyvvmm/locator.dart';
 
 class StartView extends StatelessWidget {
@@ -12,8 +12,8 @@ class StartView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelProvider<StartViewModel>.withConsumer(
-      viewModel: StartViewModel(),
+    return ViewModelBuilder<StartViewModel>.reactive(
+      viewModelBuilder: () => StartViewModel(),
       onModelReady: (model) => model.handleStartUpLogic(),
       builder: (context, model, child) => Scaffold(
         backgroundColor: Colors.white,

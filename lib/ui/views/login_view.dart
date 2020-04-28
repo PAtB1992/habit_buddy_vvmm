@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:habitbuddyvvmm/constants/app_colors.dart';
 import 'package:habitbuddyvvmm/ui/components/busy_button.dart';
 import 'package:habitbuddyvvmm/ui/components/input_field.dart';
-import 'package:provider_architecture/provider_architecture.dart';
 import 'package:habitbuddyvvmm/viewmodels/login_view_model.dart';
+import 'package:stacked/stacked.dart';
 
 class LoginView extends StatelessWidget {
   final emailController = TextEditingController();
@@ -11,8 +11,8 @@ class LoginView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelProvider<LoginViewModel>.withConsumer(
-      viewModel: LoginViewModel(),
+    return ViewModelBuilder<LoginViewModel>.reactive(
+      viewModelBuilder: () => LoginViewModel(),
       builder: (context, model, child) => Scaffold(
         backgroundColor: Colors.white,
         body: Padding(

@@ -12,6 +12,10 @@ class FirestoreService {
   final StreamController<List<Message>> _messagesController =
       StreamController<List<Message>>.broadcast();
 
+  CollectionReference returnCollectionReference() {
+    return _messagesCollectionReference;
+  }
+
   Future createUser(User user) async {
     try {
       await _usersCollectionReference.document(user.id).setData(user.toJson());

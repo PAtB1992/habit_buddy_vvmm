@@ -30,13 +30,12 @@ class BuddyViewModel extends BaseModel {
         title: 'Could not sent Post',
         description: result,
       );
-    }
-//    else {
+//    } else {
 //      await _dialogService.showDialog(
 //        title: 'Message successfully sent',
 //        description: 'Your message has been sent',
 //      );
-//    }
+    }
   }
 
   void listenToMessages() {
@@ -44,7 +43,7 @@ class BuddyViewModel extends BaseModel {
 
     _firestoreService.listenToMessagesRealTime().listen((messagesData) {
       List<Message> updatedMessages = messagesData;
-      if (updatedMessages != null && updatedMessages.length > 0) {
+      if (updatedMessages != null && updatedMessages.length >= 0) {
         _messages = updatedMessages;
         notifyListeners();
       }
@@ -54,10 +53,6 @@ class BuddyViewModel extends BaseModel {
   }
 
   bool isMe({int index}) {
-    bool isMe = false;
-    if (currentUser.id.toString() == messages[index].userID.toString()) {
-      isMe = true;
-    }
-    return isMe;
+    return currentUser.id == messages[index].userID;
   }
 }

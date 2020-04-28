@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:habitbuddyvvmm/ui/components/reusable_card.dart';
 import 'package:habitbuddyvvmm/constants/app_colors.dart';
-import 'package:provider_architecture/provider_architecture.dart';
 import 'package:habitbuddyvvmm/viewmodels/home_view_model.dart';
 import 'package:habitbuddyvvmm/services/navigation_service.dart';
 import 'package:habitbuddyvvmm/locator.dart';
 import 'package:habitbuddyvvmm/constants/route_names.dart';
+import 'package:stacked/_viewmodel_builder.dart';
 
 class HomeView extends StatelessWidget {
   final NavigationService _navigationService = locator<NavigationService>();
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelProvider<HomeViewModel>.withConsumer(
-      viewModel: HomeViewModel(),
+    return ViewModelBuilder<HomeViewModel>.reactive(
+      viewModelBuilder: () => HomeViewModel(),
 //    onModelReady: (model) => model.listenToPosts(),
       builder: (context, model, child) => Scaffold(
         floatingActionButton: FloatingActionButton(
