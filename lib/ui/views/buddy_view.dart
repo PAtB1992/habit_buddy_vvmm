@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:habitbuddyvvmm/ui/components/message_bubble.dart';
-import 'package:habitbuddyvvmm/ui/components/reusable_card.dart';
+import 'package:habitbuddyvvmm/ui/views/profile_sub_view.dart';
 import 'package:stacked/stacked.dart';
 import 'package:habitbuddyvvmm/viewmodels/buddy_view_model.dart';
 import 'package:habitbuddyvvmm/constants/app_colors.dart';
 
 class BuddyView extends StatelessWidget {
+  final controller = PageController(
+    initialPage: 0,
+  );
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<BuddyViewModel>.reactive(
@@ -13,75 +16,60 @@ class BuddyView extends StatelessWidget {
       disposeViewModel: false,
       onModelReady: (model) => model.listenToMessages(),
       builder: (context, model, child) => Scaffold(
+        appBar: AppBar(
+          backgroundColor: primaryBlue,
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: <Widget>[
+              Text(
+                'Dein Habit Buddy',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              SizedBox(
+                width: 10.0,
+              ),
+              CircleAvatar(
+                child: Hero(
+                  tag: 'icon',
+                  child: Icon(
+                    Icons.child_care,
+                    size: 30.0,
+                    color: Colors.white,
+                  ),
+                ),
+                backgroundColor: accentColor,
+                radius: 25.0,
+              ),
+              SizedBox(
+                width: 15,
+              ),
+            ],
+          ),
+        ),
         body: SafeArea(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[
-                  Text(
-                    'Dein Habit Buddy',
-                    style: TextStyle(
-                      color: primaryText,
-                      fontSize: 20.0,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  SizedBox(
-                    width: 10.0,
-                  ),
-                  CircleAvatar(
-                    child: Hero(
-                      tag: 'icon',
-                      child: Icon(
-                        Icons.child_care,
-                        size: 30.0,
-                        color: Colors.white,
-                      ),
-                    ),
-                    backgroundColor: accentColor,
-                    radius: 25.0,
-                  ),
-                  SizedBox(
-                    width: 15,
-                  ),
-                ],
+              SizedBox(
+                height: 15,
               ),
-              Text(
-                'Send Message',
-                style: TextStyle(fontSize: 26),
-              ),
-              ReusableCard(
-                color1: primaryBlue,
-                color2: secondaryBlue,
-                cardChild: Text('Lalelulilo'),
-                onPress: () {
-                  model.sendMessage(
-                      text: 'lalelulilo', receiverID: 'The Patriots');
-                },
-              ),
-              ReusableCard(
-                color1: primaryBlue,
-                color2: secondaryBlue,
-                cardChild: Text('Lalelulilo1'),
-                onPress: () {
-                  model.sendMessage(
-                      text: 'lalelulilo1', receiverID: 'The Patriots');
-                },
-              ),
-              ReusableCard(
-                color1: primaryBlue,
-                color2: secondaryBlue,
-                cardChild: Text('Lalelulilo2'),
-                onPress: () {
-                  model.sendMessage(
-                      text: 'lalelulilo2', receiverID: 'The Patriots');
-                },
+              Container(
+                height: 350,
+                child: PageView(
+                  controller: controller,
+                  children: <Widget>[
+                    ProfileSubView(),
+                  ],
+                ),
               ),
               Expanded(
                 child: model.messages != null
+//                TODO List throws error if smaller than 3
                     ? ListView.builder(
                         itemCount: 3,
                         itemBuilder: (context, index) => MessageBubble(
