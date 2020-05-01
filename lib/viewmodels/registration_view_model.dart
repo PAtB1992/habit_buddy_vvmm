@@ -5,12 +5,15 @@ import 'package:habitbuddyvvmm/services/dialog_service.dart';
 import 'package:habitbuddyvvmm/services/navigation_service.dart';
 import 'package:habitbuddyvvmm/locator.dart';
 import 'package:habitbuddyvvmm/viewmodels/base_model.dart';
+import 'package:habitbuddyvvmm/services/push_notification_service.dart';
 
 class RegistrationViewModel extends BaseModel {
   final AuthenticationService _authenticationService =
       locator<AuthenticationService>();
   final DialogService _dialogService = locator<DialogService>();
   final NavigationService _navigationService = locator<NavigationService>();
+  final PushNotificationService _pushNotificationService =
+      locator<PushNotificationService>();
 
   Future register({
     @required String email,
@@ -22,8 +25,9 @@ class RegistrationViewModel extends BaseModel {
       email: email,
       password: password,
     );
-
     setBusy(false);
+    //Generates token for device
+    await _pushNotificationService.saveDeviceToken(uid: currentUser.id);
 
     if (result is bool) {
       if (result) {

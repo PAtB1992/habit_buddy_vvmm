@@ -22,7 +22,6 @@ class LoginViewModel extends BaseModel {
       email: email,
       password: password,
     );
-
     setBusy(false);
 
     if (result is bool) {

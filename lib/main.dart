@@ -5,6 +5,7 @@ import 'package:habitbuddyvvmm/services/navigation_service.dart';
 import 'package:habitbuddyvvmm/ui/views/start_view.dart';
 import 'package:habitbuddyvvmm/managers/dialog_manager.dart';
 import 'package:habitbuddyvvmm/services/dialog_service.dart';
+import 'package:habitbuddyvvmm/services/push_notification_service.dart';
 
 void main() {
   setupLocator();

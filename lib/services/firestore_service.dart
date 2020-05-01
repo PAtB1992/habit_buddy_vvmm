@@ -12,9 +12,7 @@ class FirestoreService {
   final StreamController<List<Message>> _messagesController =
       StreamController<List<Message>>.broadcast();
 
-  CollectionReference returnCollectionReference() {
-    return _messagesCollectionReference;
-  }
+  CollectionReference get usersCollectionReference => _usersCollectionReference;
 
   Future createUser(User user) async {
     try {
@@ -65,4 +63,5 @@ class FirestoreService {
   }
 
 //  TODO write function getHabitTemplate()
+// TODO write function streak()
 }

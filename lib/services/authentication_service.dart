@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:habitbuddyvvmm/services/firestore_service.dart';
 import 'package:habitbuddyvvmm/models/user.dart';
 import 'package:habitbuddyvvmm/locator.dart';
+import 'package:habitbuddyvvmm/services/push_notification_service.dart';
 
 class AuthenticationService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
@@ -45,6 +46,7 @@ class AuthenticationService {
         id: authResult.user.uid,
         email: email,
       ));
+      await _populateCurrentUser(authResult.user);
       return authResult.user != null;
     } catch (e) {
       return e.message;

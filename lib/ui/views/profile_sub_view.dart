@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:habitbuddyvvmm/ui/components/mock_up_motivation_streak.dart';
 import 'package:habitbuddyvvmm/ui/components/reusable_card.dart';
 import 'package:habitbuddyvvmm/constants/app_colors.dart';
 import 'package:habitbuddyvvmm/viewmodels/profile_sub_view_model.dart';
@@ -75,8 +76,9 @@ class ProfileSubView extends StatelessWidget {
                 spacing: 6,
                 children: <Widget>[
                   ReusableCard(
-                    color1: primaryBlue,
-                    color2: secondaryBlue,
+                    height: 45,
+                    color1: secondaryBlue,
+                    color2: primaryBlue,
                     cardChild: Text(
                       'Gut gemacht!',
                       style: TextStyle(color: Colors.white),
@@ -86,8 +88,9 @@ class ProfileSubView extends StatelessWidget {
                     },
                   ),
                   ReusableCard(
-                    color1: primaryBlue,
-                    color2: secondaryBlue,
+                    height: 45,
+                    color1: secondaryBlue,
+                    color2: primaryBlue,
                     cardChild: Text(
                       'Gut gemacht!',
                       style: TextStyle(color: Colors.white),
@@ -97,8 +100,9 @@ class ProfileSubView extends StatelessWidget {
                     },
                   ),
                   ReusableCard(
-                    color1: primaryBlue,
-                    color2: secondaryBlue,
+                    height: 45,
+                    color1: secondaryBlue,
+                    color2: primaryBlue,
                     cardChild: Text(
                       'Gut gemacht!',
                       style: TextStyle(color: Colors.white),
@@ -108,8 +112,9 @@ class ProfileSubView extends StatelessWidget {
                     },
                   ),
                   ReusableCard(
-                    color1: primaryBlue,
-                    color2: secondaryBlue,
+                    height: 45,
+                    color1: secondaryBlue,
+                    color2: primaryBlue,
                     cardChild: Text(
                       'Gut gemacht!',
                       style: TextStyle(color: Colors.white),
@@ -119,8 +124,9 @@ class ProfileSubView extends StatelessWidget {
                     },
                   ),
                   ReusableCard(
-                    color1: primaryBlue,
-                    color2: secondaryBlue,
+                    height: 45,
+                    color1: secondaryBlue,
+                    color2: primaryBlue,
                     cardChild: Text(
                       'Gut gemacht!',
                       style: TextStyle(color: Colors.white),
@@ -130,8 +136,9 @@ class ProfileSubView extends StatelessWidget {
                     },
                   ),
                   ReusableCard(
-                    color1: primaryBlue,
-                    color2: secondaryBlue,
+                    height: 45,
+                    color1: secondaryBlue,
+                    color2: primaryBlue,
                     cardChild: Text(
                       'Gut gemacht!',
                       style: TextStyle(color: Colors.white),
@@ -143,13 +150,16 @@ class ProfileSubView extends StatelessWidget {
                 ],
               ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   Text(
                     'Motivation Streak:',
                     style: TextStyle(color: Colors.white),
                   ),
-//                MotivationStreak(),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  MotivationStreak(),
                 ],
               ),
             ],
