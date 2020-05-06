@@ -44,7 +44,7 @@ class PushNotificationService {
       var tokens = _firestoreService.usersCollectionReference
           .document(uid)
           .collection('token')
-          .document(fcmToken);
+          .document('notificationToken');
 
       await tokens.setData({
         'token': fcmToken,
@@ -58,7 +58,6 @@ class PushNotificationService {
     var view = notificationData['view'];
 
     if (view != null) {
-      // Navigate to the create post view
       if (view == 'buddy_view') {
         _navigationService.navigateTo(BuddyViewRoute);
       }

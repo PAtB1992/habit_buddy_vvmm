@@ -59,24 +59,35 @@ class AddHabitView extends StatelessWidget {
                     children: <Widget>[
                       HabitSelectionCard(
                         color: fourthrateBlue,
-                        onPress: () {},
+                        onPress: () {
+                          model.addHabitWithTemplate('mehr-wasser-trinken');
+                        },
                         habitIcon: Icons.invert_colors,
                         cardText: 'Ich möchte mehr Wasser trinken.',
                       ),
                       HabitSelectionCard(
                         color: thirdrateBlue,
+                        onPress: () {
+                          model.addHabitWithTemplate('gesünder-ernähren');
+                        },
                         habitIcon: Icons.favorite_border,
                         cardText: 'Ich möchte mich gesünder ernähren.',
                       ),
                       HabitSelectionCard(
                         color: secondaryBlue,
+                        onPress: () {
+                          model.addHabitWithTemplate('weniger-fleisch-essen');
+                        },
                         habitIcon: Icons.child_friendly,
                         cardText: 'Ich möchte weniger Fleisch essen.',
                       ),
                       HabitSelectionCard(
                         color: primaryBlue,
+                        onPress: () {
+                          model.addHabitWithTemplate('sich-mehr-bewegen');
+                        },
                         habitIcon: Icons.school,
-                        cardText: 'Ich möchte diese Masterarbeit beenden.',
+                        cardText: 'Ich möchte mich mehr bewegen.',
                       ),
                     ],
                   ),

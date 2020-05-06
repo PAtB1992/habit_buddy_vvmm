@@ -3,12 +3,15 @@ import 'package:flutter/services.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:habitbuddyvvmm/models/user.dart';
 import 'package:habitbuddyvvmm/models/message.dart';
+import 'package:habitbuddyvvmm/models/habit.dart';
 
 class FirestoreService {
   final CollectionReference _usersCollectionReference =
       Firestore.instance.collection('users');
   final CollectionReference _messagesCollectionReference =
       Firestore.instance.collection('messages');
+  final CollectionReference _habitsCollectionReference =
+      Firestore.instance.collection('habits');
   final StreamController<List<Message>> _messagesController =
       StreamController<List<Message>>.broadcast();
 
@@ -63,5 +66,10 @@ class FirestoreService {
   }
 
 //  TODO write function getHabitTemplate()
+  Future<Habit> getHabitTemplate(String habitName) async {
+    var habitTemplate =
+        await _habitsCollectionReference.document(habitName).get();
+    return Habit.fromData(habitTemplate.data);
+  }
 // TODO write function streak()
 }

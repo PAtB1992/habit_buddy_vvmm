@@ -80,11 +80,13 @@ class ProfileSubView extends StatelessWidget {
                     color1: secondaryBlue,
                     color2: primaryBlue,
                     cardChild: Text(
-                      'Gut gemacht!',
+                      'Gut gemacht! mit ID',
                       style: TextStyle(color: Colors.white),
                     ),
                     onPress: () {
-                      model.sendMessage(text: 'Gut gemacht!', receiverID: null);
+                      model.sendMessage(
+                          text: 'Gut gemacht!',
+                          receiverID: 'vWhAEOA316QlNwInhunhPVDzFrx1');
                     },
                   ),
                   ReusableCard(

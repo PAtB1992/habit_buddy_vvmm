@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:habitbuddyvvmm/ui/components/habit_tile.dart';
 import 'package:habitbuddyvvmm/ui/components/reusable_card.dart';
 import 'package:habitbuddyvvmm/constants/app_colors.dart';
 import 'package:habitbuddyvvmm/viewmodels/home_view_model.dart';
@@ -6,6 +7,7 @@ import 'package:habitbuddyvvmm/services/navigation_service.dart';
 import 'package:habitbuddyvvmm/locator.dart';
 import 'package:habitbuddyvvmm/constants/route_names.dart';
 import 'package:stacked/_viewmodel_builder.dart';
+import 'package:habitbuddyvvmm/models/habit.dart';
 
 class HomeView extends StatelessWidget {
   final NavigationService _navigationService = locator<NavigationService>();
@@ -13,6 +15,7 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<HomeViewModel>.reactive(
+      disposeViewModel: true,
       viewModelBuilder: () => HomeViewModel(),
 //    onModelReady: (model) => model.listenToPosts(),
       builder: (context, model, child) => Scaffold(
@@ -93,18 +96,20 @@ class HomeView extends StatelessWidget {
             Container(
               padding: EdgeInsets.only(left: 15, right: 15, bottom: 10),
               color: Colors.white,
-              child: Text(
-                'Derzeit verfolgst Du {Provider.of<GoalData>(context).goalCount} Ziele, bleib dran und wachse an Dir!',
-                style: TextStyle(
-                  color: primaryText,
-                ),
-              ),
+              child: model.habitList.habitCount == 0
+                  ? Text('Füge eine Habit hinzu und starte durch!')
+                  : Text(
+                      'Derzeit verfolgst Du ${model.habitList.habitCount} Ziele, bleib dran und wachse an Dir!',
+                      style: TextStyle(
+                        color: primaryText,
+                      ),
+                    ),
             ),
             Expanded(
               child: Container(
-//              color: Colors.white,
-//              child: GoalsList(),
-                  ),
+                color: Colors.white,
+                child: model.habitList.listBuilder(),
+              ),
             ),
           ],
         ),
