@@ -6,11 +6,14 @@ import 'package:habitbuddyvvmm/services/navigation_service.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
 import 'firestore_service.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class PushNotificationService {
   final FirebaseMessaging _fcm = FirebaseMessaging();
   final NavigationService _navigationService = locator<NavigationService>();
   final FirestoreService _firestoreService = locator<FirestoreService>();
+  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
 
   Future initialise() async {
     if (Platform.isIOS) {
@@ -20,7 +23,10 @@ class PushNotificationService {
 
     _fcm.configure(
       // Called when app is in foreground
-      onMessage: (Map<String, dynamic> message) async {},
+      onMessage: (Map<String, dynamic> message) async {
+        print('onMessage: $message');
+        showNotification(message);
+      },
       // Called when app has been closed and opened by push notification.
       onLaunch: (Map<String, dynamic> message) async {
         print('onLaunch: $message');
@@ -32,6 +38,13 @@ class PushNotificationService {
         _checkPayloadAndNavigate(message);
       },
     );
+
+    var initializationSettingsAndroid =
+        AndroidInitializationSettings('app_icon');
+    var initializationSettingsIOS = IOSInitializationSettings();
+    var initializationSettings = InitializationSettings(
+        initializationSettingsAndroid, initializationSettingsIOS);
+    flutterLocalNotificationsPlugin.initialize(initializationSettings);
   }
 
   saveDeviceToken({String uid}) async {
@@ -62,5 +75,24 @@ class PushNotificationService {
         _navigationService.navigateTo(BuddyViewRoute);
       }
     }
+  }
+
+  void showNotification(message) async {
+    var androidPlatformChannelSpecifics = AndroidNotificationDetails(
+      'your channel id',
+      'Habit Buddy Notifications',
+      'your channel description',
+      importance: Importance.Max,
+      priority: Priority.High,
+    );
+    var iOSPlatformChannelSpecifics = IOSNotificationDetails();
+    var platformChannelSpecifics = NotificationDetails(
+        androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
+    await flutterLocalNotificationsPlugin.show(
+      0,
+      message['notification']['title'],
+      message['notification']['body'],
+      platformChannelSpecifics,
+    );
   }
 }

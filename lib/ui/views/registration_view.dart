@@ -8,6 +8,7 @@ import 'package:stacked/stacked.dart';
 class RegistrationView extends StatelessWidget {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final usernameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +36,10 @@ class RegistrationView extends StatelessWidget {
                 ),
               ),
               InputField(
+                placeholder: 'Username',
+                controller: usernameController,
+              ),
+              InputField(
                 placeholder: 'Email',
                 controller: emailController,
                 textInputType: TextInputType.emailAddress,
@@ -56,6 +61,7 @@ class RegistrationView extends StatelessWidget {
                 busy: model.busy,
                 onPressed: () {
                   model.register(
+                    username: usernameController.text,
                     email: emailController.text,
                     password: passwordController.text,
                   );

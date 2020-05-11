@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:habitbuddyvvmm/constants/route_names.dart';
 import 'package:habitbuddyvvmm/services/authentication_service.dart';
 import 'package:habitbuddyvvmm/services/dialog_service.dart';
+import 'package:habitbuddyvvmm/services/firestore_service.dart';
 import 'package:habitbuddyvvmm/services/navigation_service.dart';
 import 'package:habitbuddyvvmm/locator.dart';
 import 'package:habitbuddyvvmm/viewmodels/base_model.dart';
@@ -18,12 +19,14 @@ class RegistrationViewModel extends BaseModel {
   Future register({
     @required String email,
     @required String password,
+    @required String username,
   }) async {
     setBusy(true);
 
     var result = await _authenticationService.registerWithEmail(
       email: email,
       password: password,
+      username: username,
     );
     setBusy(false);
     //Generates token for device

@@ -86,7 +86,7 @@ class ProfileSubView extends StatelessWidget {
                     onPress: () {
                       model.sendMessage(
                           text: 'Gut gemacht!',
-                          receiverID: 'vWhAEOA316QlNwInhunhPVDzFrx1');
+                          receiverID: 'jutn4z5lQuYqarjUYfPn83wsTih2');
                     },
                   ),
                   ReusableCard(
@@ -94,11 +94,11 @@ class ProfileSubView extends StatelessWidget {
                     color1: secondaryBlue,
                     color2: primaryBlue,
                     cardChild: Text(
-                      'Gut gemacht!',
+                      'Bleib dran!',
                       style: TextStyle(color: Colors.white),
                     ),
                     onPress: () {
-                      model.sendMessage(text: 'Gut gemacht!', receiverID: null);
+                      model.sendMessage(text: 'Bleib dran!', receiverID: null);
                     },
                   ),
                   ReusableCard(
@@ -106,11 +106,11 @@ class ProfileSubView extends StatelessWidget {
                     color1: secondaryBlue,
                     color2: primaryBlue,
                     cardChild: Text(
-                      'Gut gemacht!',
+                      'Alles klar?',
                       style: TextStyle(color: Colors.white),
                     ),
                     onPress: () {
-                      model.sendMessage(text: 'Gut gemacht!', receiverID: null);
+                      model.sendMessage(text: 'Alles klar?', receiverID: null);
                     },
                   ),
                   ReusableCard(
@@ -118,11 +118,12 @@ class ProfileSubView extends StatelessWidget {
                     color1: secondaryBlue,
                     color2: primaryBlue,
                     cardChild: Text(
-                      'Gut gemacht!',
+                      'Alles gut bei mir.',
                       style: TextStyle(color: Colors.white),
                     ),
                     onPress: () {
-                      model.sendMessage(text: 'Gut gemacht!', receiverID: null);
+                      model.sendMessage(
+                          text: 'Alles gut bei mir.!', receiverID: null);
                     },
                   ),
                   ReusableCard(

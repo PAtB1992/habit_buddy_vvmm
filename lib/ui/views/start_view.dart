@@ -54,14 +54,14 @@ class StartView extends StatelessWidget {
               ),
               RoundedButton(
                 title: 'Log In',
-                colour: primaryBlue,
+                color: primaryBlue,
                 onPressed: () {
                   _navigationService.navigateTo(LoginViewRoute);
                 },
               ),
               RoundedButton(
                 title: 'Register',
-                colour: primaryGrey,
+                color: primaryGrey,
                 onPressed: () {
                   _navigationService.navigateTo(RegistrationViewRoute);
                 },

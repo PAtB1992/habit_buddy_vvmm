@@ -36,6 +36,7 @@ class AuthenticationService {
   Future registerWithEmail({
     @required String email,
     @required String password,
+    @required String username,
   }) async {
     try {
       var authResult = await _firebaseAuth.createUserWithEmailAndPassword(
@@ -45,6 +46,7 @@ class AuthenticationService {
       await _firestoreService.createUser(User(
         id: authResult.user.uid,
         email: email,
+        username: username,
       ));
       await _populateCurrentUser(authResult.user);
       return authResult.user != null;

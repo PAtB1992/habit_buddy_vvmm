@@ -17,7 +17,6 @@ class HomeView extends StatelessWidget {
     return ViewModelBuilder<HomeViewModel>.reactive(
       disposeViewModel: true,
       viewModelBuilder: () => HomeViewModel(),
-//    onModelReady: (model) => model.listenToPosts(),
       builder: (context, model, child) => Scaffold(
         floatingActionButton: FloatingActionButton(
           backgroundColor: accentColor,

@@ -15,7 +15,6 @@ class AddHabitViewModel extends BaseModel {
     setBusy(true);
     var habit = await _firestoreService.getHabitTemplate(habitName);
     _habitList.addHabit(habit);
-    print(_habitList.habitCount);
     setBusy(false);
 
     _navigationService.pop();

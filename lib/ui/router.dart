@@ -6,6 +6,7 @@ import 'package:habitbuddyvvmm/ui/views/login_view.dart';
 import 'package:habitbuddyvvmm/ui/views/start_view.dart';
 import 'package:habitbuddyvvmm/ui/views/registration_view.dart';
 import 'package:habitbuddyvvmm/ui/views/buddy_view.dart';
+import 'package:habitbuddyvvmm/ui/views/habit_detail_view.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {
@@ -38,6 +39,14 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(
         routeName: settings.name,
         viewToShow: AddHabitView(),
+      );
+    case HabitDetailViewRoute:
+      var habit = settings.arguments;
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: HabitDetailView(
+          habit: habit,
+        ),
       );
     default:
       return MaterialPageRoute(

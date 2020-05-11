@@ -1,23 +1,31 @@
 import 'dart:collection';
 
 import 'package:flutter/cupertino.dart';
+import 'package:habitbuddyvvmm/constants/route_names.dart';
+import 'package:habitbuddyvvmm/services/navigation_service.dart';
 import 'package:habitbuddyvvmm/ui/components/habit_tile.dart';
+import 'package:habitbuddyvvmm/ui/views/habit_detail_view.dart';
+
+import '../locator.dart';
 
 class Habit {
   final String name;
   final String description;
-  final int repetitions;
+  int repetitions;
+  final int listIndex;
 
   Habit({
     @required this.name,
     @required this.description,
     this.repetitions,
+    this.listIndex,
   });
 
   Habit.fromData(Map<String, dynamic> data)
       : name = data['name'],
         description = data['description'],
-        repetitions = data['repetitions'];
+        repetitions = data['repetitions'],
+        listIndex = data['listIndex'];
 
   static Habit fromMap(
     Map<String, dynamic> map,
@@ -33,6 +41,7 @@ class Habit {
 }
 
 class HabitList {
+  final NavigationService _navigationService = locator<NavigationService>();
   List<Habit> _habitList = [];
 
   UnmodifiableListView<Habit> get habitList {
@@ -47,6 +56,14 @@ class HabitList {
     _habitList.add(habit);
   }
 
+  void incrementRepetitions(int index) {
+    _habitList[index].repetitions += 1;
+  }
+
+  int populateRepetitions(int index) {
+    return _habitList[index].repetitions;
+  }
+
   ListView listBuilder() {
     return ListView.builder(
       itemBuilder: (context, index) {
@@ -54,7 +71,17 @@ class HabitList {
         return HabitTile(
           name: habit.name,
           repetitions: habit.repetitions,
-          onPress: null,
+          onPress: () {
+            _navigationService.navigateTo(
+              HabitDetailViewRoute,
+              arguments: Habit(
+                name: habit.name,
+                repetitions: habit.repetitions,
+                description: habit.description,
+                listIndex: index,
+              ),
+            );
+          },
         );
       },
       itemCount: habitCount,
