@@ -14,7 +14,7 @@ class AddHabitViewModel extends BaseModel {
   final DialogService _dialogService = locator<DialogService>();
   final HabitList _habitList = locator<HabitList>();
 
-  void addHabitWithTemplate(String habitName) async {
+  Future addHabitWithTemplate(String habitName) async {
     setBusy(true);
     var habit = await _firestoreService.getHabitTemplate(habitName);
     _habitList.checkListForDupes(habit.name)

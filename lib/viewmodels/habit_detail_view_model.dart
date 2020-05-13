@@ -1,10 +1,23 @@
+import 'package:habitbuddyvvmm/locator.dart';
+import 'package:habitbuddyvvmm/services/dialog_service.dart';
 import 'package:habitbuddyvvmm/viewmodels/base_model.dart';
 
 class HabitDetailViewModel extends BaseModel {
+  final DialogService _dialogService = locator<DialogService>();
+
   int repetitions;
-  void completeMilestone(index) {
+  Future completeMilestone(index) async {
     setBusy(true);
-    habitList.incrementRepetitions(index);
+    var dialogResult = await _dialogService.showConfirmationDialog(
+        title: 'titel',
+        description: 'description',
+        cancelTitle: 'cancelTitel',
+        confirmationTitle: 'confirmationTitel');
+    if (dialogResult.confirmed) {
+      habitList.incrementRepetitions(index);
+    } else {
+      print('User has cancelled the dialog');
+    }
     setBusy(false);
   }
 

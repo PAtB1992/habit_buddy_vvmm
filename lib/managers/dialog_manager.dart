@@ -34,6 +34,13 @@ class _DialogManagerState extends State<DialogManager> {
               title: Text(request.title),
               content: Text(request.description),
               actions: <Widget>[
+                FlatButton(
+                  child: Text(request.buttonTitle),
+                  onPressed: () {
+                    _dialogService
+                        .dialogComplete(DialogResponse(confirmed: true));
+                  },
+                ),
                 if (isConfirmationDialog)
                   FlatButton(
                     child: Text(request.cancelTitle),
@@ -42,13 +49,6 @@ class _DialogManagerState extends State<DialogManager> {
                           .dialogComplete(DialogResponse(confirmed: false));
                     },
                   ),
-                FlatButton(
-                  child: Text(request.buttonTitle),
-                  onPressed: () {
-                    _dialogService
-                        .dialogComplete(DialogResponse(confirmed: true));
-                  },
-                ),
               ],
             ));
   }

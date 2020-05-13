@@ -12,7 +12,7 @@ class BuddyViewModel extends BaseModel {
 
   List<Message> _messages;
   List<Message> get messages => _messages;
-
+//TODO: Liste wird erst beim zweiten reintappen angezeigt. Wirft einen Fehler wenn weniger als 3 Einträge vorhanden sind
   void listenToMessages() {
     setBusy(true);
 
