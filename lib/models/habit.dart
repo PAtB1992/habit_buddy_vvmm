@@ -48,6 +48,21 @@ class HabitList {
     return UnmodifiableListView(_habitList);
   }
 
+  bool checkListForDupes(String habitName) {
+    bool result;
+    int counter = 0;
+    _habitList.forEach((habit) {
+      if (habit.name == habitName) {
+        counter += 1;
+      }
+    });
+    if (counter > 0) {
+      result = true;
+    } else
+      result = false;
+    return result;
+  }
+
   int get habitCount {
     return _habitList.length;
   }

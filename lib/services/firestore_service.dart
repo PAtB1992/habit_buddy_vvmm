@@ -65,11 +65,14 @@ class FirestoreService {
     return _messagesController.stream;
   }
 
-//  TODO write function getHabitTemplate()
   Future<Habit> getHabitTemplate(String habitName) async {
     var habitTemplate =
         await _habitsCollectionReference.document(habitName).get();
     return Habit.fromData(habitTemplate.data);
+  }
+
+  Future<String> getHabitBuddyId(currentUser) async {
+    var habitBuddyId = await _usersCollectionReference.document(currentUser);
   }
 // TODO write function streak()
 }

@@ -18,11 +18,17 @@ class BuddyViewModel extends BaseModel {
 
     _firestoreService.listenToMessagesRealTime().listen((messagesData) {
       List<Message> updatedMessages = messagesData;
+      updatedMessages.forEach((message) {
+        if (message.userID != currentUser.id) {
+          if (message.receiverID != currentUser.id) {
+            updatedMessages.remove(message);
+          }
+        }
+      });
       if (updatedMessages != null && updatedMessages.length >= 0) {
         _messages = updatedMessages;
         notifyListeners();
       }
-
       setBusy(false);
     });
   }
