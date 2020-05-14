@@ -19,9 +19,9 @@ class AddHabitViewModel extends BaseModel {
     var habit = await _firestoreService.getHabitTemplate(habitName);
     _habitList.checkListForDupes(habit.name)
         ? _dialogService.showDialog(
-            title: 'Fehler',
+            title: 'Obacht!',
             description:
-                'Schön, dass du so motiviert bist, aber du kannst keine Habit mehrfach hinzufügen.',
+                '"Schön, dass du so motiviert bist, aber du kannst keine Habit mehrfach hinzufügen." - Oscar Wilde',
             buttonTitle: 'Och manno..')
         : _habitList.addHabit(habit);
 
