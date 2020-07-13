@@ -3,6 +3,7 @@ import 'package:habitbuddyvvmm/ui/components/habit_selection_card.dart';
 import 'package:habitbuddyvvmm/viewmodels/add_habit_view_model.dart';
 import 'package:stacked/_viewmodel_builder.dart';
 import 'package:habitbuddyvvmm/constants/app_colors.dart';
+import 'package:habitbuddyvvmm/constants/texts.dart';
 
 class AddHabitView extends StatelessWidget {
   @override
@@ -42,12 +43,15 @@ class AddHabitView extends StatelessWidget {
                   height: 15,
                 ),
                 Text(
-                  'Habits, oder zu Deutsch Gewohnheiten, sind Dinge im Alltag, die man unbewusst erledigt. Zähneputzen gehört zum Beispiel dazu. Sie helfen und blablabla weil blabla, wusstest du das schon? Blabla.. Suche Dir also eine von diesen Habits aus, welche Dein Leben bereichern würden.',
+                  addHabitViewText,
                   textAlign: TextAlign.justify,
                   style: TextStyle(
                     fontSize: 20.0,
                     color: primaryText,
                   ),
+                ),
+                SizedBox(
+                  height: 15,
                 ),
                 Flexible(
                   child: GridView.count(
@@ -58,36 +62,56 @@ class AddHabitView extends StatelessWidget {
                     crossAxisCount: 2,
                     children: <Widget>[
                       HabitSelectionCard(
-                        color: fourthrateBlue,
+                        color: primaryBlue,
                         onPress: () {
-                          model.addHabitWithTemplate('mehr-wasser-trinken');
-                        },
-                        habitIcon: Icons.invert_colors,
-                        cardText: 'Ich möchte mehr Wasser trinken.',
-                      ),
-                      HabitSelectionCard(
-                        color: thirdrateBlue,
-                        onPress: () {
-                          model.addHabitWithTemplate('gesünder-ernähren');
+                          model.navigateToReflectionView("gesünder-ernähren");
                         },
                         habitIcon: Icons.favorite_border,
                         cardText: 'Ich möchte mich gesünder ernähren.',
                       ),
                       HabitSelectionCard(
-                        color: secondaryBlue,
+                        color: primaryBlue,
                         onPress: () {
-                          model.addHabitWithTemplate('weniger-fleisch-essen');
+                          model.navigateToReflectionView(
+                              "weniger-fleisch-essen");
                         },
                         habitIcon: Icons.child_friendly,
                         cardText: 'Ich möchte weniger Fleisch essen.',
                       ),
                       HabitSelectionCard(
-                        color: primaryBlue,
+                        color: thirdrateBlue,
                         onPress: () {
-                          model.addHabitWithTemplate('sich-mehr-bewegen');
+                          model.navigateToReflectionView("fähigkeiten-lernen");
+                        },
+                        habitIcon: Icons.child_friendly,
+                        cardText:
+                            'Ich möchte eine bestimmte Fähigkeit verbessern.',
+                      ),
+                      HabitSelectionCard(
+                        color: thirdrateBlue,
+                        onPress: () {
+                          model.navigateToReflectionView("sich-mehr-bewegen");
                         },
                         habitIcon: Icons.school,
                         cardText: 'Ich möchte mich mehr bewegen.',
+                      ),
+                      HabitSelectionCard(
+                        color: fourthrateBlue,
+                        onPress: () {
+                          model.navigateToReflectionView("mehr-wasser-trinken");
+                        },
+                        habitIcon: Icons.invert_colors,
+                        cardText: 'Ich möchte mehr Wasser trinken.',
+                      ),
+                      HabitSelectionCard(
+                        color: fourthrateBlue,
+                        onPress: () {
+                          model.navigateToReflectionView(
+                              "konzentration-steigern");
+                        },
+                        habitIcon: Icons.school,
+                        cardText:
+                            'Ich möchte beim Lernen weniger abgelenkt werden.',
                       ),
                     ],
                   ),

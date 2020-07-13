@@ -156,7 +156,7 @@ class ProfileSubView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    'Motivation Streak:',
+                    'Buddy Level:',
                     style: TextStyle(color: Colors.white),
                   ),
                   SizedBox(

@@ -5,3 +5,4 @@ const String HomeViewRoute = "HomeView";
 const String BuddyViewRoute = "BuddyView";
 const String AddHabitViewRoute = "AddHabitView";
 const String HabitDetailViewRoute = "HabitDetailView";
+const String AddHabitReflectionViewRoute = "AddHabitReflectionView";

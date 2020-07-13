@@ -38,6 +38,7 @@ class LoginView extends StatelessWidget {
                 placeholder: 'Email',
                 controller: emailController,
                 textInputType: TextInputType.emailAddress,
+                smallVersion: true,
               ),
               SizedBox(
                 height: 8.0,
@@ -46,6 +47,7 @@ class LoginView extends StatelessWidget {
                 placeholder: 'Password',
                 password: true,
                 controller: passwordController,
+                smallVersion: true,
               ),
               SizedBox(
                 height: 24.0,

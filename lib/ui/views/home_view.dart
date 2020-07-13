@@ -70,21 +70,24 @@ class HomeView extends StatelessWidget {
                   onPress: () {
                     _navigationService.navigateTo(BuddyViewRoute);
                   },
-                  cardChild: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      Text(
-                        'Motiviere Dich und Deinen Habit Buddy!',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      Hero(
-                        tag: 'icon',
-                        child: Icon(
-                          Icons.child_care,
-                          color: Colors.white,
+                  cardChild: Container(
+                    height: 40,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        Text(
+                          'Motiviere Dich und Deinen Habit Buddy!',
+                          style: TextStyle(color: Colors.white),
                         ),
-                      ),
-                    ],
+                        Hero(
+                          tag: 'icon',
+                          child: Icon(
+                            Icons.child_care,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],
@@ -96,12 +99,13 @@ class HomeView extends StatelessWidget {
               padding: EdgeInsets.only(left: 15, right: 15, bottom: 10),
               color: Colors.white,
               child: model.habitList.habitCount == 0
-                  ? Text('Füge eine Habit hinzu und starte durch!')
+                  ? Text(
+                      'Füge eine Habit hinzu und starte durch!',
+                      style: TextStyle(color: primaryText),
+                    )
                   : Text(
                       'Derzeit verfolgst Du ${model.habitList.habitCount} Ziele, bleib dran und wachse an Dir!',
-                      style: TextStyle(
-                        color: primaryText,
-                      ),
+                      style: TextStyle(color: primaryText),
                     ),
             ),
             Expanded(

@@ -55,6 +55,18 @@ class HabitDetailView extends StatelessWidget {
               child: ListView(
                 children: <Widget>[
                   ReusableCard(
+                    height: 150,
+                    color1: primaryBlue,
+                    color2: primaryBlue,
+                    cardChild: Center(
+                      child: Text(
+                        '${habit.customDescription}',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(color: Colors.white, fontSize: 20),
+                      ),
+                    ),
+                  ),
+                  ReusableCard(
                     height: 100,
                     color1: accentColor,
                     color2: accentColor,

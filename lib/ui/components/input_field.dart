@@ -44,7 +44,7 @@ class InputField extends StatefulWidget {
 
 class _InputFieldState extends State<InputField> {
   bool isPassword;
-  double fieldHeight = 55;
+  double fieldHeight = 100;
 
   @override
   void initState() {
@@ -58,7 +58,7 @@ class _InputFieldState extends State<InputField> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Container(
-          height: widget.smallVersion ? 40 : fieldHeight,
+          height: widget.smallVersion ? 55 : fieldHeight,
           alignment: Alignment.centerLeft,
           padding: fieldPadding,
           decoration:
@@ -90,7 +90,7 @@ class _InputFieldState extends State<InputField> {
                   decoration: InputDecoration.collapsed(
                       hintText: widget.placeholder,
                       hintStyle:
-                          TextStyle(fontSize: widget.smallVersion ? 12 : 15)),
+                          TextStyle(fontSize: widget.smallVersion ? 15 : 15)),
                 ),
               ),
               GestureDetector(

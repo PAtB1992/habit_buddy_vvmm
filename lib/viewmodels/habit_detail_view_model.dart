@@ -9,10 +9,11 @@ class HabitDetailViewModel extends BaseModel {
   Future completeMilestone(index) async {
     setBusy(true);
     var dialogResult = await _dialogService.showConfirmationDialog(
-        title: 'titel',
-        description: 'description',
-        cancelTitle: 'cancelTitel',
-        confirmationTitle: 'confirmationTitel');
+        title: 'Klasse!',
+        description:
+            'Bitte bestätige, dass du den Milestone erfüllt hast. Wenn man so motiviert ist wie du, kann es schon vorkommen, dass man ausversehen auf den großen leuchtenden Button drückt.',
+        cancelTitle: 'Doch nicht..',
+        confirmationTitle: 'Ja, ich bin fertig!');
     if (dialogResult.confirmed) {
       habitList.incrementRepetitions(index);
     } else {

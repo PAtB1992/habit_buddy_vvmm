@@ -9,5 +9,6 @@ class HomeViewModel extends BaseModel {
 
   Future navigateToAddHabitView() async {
     await _navigationService.navigateTo(AddHabitViewRoute);
+    notifyListeners();
   }
 }

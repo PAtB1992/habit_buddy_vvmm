@@ -71,8 +71,8 @@ class FirestoreService {
     return Habit.fromData(habitTemplate.data);
   }
 
-  Future<String> getHabitBuddyId(currentUser) async {
-    var habitBuddyId = await _usersCollectionReference.document(currentUser);
-  }
+//  Future<String> getHabitBuddyId(currentUser) async {
+//    var habitBuddyId = await _usersCollectionReference.document(currentUser);
+//  }
 // TODO write function streak()
 }

@@ -13,10 +13,12 @@ class Habit {
   final String description;
   int repetitions;
   final int listIndex;
+  String customDescription;
 
   Habit({
     @required this.name,
     @required this.description,
+    this.customDescription,
     this.repetitions,
     this.listIndex,
   });
@@ -25,7 +27,8 @@ class Habit {
       : name = data['name'],
         description = data['description'],
         repetitions = data['repetitions'],
-        listIndex = data['listIndex'];
+        listIndex = data['listIndex'],
+        customDescription = data['customDescription'];
 
   static Habit fromMap(
     Map<String, dynamic> map,
@@ -36,6 +39,7 @@ class Habit {
       name: map['name'],
       description: map['description'],
       repetitions: map['repetitions'],
+      customDescription: map['customDescription'],
     );
   }
 }
@@ -94,6 +98,7 @@ class HabitList {
                 repetitions: habit.repetitions,
                 description: habit.description,
                 listIndex: index,
+                customDescription: habit.customDescription,
               ),
             );
           },
