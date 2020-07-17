@@ -76,9 +76,11 @@ class BuddyView extends StatelessWidget {
               ),
               Expanded(
                 child: model.messages != null
-//                TODO List throws error if smaller than 3
+//                TODO First loading of view doesnt work
                     ? ListView.builder(
-                        itemCount: 3,
+                        itemCount: model.messages.length < 3
+                            ? model.messages.length
+                            : 3,
                         itemBuilder: (context, index) => MessageBubble(
                               message: model.messages[index],
                               isMe: model.isMe(index: index),

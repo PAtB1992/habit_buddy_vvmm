@@ -87,7 +87,6 @@ class HabitList {
 
   void incrementRepetitions(int index) {
     //TODO Serverfunction schreiben um Buddy zu benachrichtigen (onChange benutzen?)
-    //TODO In Datenbank Eintrag machen mit Timestamp
     _habitList[index].repetitions += 1;
   }
 

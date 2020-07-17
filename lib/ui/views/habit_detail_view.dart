@@ -98,7 +98,7 @@ class HabitDetailView extends StatelessWidget {
                           'So oft hast du schon deinen Meilenstein erreicht:',
                           style: TextStyle(color: Colors.white, fontSize: 20),
                           textAlign: TextAlign.center,
-                          //TODO beim Tap Kalender anzeigen
+                          //TODO beim Tap Kalender anzeigen (optional!)
                         ),
                         Text(
                           model.repetitions.toString() == null

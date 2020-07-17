@@ -30,13 +30,13 @@ class UserChart extends StatelessWidget {
             padding: showChart
                 ? EdgeInsets.only(right: 25.0, top: 24, bottom: 30)
                 : EdgeInsets.all(0),
-            child: chartItems.isNotEmpty
+            child: chartItems.length >= 2
                 ? LineChart(
                     mainData(),
                   )
                 : Center(
                     child: Text(
-                      'Du musst erst ein paar Mal deinen Meilenstein erledigen, bevor Du deine Statistik sehen kannst.',
+                      'Du musst erst zwei Tage lang deine Meilensteine erledigen, bevor Du deine Statistik sehen kannst.',
                       textAlign: TextAlign.center,
                       style: TextStyle(color: Colors.white, fontSize: 20),
                     ),
@@ -45,8 +45,10 @@ class UserChart extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.fromLTRB(40, 8, 8, 8),
-          child: Text('Deine letzten sieben Tage.',
-              style: TextStyle(color: Colors.white)),
+          child: chartItems.length >= 2
+              ? Text('Deine letzten sieben Tage.',
+                  style: TextStyle(color: Colors.white))
+              : SizedBox(),
         ),
       ],
     );
@@ -63,7 +65,6 @@ class UserChart extends StatelessWidget {
           map[item.timestamp.toDate().day] += 1;
         }
       });
-
       List tempList = map.values.toList();
       for (var i = 0; i < tempList.length; i++) {
         chartSpots.add(FlSpot(i.toDouble() + 1, tempList[i].toDouble()));
@@ -177,5 +178,3 @@ class UserChart extends StatelessWidget {
     );
   }
 }
-
-//TODO User Chart??? Welche Daten werden gezeigt?
