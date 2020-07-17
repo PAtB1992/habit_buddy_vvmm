@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:habitbuddyvvmm/models/chart_data.dart';
+import 'package:habitbuddyvvmm/models/milestone.dart';
 import 'package:habitbuddyvvmm/models/user.dart';
 import 'package:habitbuddyvvmm/models/message.dart';
 import 'package:habitbuddyvvmm/models/habit.dart';
@@ -69,6 +71,38 @@ class FirestoreService {
     var habitTemplate =
         await _habitsCollectionReference.document(habitName).get();
     return Habit.fromData(habitTemplate.data);
+  }
+
+  Future saveMilestone(User user, Milestone milestone) async {
+    try {
+      await _usersCollectionReference
+          .document(user.id)
+          .collection('milestones')
+          .add(milestone.toMap());
+    } catch (e) {
+      if (e is PlatformException) {
+        return e.message;
+      }
+      return e.toString();
+    }
+  }
+
+  Future getChartData(User user, String habitName) async {
+    var sevenDays = DateTime.now().subtract(Duration(days: 7));
+    var chartDataSnapshot = await _usersCollectionReference
+        .document(user.id)
+        .collection('milestones')
+        .where('timestamp', isLessThanOrEqualTo: DateTime.now())
+        .where('timestamp', isGreaterThan: sevenDays)
+        .getDocuments();
+
+    List chartDataList = [];
+
+    for (var document in chartDataSnapshot.documents) {
+      var tempChartData = ChartData.fromData(document.data);
+      chartDataList.add(tempChartData);
+    }
+    return chartDataList;
   }
 
 //  Future<String> getHabitBuddyId(currentUser) async {

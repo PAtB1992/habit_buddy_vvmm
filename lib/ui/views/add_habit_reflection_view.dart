@@ -10,8 +10,10 @@ import 'package:habitbuddyvvmm/ui/components/input_field.dart';
 class AddHabitReflectionView extends StatelessWidget {
   final String habitName;
   final descriptionController = TextEditingController();
+  final IconData habitIcon;
 
-  AddHabitReflectionView({Key key, this.habitName}) : super(key: key);
+  AddHabitReflectionView({Key key, this.habitName, this.habitIcon})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<AddHabitReflectionViewModel>.reactive(
@@ -49,7 +51,7 @@ class AddHabitReflectionView extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 child: InputField(
                   smallVersion: false,
-                  placeholder: 'Beschreibung deines Milestones',
+                  placeholder: 'Beschreibung deines Meilensteins',
                   controller: descriptionController,
                 ),
               ),
@@ -68,7 +70,9 @@ class AddHabitReflectionView extends StatelessWidget {
                 ),
                 onPress: () {
                   model.addHabitWithTemplate(
-                      habitName, descriptionController.text);
+                    habitName,
+                    descriptionController.text,
+                  );
                 },
               ),
             ],

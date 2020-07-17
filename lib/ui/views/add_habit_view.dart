@@ -64,9 +64,11 @@ class AddHabitView extends StatelessWidget {
                       HabitSelectionCard(
                         color: primaryBlue,
                         onPress: () {
-                          model.navigateToReflectionView("gesünder-ernähren");
+                          model.navigateToReflectionView(
+                            "gesünder-ernähren",
+                          );
                         },
-                        habitIcon: Icons.favorite_border,
+                        habitIcon: Icons.fastfood,
                         cardText: 'Ich möchte mich gesünder ernähren.',
                       ),
                       HabitSelectionCard(
@@ -75,15 +77,17 @@ class AddHabitView extends StatelessWidget {
                           model.navigateToReflectionView(
                               "weniger-fleisch-essen");
                         },
-                        habitIcon: Icons.child_friendly,
+                        habitIcon: Icons.local_dining,
                         cardText: 'Ich möchte weniger Fleisch essen.',
                       ),
                       HabitSelectionCard(
                         color: thirdrateBlue,
                         onPress: () {
-                          model.navigateToReflectionView("fähigkeiten-lernen");
+                          model.navigateToReflectionView(
+                            "fähigkeiten-lernen",
+                          );
                         },
-                        habitIcon: Icons.child_friendly,
+                        habitIcon: Icons.palette,
                         cardText:
                             'Ich möchte eine bestimmte Fähigkeit verbessern.',
                       ),
@@ -92,7 +96,7 @@ class AddHabitView extends StatelessWidget {
                         onPress: () {
                           model.navigateToReflectionView("sich-mehr-bewegen");
                         },
-                        habitIcon: Icons.school,
+                        habitIcon: Icons.directions_run,
                         cardText: 'Ich möchte mich mehr bewegen.',
                       ),
                       HabitSelectionCard(

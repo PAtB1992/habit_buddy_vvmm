@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:habitbuddyvvmm/ui/components/reusable_card.dart';
-import 'package:habitbuddyvvmm/ui/components/rounded_button.dart';
+import 'package:habitbuddyvvmm/ui/components/user_chart.dart';
 import 'package:habitbuddyvvmm/viewmodels/habit_detail_view_model.dart';
 import 'package:stacked/_viewmodel_builder.dart';
 import 'package:habitbuddyvvmm/models/habit.dart';
@@ -14,6 +14,8 @@ class HabitDetailView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder.reactive(
+      disposeViewModel: false,
+      onModelReady: (model) => model.getChartItems(habit.name),
       viewModelBuilder: () => HabitDetailViewModel(),
       builder: (context, model, child) => Scaffold(
         body: Column(
@@ -26,7 +28,7 @@ class HabitDetailView extends StatelessWidget {
                 children: <Widget>[
                   CircleAvatar(
                     child: Icon(
-                      Icons.child_care,
+                      habit.habitIcon,
                       size: 30.0,
                       color: accentColor,
                     ),
@@ -79,8 +81,9 @@ class HabitDetailView extends StatelessWidget {
                             fontWeight: FontWeight.bold),
                       ),
                     ),
-                    onPress: () {
-                      model.completeMilestone(habit.listIndex);
+                    onPress: () async {
+                      await model.completeMilestone(habit.listIndex);
+                      await model.saveMilestoneToStore(habit);
                       model.getRepetitions(habit.listIndex);
                     },
                   ),
@@ -95,6 +98,7 @@ class HabitDetailView extends StatelessWidget {
                           'So oft hast du schon deinen Meilenstein erreicht:',
                           style: TextStyle(color: Colors.white, fontSize: 20),
                           textAlign: TextAlign.center,
+                          //TODO beim Tap Kalender anzeigen
                         ),
                         Text(
                           model.repetitions.toString() == null
@@ -117,17 +121,10 @@ class HabitDetailView extends StatelessWidget {
                       ),
                     ),
                   ),
-                  ReusableCard(
-                    height: 150,
-                    color1: primaryBlue,
-                    color2: primaryBlue,
-                    cardChild: Center(
-                      child: Text(
-                        'Statistiken',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(color: Colors.white, fontSize: 20),
-                      ),
-                    ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        left: 5.0, right: 5.0, bottom: 20.0),
+                    child: UserChart(chartItems: model.chartItems),
                   )
                 ],
               ),

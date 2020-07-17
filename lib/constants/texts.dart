@@ -2,13 +2,13 @@ const String addHabitViewText =
     'Habits, oder zu Deutsch: Gewohnheiten, sind Dinge im Alltag, die man unbewusst erledigt, wie zum Beispiel das Zähneputzen. Sie können Dir helfen, endlich das im Leben zu verändern, an dem Du vielleicht schon lange arbeitest. Wähle eine oder mehrere Habits aus, die Dir wichtig erscheinen und lege direkt los!';
 
 const String gesuenderErnaehren =
-    'Du willst dir angewöhnen dich gesünder zu ernähren? Überlege dir, was du ändern möchtest. Beispielsweise könntest du nach dem Mittagessen ein Stück Obst als Nachtisch essen. Setzte Dir einen/mehrere tägliche erreichbare Milestones und leg los!';
+    'Du willst dir angewöhnen dich gesünder zu ernähren? Überlege dir, was du ändern möchtest. Beispielsweise könntest du nach dem Mittagessen ein Stück Obst als Nachtisch essen. Setzte Dir einen/mehrere tägliche erreichbare Meilenstein(e) und leg los!';
 
 const String mehrWasserTrinken =
-    'Mehr Wasser zu trinken bringt viele positive Effekte mit sich. Es kurbelt den Stoffwechsel an, ist gut für die Haut, hilft beim Abnehmen, die Liste ist noch viel länger. Du könntest Dir ein Tagesziel an Litern setzen, oder einfach nach jedem Liter deinen Milestone eintragen. Du entscheidest, was richtig für Dich ist!';
+    'Mehr Wasser zu trinken bringt viele positive Effekte mit sich. Es kurbelt den Stoffwechsel an, ist gut für die Haut, hilft beim Abnehmen, die Liste ist noch viel länger. Du könntest Dir ein Tagesziel an Litern setzen, oder einfach nach jedem Liter deinen Meilenstein eintragen. Du entscheidest, was richtig für Dich ist!';
 
 const String wenigerFleischEssen =
-    'Mittlerweile belegen viele Studien, dass reduzierter Fleischkonsum eine positive Auswirkung auf den Körper hat. Dazu kommt noch der ethische Aspekt. Eine Mahlzeit oder der ganze Tag ohne Fleisch? Entscheide selbst, in welcher Form Du weniger Fleisch essen möchtest und bestimme Deinen Milestone.';
+    'Mittlerweile belegen viele Studien, dass reduzierter Fleischkonsum eine positive Auswirkung auf den Körper hat. Dazu kommt noch der ethische Aspekt. Eine Mahlzeit oder der ganze Tag ohne Fleisch? Entscheide selbst, in welcher Form Du weniger Fleisch essen möchtest und bestimme Deinen Meilenstein.';
 
 const String faehigkeitVerbessern =
     'Jeder träumt davon irgendetwas bestimmtes zu können, aber warum ist es so schwierig es endlich zu lernen? Mit Habits kann man Stück für Stück seinem Ziel ganz einfach näher kommen. Tägliches Vokabeln lernen, Zeichnen, was auch immer Du machen möchtest, wird damit zum Kinderspiel. Lege fest, was Du machen möchtest!';

@@ -4,9 +4,15 @@ class HabitTile extends StatelessWidget {
   final String name;
   final Function onPress;
   final int repetitions;
-  final IconData goalIcon;
+  final Icon habitIcon;
+  final String description;
 
-  HabitTile({this.name, this.onPress, this.repetitions, this.goalIcon});
+  HabitTile(
+      {this.name,
+      this.onPress,
+      this.repetitions,
+      this.habitIcon,
+      this.description});
 
   @override
   Widget build(BuildContext context) {
@@ -16,27 +22,33 @@ class HabitTile extends StatelessWidget {
         padding: EdgeInsets.all(10.0),
         child: Column(
           children: <Widget>[
-            Text(
-              name,
-              style: TextStyle(color: Colors.white, fontSize: 20.0),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  name,
+                  style: TextStyle(color: Colors.white, fontSize: 20.0),
+                ),
+                SizedBox(
+                  width: 5,
+                ),
+                habitIcon,
+              ],
             ),
             SizedBox(
               height: 10.0,
             ),
-            Row(
+            Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
+                Text('Dein Meilenstein: ' + description,
+                    style: TextStyle(color: Colors.white)),
                 Text(
-                  'Wiederholungen: $repetitions',
+                  'Gesamte Wiederholungen: $repetitions',
                   style: TextStyle(color: Colors.white),
                 ),
-                Icon(
-                  goalIcon,
-                  color: Colors.white,
-                  size: 60.0,
-                ),
                 Text(
-                  'Statistik',
+                  'Irgendwas mit deinem Buddy?',
                   style: TextStyle(color: Colors.white),
                 ),
               ],

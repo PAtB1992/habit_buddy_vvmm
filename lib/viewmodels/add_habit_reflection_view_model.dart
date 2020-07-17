@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:habitbuddyvvmm/services/authentication_service.dart';
 import 'package:habitbuddyvvmm/services/dialog_service.dart';
 import 'package:habitbuddyvvmm/services/navigation_service.dart';
+import 'package:habitbuddyvvmm/ui/components/dynamic_components.dart';
 import 'package:habitbuddyvvmm/viewmodels/base_model.dart';
 import 'package:habitbuddyvvmm/locator.dart';
 import 'package:habitbuddyvvmm/services/firestore_service.dart';
@@ -15,10 +15,13 @@ class AddHabitReflectionViewModel extends BaseModel {
   final HabitList _habitList = locator<HabitList>();
 
   Future addHabitWithTemplate(
-      String habitName, String customDescription) async {
+    String habitName,
+    String customDescription,
+  ) async {
     setBusy(true);
     var habit = await _firestoreService.getHabitTemplate(habitName);
     habit.customDescription = customDescription;
+    habit.habitIcon = habitIcon(habitName);
     _habitList.checkListForDupes(habit.name)
         ? _dialogService.showDialog(
             title: 'Obacht!',

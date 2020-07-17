@@ -204,3 +204,23 @@ Widget dynamicDescription(String habitName) {
         style: TextStyle(color: Colors.white, fontSize: 17));
   }
 }
+
+IconData habitIcon(String habitName) {
+  if (habitName == 'gesünder-ernähren') {
+    return Icons.fastfood;
+  }
+  if (habitName == 'weniger-fleisch-essen') {
+    return Icons.local_dining;
+  }
+  if (habitName == 'fähigkeiten-lernen') {
+    return Icons.palette;
+  }
+  if (habitName == 'sich-mehr-bewegen') {
+    return Icons.directions_run;
+  }
+  if (habitName == 'mehr-wasser-trinken') {
+    return Icons.invert_colors;
+  } else {
+    return Icons.school;
+  }
+}

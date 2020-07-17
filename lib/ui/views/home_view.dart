@@ -111,7 +111,35 @@ class HomeView extends StatelessWidget {
             Expanded(
               child: Container(
                 color: Colors.white,
-                child: model.habitList.listBuilder(),
+                child: ListView.builder(
+                  itemBuilder: (context, index) {
+                    final habit = model.habitList.habitList[index];
+                    return HabitTile(
+                      name: habit.name,
+                      repetitions: habit.repetitions,
+                      description: habit.customDescription,
+                      habitIcon: Icon(
+                        habit.habitIcon,
+                        color: Colors.white,
+                      ),
+                      onPress: () async {
+                        await _navigationService.navigateTo(
+                          HabitDetailViewRoute,
+                          arguments: Habit(
+                            name: habit.name,
+                            repetitions: habit.repetitions,
+                            description: habit.description,
+                            listIndex: index,
+                            customDescription: habit.customDescription,
+                            habitIcon: habit.habitIcon,
+                          ),
+                        );
+                        model.setBusy(false);
+                      },
+                    );
+                  },
+                  itemCount: model.habitList.habitCount,
+                ),
               ),
             ),
           ],
