@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class HabitTile extends StatelessWidget {
   final String name;
   final Function onPress;
+  final Function onLongPress;
   final int repetitions;
   final Icon habitIcon;
   final String description;
@@ -12,12 +13,14 @@ class HabitTile extends StatelessWidget {
       this.onPress,
       this.repetitions,
       this.habitIcon,
-      this.description});
+      this.description,
+      this.onLongPress});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onPress,
+      onLongPress: onLongPress,
       child: Container(
         padding: EdgeInsets.all(10.0),
         child: Column(

@@ -81,6 +81,10 @@ class HabitList {
     _habitList.add(habit);
   }
 
+  void deleteHabit(Habit habit) {
+    _habitList.removeWhere((item) => item.name == habit.name);
+  }
+
   void incrementRepetitions(int index) {
     //TODO Serverfunction schreiben um Buddy zu benachrichtigen (onChange benutzen?)
     //TODO In Datenbank Eintrag machen mit Timestamp

@@ -134,6 +134,9 @@ class HomeView extends StatelessWidget {
                         habit.habitIcon,
                         color: Colors.white,
                       ),
+                      onLongPress: () {
+                        model.deleteHabit(habit);
+                      },
                       onPress: () async {
                         await _navigationService.navigateTo(
                           HabitDetailViewRoute,
