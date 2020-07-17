@@ -1,5 +1,6 @@
 import 'package:habitbuddyvvmm/services/authentication_service.dart';
 import 'package:habitbuddyvvmm/services/dialog_service.dart';
+import 'package:habitbuddyvvmm/services/firestore_service.dart';
 import 'package:habitbuddyvvmm/services/navigation_service.dart';
 import 'package:habitbuddyvvmm/locator.dart';
 import 'package:habitbuddyvvmm/services/push_notification_service.dart';
@@ -12,6 +13,7 @@ class StartViewModel extends BaseModel {
       locator<AuthenticationService>();
   final PushNotificationService _pushNotificationService =
       locator<PushNotificationService>();
+  final FirestoreService _firestoreService = locator<FirestoreService>();
 
   Future handleStartUpLogic() async {
     await _pushNotificationService.initialise();
@@ -19,7 +21,8 @@ class StartViewModel extends BaseModel {
     var hasLoggedInUser = await _authenticationService.isUserLoggedIn();
 
     if (hasLoggedInUser) {
-      _navigationService.navigateTo(HomeViewRoute);
+      bool hasHabitBuddy = await _firestoreService.hasHabitBuddy(currentUser);
+      _navigationService.navigateTo(HomeViewRoute, arguments: hasHabitBuddy);
     }
   }
 }

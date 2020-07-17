@@ -12,6 +12,7 @@ class LoginView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<LoginViewModel>.reactive(
+      onModelReady: (model) => model.checkForHabitBuddy(),
       viewModelBuilder: () => LoginViewModel(),
       builder: (context, model, child) => Scaffold(
         backgroundColor: Colors.white,

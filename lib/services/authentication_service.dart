@@ -47,6 +47,7 @@ class AuthenticationService {
         id: authResult.user.uid,
         email: email,
         username: username,
+        hasHabitBuddy: false,
       ));
       await _populateCurrentUser(authResult.user);
       return authResult.user != null;

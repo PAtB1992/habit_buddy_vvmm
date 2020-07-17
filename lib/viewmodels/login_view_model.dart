@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:habitbuddyvvmm/constants/route_names.dart';
 import 'package:habitbuddyvvmm/services/authentication_service.dart';
 import 'package:habitbuddyvvmm/services/dialog_service.dart';
+import 'package:habitbuddyvvmm/services/firestore_service.dart';
 import 'package:habitbuddyvvmm/services/navigation_service.dart';
 import 'package:habitbuddyvvmm/locator.dart';
 import 'package:habitbuddyvvmm/viewmodels/base_model.dart';
@@ -11,6 +12,10 @@ class LoginViewModel extends BaseModel {
       locator<AuthenticationService>();
   final DialogService _dialogService = locator<DialogService>();
   final NavigationService _navigationService = locator<NavigationService>();
+  final FirestoreService _firestoreService = locator<FirestoreService>();
+  bool hasHabitBuddy;
+
+  LoginViewModel({this.hasHabitBuddy});
 
   Future login({
     @required String email,
@@ -26,7 +31,7 @@ class LoginViewModel extends BaseModel {
 
     if (result is bool) {
       if (result) {
-        _navigationService.navigateTo(HomeViewRoute);
+        _navigationService.navigateTo(HomeViewRoute, arguments: hasHabitBuddy);
       } else {
         await _dialogService.showDialog(
           title: 'Login Failure',
@@ -39,5 +44,9 @@ class LoginViewModel extends BaseModel {
         description: result,
       );
     }
+  }
+
+  checkForHabitBuddy() async {
+    hasHabitBuddy = await _firestoreService.hasHabitBuddy(currentUser);
   }
 }

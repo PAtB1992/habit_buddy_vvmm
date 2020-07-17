@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:habitbuddyvvmm/models/habit_buddy.dart';
 import 'package:habitbuddyvvmm/ui/components/mock_up_motivation_streak.dart';
 import 'package:habitbuddyvvmm/ui/components/reusable_card.dart';
 import 'package:habitbuddyvvmm/constants/app_colors.dart';
@@ -7,6 +8,8 @@ import 'package:habitbuddyvvmm/viewmodels/profile_sub_view_model.dart';
 import 'package:stacked/_viewmodel_builder.dart';
 
 class ProfileSubView extends StatelessWidget {
+  final HabitBuddy habitBuddy;
+  ProfileSubView({Key key, this.habitBuddy}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<ProfileSubViewModel>.reactive(
@@ -29,7 +32,7 @@ class ProfileSubView extends StatelessWidget {
                     width: 25,
                   ),
                   Text(
-                    'Dabieder',
+                    habitBuddy.username,
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 25,
@@ -46,7 +49,8 @@ class ProfileSubView extends StatelessWidget {
                   Flexible(
                     child: RichText(
                       text: TextSpan(
-                        text: 'Dein Habit Buddy fühlt sich derzeit etwas ',
+                        text:
+                            'Dein Habit Buddy ${habitBuddy.username} fühlt sich derzeit etwas ',
                         style: TextStyle(
                           color: Color(0xFFFFFFFF),
                         ),
@@ -80,13 +84,12 @@ class ProfileSubView extends StatelessWidget {
                     color1: secondaryBlue,
                     color2: primaryBlue,
                     cardChild: Text(
-                      'Gut gemacht! mit ID',
+                      'Gut gemacht!',
                       style: TextStyle(color: Colors.white),
                     ),
                     onPress: () {
                       model.sendMessage(
-                          text: 'Gut gemacht!',
-                          receiverID: 'jutn4z5lQuYqarjUYfPn83wsTih2');
+                          text: 'Gut gemacht!', receiverID: habitBuddy.id);
                     },
                   ),
                   ReusableCard(
@@ -98,7 +101,8 @@ class ProfileSubView extends StatelessWidget {
                       style: TextStyle(color: Colors.white),
                     ),
                     onPress: () {
-                      model.sendMessage(text: 'Bleib dran!', receiverID: null);
+                      model.sendMessage(
+                          text: 'Bleib dran!', receiverID: habitBuddy.id);
                     },
                   ),
                   ReusableCard(
@@ -110,7 +114,8 @@ class ProfileSubView extends StatelessWidget {
                       style: TextStyle(color: Colors.white),
                     ),
                     onPress: () {
-                      model.sendMessage(text: 'Alles klar?', receiverID: null);
+                      model.sendMessage(
+                          text: 'Alles klar?', receiverID: habitBuddy.id);
                     },
                   ),
                   ReusableCard(
@@ -123,7 +128,8 @@ class ProfileSubView extends StatelessWidget {
                     ),
                     onPress: () {
                       model.sendMessage(
-                          text: 'Alles gut bei mir.!', receiverID: null);
+                          text: 'Alles gut bei mir.!',
+                          receiverID: habitBuddy.id);
                     },
                   ),
                   ReusableCard(
@@ -135,7 +141,8 @@ class ProfileSubView extends StatelessWidget {
                       style: TextStyle(color: Colors.white),
                     ),
                     onPress: () {
-                      model.sendMessage(text: 'Gut gemacht!', receiverID: null);
+                      model.sendMessage(
+                          text: 'Gut gemacht!', receiverID: habitBuddy.id);
                     },
                   ),
                   ReusableCard(
@@ -147,7 +154,8 @@ class ProfileSubView extends StatelessWidget {
                       style: TextStyle(color: Colors.white),
                     ),
                     onPress: () {
-                      model.sendMessage(text: 'Gut gemacht!', receiverID: null);
+                      model.sendMessage(
+                          text: 'Gut gemacht!', receiverID: habitBuddy.id);
                     },
                   ),
                 ],

@@ -8,9 +8,13 @@ import 'package:habitbuddyvvmm/locator.dart';
 import 'package:habitbuddyvvmm/constants/route_names.dart';
 import 'package:stacked/_viewmodel_builder.dart';
 import 'package:habitbuddyvvmm/models/habit.dart';
+import 'package:habitbuddyvvmm/models/habit_buddy.dart';
 
 class HomeView extends StatelessWidget {
   final NavigationService _navigationService = locator<NavigationService>();
+  bool hasHabitBuddy = false;
+
+  HomeView({this.hasHabitBuddy});
 
   @override
   Widget build(BuildContext context) {
@@ -67,18 +71,26 @@ class HomeView extends StatelessWidget {
                 ReusableCard(
                   color1: accentColor,
                   color2: accentColor,
-                  onPress: () {
-                    _navigationService.navigateTo(BuddyViewRoute);
-                  },
+                  onPress: hasHabitBuddy
+                      ? () {
+                          _navigationService.navigateTo(BuddyViewRoute,
+                              arguments:
+                                  HabitBuddy(username: 'Dabieder', id: 'lol'));
+                        }
+                      : () {},
                   cardChild: Container(
                     height: 40,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
-                        Text(
-                          'Motiviere Dich und Deinen Habit Buddy!',
-                          style: TextStyle(color: Colors.white),
-                        ),
+                        hasHabitBuddy
+                            ? Text(
+                                'Motiviere Dich und Deinen Habit Buddy!',
+                                style: TextStyle(color: Colors.white),
+                              )
+                            : Text(
+                                'Hallo, ich bin dein Habit Buddy, lass uns loslegen!',
+                                style: TextStyle(color: Colors.white)),
                         Hero(
                           tag: 'icon',
                           child: Icon(

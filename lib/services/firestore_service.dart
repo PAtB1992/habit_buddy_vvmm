@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:habitbuddyvvmm/models/chart_data.dart';
+import 'package:habitbuddyvvmm/models/habit_buddy.dart';
 import 'package:habitbuddyvvmm/models/milestone.dart';
 import 'package:habitbuddyvvmm/models/user.dart';
 import 'package:habitbuddyvvmm/models/message.dart';
@@ -103,6 +104,11 @@ class FirestoreService {
       chartDataList.add(tempChartData);
     }
     return chartDataList;
+  }
+
+  Future hasHabitBuddy(User user) async {
+    var hasBuddy = await _usersCollectionReference.document(user.id).get();
+    return User.fromData(hasBuddy.data).hasHabitBuddy;
   }
 
 //  Future<String> getHabitBuddyId(currentUser) async {

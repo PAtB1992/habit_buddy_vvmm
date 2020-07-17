@@ -27,14 +27,20 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         viewToShow: RegistrationView(),
       );
     case HomeViewRoute:
+      var hasHabitBuddy = settings.arguments;
       return _getPageRoute(
         routeName: settings.name,
-        viewToShow: HomeView(),
+        viewToShow: HomeView(
+          hasHabitBuddy: hasHabitBuddy,
+        ),
       );
     case BuddyViewRoute:
+      var habitBuddy = settings.arguments;
       return _getPageRoute(
         routeName: settings.name,
-        viewToShow: BuddyView(),
+        viewToShow: BuddyView(
+          habitBuddy: habitBuddy,
+        ),
       );
     case AddHabitViewRoute:
       return _getPageRoute(

@@ -15,6 +15,7 @@ class RegistrationViewModel extends BaseModel {
   final NavigationService _navigationService = locator<NavigationService>();
   final PushNotificationService _pushNotificationService =
       locator<PushNotificationService>();
+  final hasHabitBuddy = false;
 
   Future register({
     @required String email,
@@ -34,7 +35,7 @@ class RegistrationViewModel extends BaseModel {
 
     if (result is bool) {
       if (result) {
-        _navigationService.navigateTo(HomeViewRoute);
+        _navigationService.navigateTo(HomeViewRoute, arguments: hasHabitBuddy);
       } else {
         await _dialogService.showDialog(
           title: 'Registration Failure',
