@@ -19,7 +19,7 @@ class HomeViewModel extends BaseModel {
     setBusy(true);
     var dialogResult = await _dialogService.showConfirmationDialog(
         title: 'Löschen',
-        description: 'Willst du diese Habit wirklich löschen?',
+        description: 'Möchtest Du diese Habit wirklich löschen?',
         cancelTitle: 'Nein.',
         confirmationTitle: 'Ja.');
     if (dialogResult.confirmed) {

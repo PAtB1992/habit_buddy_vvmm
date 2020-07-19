@@ -74,8 +74,7 @@ class HomeView extends StatelessWidget {
                   onPress: hasHabitBuddy
                       ? () {
                           _navigationService.navigateTo(BuddyViewRoute,
-                              arguments:
-                                  HabitBuddy(username: 'Dabieder', id: 'lol'));
+                              arguments: model.habitBuddy.myHabitBuddy);
                         }
                       : () {},
                   cardChild: Container(

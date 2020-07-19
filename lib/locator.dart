@@ -5,6 +5,7 @@ import 'package:habitbuddyvvmm/services/dialog_service.dart';
 import 'package:habitbuddyvvmm/services/navigation_service.dart';
 import 'package:habitbuddyvvmm/services/push_notification_service.dart';
 import 'package:habitbuddyvvmm/models/habit.dart';
+import 'package:habitbuddyvvmm/models/habit_buddy.dart';
 
 GetIt locator = GetIt.instance;
 
@@ -15,4 +16,5 @@ void setupLocator() {
   locator.registerLazySingleton(() => FirestoreService());
   locator.registerLazySingleton(() => PushNotificationService());
   locator.registerLazySingleton(() => HabitList());
+  locator.registerLazySingleton(() => HabitBuddy());
 }

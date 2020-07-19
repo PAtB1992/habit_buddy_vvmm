@@ -18,7 +18,7 @@ class BuddyView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<BuddyViewModel>.reactive(
       viewModelBuilder: () => BuddyViewModel(),
-      disposeViewModel: false,
+      disposeViewModel: true,
       onModelReady: (model) => model.listenToMessages(),
       builder: (context, model, child) => Scaffold(
         appBar: AppBar(

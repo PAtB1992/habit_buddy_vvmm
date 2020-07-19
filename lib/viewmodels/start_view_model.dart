@@ -1,5 +1,6 @@
+import 'package:flutter/services.dart';
+import 'package:habitbuddyvvmm/models/habit_buddy.dart';
 import 'package:habitbuddyvvmm/services/authentication_service.dart';
-import 'package:habitbuddyvvmm/services/dialog_service.dart';
 import 'package:habitbuddyvvmm/services/firestore_service.dart';
 import 'package:habitbuddyvvmm/services/navigation_service.dart';
 import 'package:habitbuddyvvmm/locator.dart';
@@ -22,6 +23,10 @@ class StartViewModel extends BaseModel {
 
     if (hasLoggedInUser) {
       bool hasHabitBuddy = await _firestoreService.hasHabitBuddy(currentUser);
+      if (hasHabitBuddy) {
+        HabitBuddy temp = await _firestoreService.addHabitBuddy(currentUser);
+        habitBuddy.saveHabitBuddy(temp);
+      }
       _navigationService.navigateTo(HomeViewRoute, arguments: hasHabitBuddy);
     }
   }

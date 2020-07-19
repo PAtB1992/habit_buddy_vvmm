@@ -3,6 +3,7 @@ import 'package:habitbuddyvvmm/constants/route_names.dart';
 import 'package:habitbuddyvvmm/ui/views/add_habit_view.dart';
 import 'package:habitbuddyvvmm/ui/views/home_view.dart';
 import 'package:habitbuddyvvmm/ui/views/login_view.dart';
+import 'package:habitbuddyvvmm/ui/views/milestone_reflection_view.dart';
 import 'package:habitbuddyvvmm/ui/views/start_view.dart';
 import 'package:habitbuddyvvmm/ui/views/registration_view.dart';
 import 'package:habitbuddyvvmm/ui/views/buddy_view.dart';
@@ -62,6 +63,11 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         viewToShow: AddHabitReflectionView(
           habitName: habitName,
         ),
+      );
+    case MilestoneReflectionViewRoute:
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: MilestoneReflectionView(),
       );
     default:
       return MaterialPageRoute(
