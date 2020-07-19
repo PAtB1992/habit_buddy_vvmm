@@ -78,7 +78,7 @@ class HabitDetailView extends StatelessWidget {
                     color2: accentColor,
                     cardChild: Center(
                       child: Text(
-                        'Meilenstein abschließen',
+                        'Meilenstein eintragen',
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 20,
@@ -86,11 +86,10 @@ class HabitDetailView extends StatelessWidget {
                       ),
                     ),
                     onPress: () async {
-                      _navigationService
-                          .navigateTo(MilestoneReflectionViewRoute);
-//                      await model.completeMilestone(habit.listIndex);
-//                      await model.saveMilestoneToStore(habit);
-//                      model.getRepetitions(habit.listIndex);
+                      await _navigationService.navigateTo(
+                          MilestoneReflectionViewRoute,
+                          arguments: habit);
+                      model.getRepetitions(habit.listIndex);
                     },
                   ),
                   ReusableCard(

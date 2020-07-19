@@ -65,9 +65,12 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         ),
       );
     case MilestoneReflectionViewRoute:
+      var habit = settings.arguments;
       return _getPageRoute(
         routeName: settings.name,
-        viewToShow: MilestoneReflectionView(),
+        viewToShow: MilestoneReflectionView(
+          habit: habit,
+        ),
       );
     default:
       return MaterialPageRoute(

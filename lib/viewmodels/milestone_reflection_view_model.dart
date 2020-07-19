@@ -36,12 +36,13 @@ class MilestoneReflectionViewModel extends BaseModel {
     setBusy(false);
   }
 
-  Future saveMilestoneToStore(Habit habit) async {
+  Future saveMilestoneToStore(Habit habit, int value) async {
     await _firestoreService.saveMilestone(
         currentUser,
         Milestone(
             timestamp: DateTime.now(),
             habitName: habit.name,
-            repetitions: habitList.populateRepetitions(habit.listIndex)));
+            repetitions: habitList.populateRepetitions(habit.listIndex),
+            evaluation: value));
   }
 }

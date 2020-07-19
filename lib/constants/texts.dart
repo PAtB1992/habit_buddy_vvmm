@@ -18,3 +18,6 @@ const String mehrBewegen =
 
 const String konzentrationSteigern =
     'Sich zu konzentrieren ist manchmal gar nicht so einfach. Aber es ist erlernbar, man kann es sich angewöhnen. Überlege Dir, was Du tun kannst. Das Handy in einen anderen Raum legen oder es in den Flugmodus stellen? In 30Minuten Blöcken zu arbeiten und dann eine kleine Pause einlegen? Es liegt ganz bei Dir, wie Du deine Konzentration steigerst!';
+
+const String milestoneFrage =
+    'Wie einfach war es für Dich heute deinen Milestone abzuschließen?';
