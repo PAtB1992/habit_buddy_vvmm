@@ -29,13 +29,6 @@ class AddHabitReflectionView extends StatelessWidget {
               Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: dynamicImage(habitName)),
-              //TODO Graphic Mentioning
-              // https://www.vecteezy.com/vector-art/375247-healthy-eating-balanced-diet-concept
-              // https://www.vecteezy.com/vector-art/377485-healthy-eating-balanced-diet-concept
-              // https://www.vecteezy.com/vector-art/161122-man-fishing-piranha-illustration-vector
-              // https://www.vecteezy.com/vector-art/296795-wordcard-for-have-a-drink
-              // https://www.vecteezy.com/vector-art/268403-guy-reading-a-book
-              // etc
               ReusableCard(
                 height: 200,
                 color1: primaryBlue,

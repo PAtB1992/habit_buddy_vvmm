@@ -18,7 +18,7 @@ class BuddyView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<BuddyViewModel>.reactive(
       viewModelBuilder: () => BuddyViewModel(),
-      disposeViewModel: true,
+      disposeViewModel: false,
       onModelReady: (model) => model.listenToMessages(),
       builder: (context, model, child) => Scaffold(
         appBar: AppBar(
@@ -78,9 +78,7 @@ class BuddyView extends StatelessWidget {
                 child: model.messages != null
 //                TODO First loading of view doesnt work
                     ? ListView.builder(
-                        itemCount: model.messages.length < 3
-                            ? model.messages.length
-                            : 3,
+                        itemCount: model.messages.length,
                         itemBuilder: (context, index) => MessageBubble(
                               message: model.messages[index],
                               isMe: model.isMe(index: index),

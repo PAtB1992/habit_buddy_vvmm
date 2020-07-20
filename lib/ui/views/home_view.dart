@@ -20,6 +20,7 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<HomeViewModel>.reactive(
       disposeViewModel: true,
+      onModelReady: (model) => model.listenToHabitBuddy(),
       viewModelBuilder: () => HomeViewModel(),
       builder: (context, model, child) => Scaffold(
         floatingActionButton: FloatingActionButton(
@@ -133,6 +134,9 @@ class HomeView extends StatelessWidget {
                         habit.habitIcon,
                         color: Colors.white,
                       ),
+                      buddyEvaluation: hasHabitBuddy
+                          ? model.buddyEvaluation(model.milestones, habit.name)
+                          : '',
                       onLongPress: () {
                         model.deleteHabit(habit);
                       },

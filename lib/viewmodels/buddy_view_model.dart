@@ -25,7 +25,7 @@ class BuddyViewModel extends BaseModel {
           }
         }
       });
-      if (updatedMessages != null && updatedMessages.length >= 0) {
+      if (updatedMessages != null && updatedMessages.length > 0) {
         _messages = updatedMessages;
         notifyListeners();
       }

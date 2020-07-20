@@ -8,6 +8,8 @@ import 'package:habitbuddyvvmm/models/user.dart';
 import 'package:habitbuddyvvmm/models/message.dart';
 import 'package:habitbuddyvvmm/models/habit.dart';
 
+import '../locator.dart';
+
 class FirestoreService {
   final CollectionReference _usersCollectionReference =
       Firestore.instance.collection('users');
@@ -17,6 +19,9 @@ class FirestoreService {
       Firestore.instance.collection('habits');
   final StreamController<List<Message>> _messagesController =
       StreamController<List<Message>>.broadcast();
+  final StreamController<List<Milestone>> _milestonesController =
+      StreamController<List<Milestone>>.broadcast();
+  final HabitBuddy _habitBuddy = locator<HabitBuddy>();
 
   CollectionReference get usersCollectionReference => _usersCollectionReference;
 
@@ -64,8 +69,26 @@ class FirestoreService {
         _messagesController.add(messages);
       }
     });
-
+    //local stream
     return _messagesController.stream;
+  }
+
+  Stream listenToBuddyRealTime() {
+    _usersCollectionReference
+        .document(_habitBuddy.myHabitBuddy.id)
+        .collection('milestones')
+        .orderBy('timestamp', descending: true)
+        .snapshots()
+        .listen((milestonesSnapshot) {
+      if (milestonesSnapshot.documents.isNotEmpty) {
+        var milestones = milestonesSnapshot.documents
+            .map((snapshot) =>
+                Milestone.fromMap(snapshot.data, snapshot.documentID))
+            .toList();
+        _milestonesController.add(milestones);
+      }
+    });
+    return _milestonesController.stream;
   }
 
   Future<Habit> getHabitTemplate(String habitName) async {

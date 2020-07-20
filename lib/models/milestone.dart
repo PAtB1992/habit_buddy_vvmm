@@ -22,4 +22,18 @@ class Milestone {
       'evaluation': evaluation,
     };
   }
+
+  static Milestone fromMap(
+    Map<String, dynamic> map,
+    String documentID,
+  ) {
+    if (map == null) return null;
+
+    return Milestone(
+      habitName: map['habitName'],
+      repetitions: map['repetitions'],
+      timestamp: map['timestamp'],
+      evaluation: map['evaluation'],
+    );
+  }
 }

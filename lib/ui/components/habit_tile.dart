@@ -7,6 +7,7 @@ class HabitTile extends StatelessWidget {
   final int repetitions;
   final Icon habitIcon;
   final String description;
+  final String buddyEvaluation;
 
   HabitTile(
       {this.name,
@@ -14,7 +15,8 @@ class HabitTile extends StatelessWidget {
       this.repetitions,
       this.habitIcon,
       this.description,
-      this.onLongPress});
+      this.onLongPress,
+      this.buddyEvaluation});
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +53,7 @@ class HabitTile extends StatelessWidget {
                   style: TextStyle(color: Colors.white),
                 ),
                 Text(
-                  'Irgendwas mit deinem Buddy?',
+                  buddyEvaluation,
                   style: TextStyle(color: Colors.white),
                 ),
               ],
