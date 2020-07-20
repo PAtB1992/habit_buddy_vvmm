@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:habitbuddyvvmm/constants/route_names.dart';
 import 'package:habitbuddyvvmm/ui/components/habit_selection_card.dart';
 import 'package:habitbuddyvvmm/viewmodels/add_habit_view_model.dart';
 import 'package:stacked/_viewmodel_builder.dart';
 import 'package:habitbuddyvvmm/constants/app_colors.dart';
 import 'package:habitbuddyvvmm/constants/texts.dart';
+import 'package:habitbuddyvvmm/services/navigation_service.dart';
+import 'package:habitbuddyvvmm/locator.dart';
 
 class AddHabitView extends StatelessWidget {
+  final NavigationService _navigationService = locator<NavigationService>();
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<AddHabitViewModel>.reactive(
@@ -123,6 +127,12 @@ class AddHabitView extends StatelessWidget {
                 SizedBox(
                   height: 20,
                 ),
+                GestureDetector(
+                  child: Text('Bilder Credits'),
+                  onTap: () {
+                    _navigationService.navigateTo(PictureCreditsViewRoute);
+                  },
+                )
               ],
             ),
           ),

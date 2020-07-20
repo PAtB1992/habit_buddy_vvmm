@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:habitbuddyvvmm/constants/route_names.dart';
+import 'package:habitbuddyvvmm/models/habit_buddy.dart';
 import 'package:habitbuddyvvmm/services/authentication_service.dart';
 import 'package:habitbuddyvvmm/services/dialog_service.dart';
 import 'package:habitbuddyvvmm/services/firestore_service.dart';
@@ -31,6 +32,12 @@ class LoginViewModel extends BaseModel {
 
     if (result is bool) {
       if (result) {
+        bool hasHabitBuddy = await _firestoreService.hasHabitBuddy(currentUser);
+
+        if (hasHabitBuddy) {
+          HabitBuddy temp = await _firestoreService.addHabitBuddy(currentUser);
+          habitBuddy.saveHabitBuddy(temp);
+        }
         _navigationService.navigateTo(HomeViewRoute, arguments: hasHabitBuddy);
       } else {
         await _dialogService.showDialog(
@@ -44,9 +51,5 @@ class LoginViewModel extends BaseModel {
         description: result,
       );
     }
-  }
-
-  checkForHabitBuddy() async {
-    hasHabitBuddy = await _firestoreService.hasHabitBuddy(currentUser);
   }
 }

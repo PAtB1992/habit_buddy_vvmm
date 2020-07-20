@@ -7,3 +7,4 @@ const String AddHabitViewRoute = "AddHabitView";
 const String HabitDetailViewRoute = "HabitDetailView";
 const String AddHabitReflectionViewRoute = "AddHabitReflectionView";
 const String MilestoneReflectionViewRoute = "MilestoneReflectionView";
+const String PictureCreditsViewRoute = "PictureCreditsView";

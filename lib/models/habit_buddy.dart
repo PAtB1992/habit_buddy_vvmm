@@ -5,7 +5,7 @@ class HabitBuddy {
   final String id;
   HabitBuddy myHabitBuddy;
 
-  HabitBuddy({@required this.username, @required this.id});
+  HabitBuddy({this.username, this.id});
 
   HabitBuddy.fromData(Map<String, dynamic> data)
       : id = data['id'],
