@@ -6,12 +6,14 @@ class Milestone {
   final String habitName;
   final timestamp;
   final int evaluation;
+  final String userId;
 
   Milestone({
     @required this.repetitions,
     @required this.habitName,
-    this.timestamp,
-    this.evaluation,
+    @required this.timestamp,
+    @required this.evaluation,
+    @required this.userId,
   });
 
   Map<String, dynamic> toMap() {
@@ -20,6 +22,7 @@ class Milestone {
       'habitName': habitName,
       'timestamp': timestamp,
       'evaluation': evaluation,
+      'userId': userId,
     };
   }
 
@@ -34,6 +37,7 @@ class Milestone {
       repetitions: map['repetitions'],
       timestamp: map['timestamp'],
       evaluation: map['evaluation'],
+      userId: map['userId'],
     );
   }
 }

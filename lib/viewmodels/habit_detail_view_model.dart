@@ -1,11 +1,8 @@
 import 'package:habitbuddyvvmm/locator.dart';
 import 'package:habitbuddyvvmm/models/chart_data.dart';
-import 'package:habitbuddyvvmm/models/habit.dart';
-import 'package:habitbuddyvvmm/models/user.dart';
 import 'package:habitbuddyvvmm/services/dialog_service.dart';
 import 'package:habitbuddyvvmm/services/firestore_service.dart';
 import 'package:habitbuddyvvmm/viewmodels/base_model.dart';
-import 'package:habitbuddyvvmm/models/milestone.dart';
 
 class HabitDetailViewModel extends BaseModel {
   final DialogService _dialogService = locator<DialogService>();
@@ -31,15 +28,6 @@ class HabitDetailViewModel extends BaseModel {
     setBusy(false);
   }
 
-  Future saveMilestoneToStore(Habit habit) async {
-    await _firestoreService.saveMilestone(
-        currentUser,
-        Milestone(
-            timestamp: DateTime.now(),
-            habitName: habit.name,
-            repetitions: habitList.populateRepetitions(habit.listIndex)));
-  }
-
   void getRepetitions(index) {
     setBusy(true);
     repetitions = habitList.populateRepetitions(index);
@@ -51,7 +39,7 @@ class HabitDetailViewModel extends BaseModel {
   }
 
   Future getChartItems(String habitName) async {
-    var test = await _firestoreService.getChartData(currentUser, habitName);
+    var test = await _firestoreService.getChartData(currentUser.id);
     for (ChartData item in test) {
       if (habitName == item.habitName) {
         chartItems.add(item);

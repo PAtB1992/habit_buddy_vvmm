@@ -6,7 +6,6 @@ import 'package:habitbuddyvvmm/services/navigation_service.dart';
 import 'package:habitbuddyvvmm/locator.dart';
 import 'package:habitbuddyvvmm/constants/route_names.dart';
 import 'package:habitbuddyvvmm/models/habit.dart';
-import 'package:habitbuddyvvmm/viewmodels/buddy_view_model.dart';
 
 class HomeViewModel extends BaseModel {
   final NavigationService _navigationService = locator<NavigationService>();
@@ -36,27 +35,30 @@ class HomeViewModel extends BaseModel {
     setBusy(false);
   }
 
-  void listenToHabitBuddy() {
-    setBusy(true);
+  void listenToHabitBuddy(bool hasHabitBuddy) {
+    if (hasHabitBuddy) {
+      setBusy(true);
 
-    _firestoreService.listenToBuddyRealTime().listen((milestonesData) {
-      List<Milestone> updatedMilestones = milestonesData;
-      if (updatedMilestones != null && updatedMilestones.length > 0) {
-        _milestones = updatedMilestones;
-        notifyListeners();
-      }
-      setBusy(false);
-    });
+      _firestoreService.listenToBuddyRealTime().listen((milestonesData) {
+        List<Milestone> updatedMilestones = milestonesData;
+        if (updatedMilestones != null && updatedMilestones.length > 0) {
+          _milestones = updatedMilestones;
+          notifyListeners();
+        }
+        setBusy(false);
+      });
+    }
   }
 
-  buddyEvaluation(List<Milestone> milestones, String habitName) {
+  String buddyEvaluation(List<Milestone> milestones, String habitName) {
     Milestone tempMilestone = milestones.firstWhere(
         (element) => element.habitName == habitName,
         orElse: () => Milestone(
             habitName: 'keine Milestones',
             repetitions: 0,
             evaluation: 11,
-            timestamp: DateTime.now()));
+            timestamp: DateTime.now(),
+            userId: 'Bot'));
     int value = tempMilestone.evaluation;
     switch (value) {
       case 0:
@@ -83,5 +85,59 @@ class HomeViewModel extends BaseModel {
         return 'Dein Habit Buddy ist motivierter denn je!';
     }
     return 'Dein Habit Buddy hat diese Habit nicht.';
+  }
+
+  List averageBuddyFeeling(List<Milestone> milestones) {
+    int sumFeeling = 0;
+    List<Milestone> tempList = [];
+    Milestone milestoneOne = milestones.firstWhere(
+        (element) => element.habitName == 'Fähigkeiten lernen',
+        orElse: () => null);
+    if (milestoneOne != null) {
+      tempList.add(milestoneOne);
+    }
+
+    Milestone milestoneTwo = milestones.firstWhere(
+        (element) => element.habitName == 'Gesünder ernähren',
+        orElse: () => null);
+    if (milestoneTwo != null) {
+      tempList.add(milestoneTwo);
+    }
+
+    Milestone milestoneThree = milestones.firstWhere(
+        (element) => element.habitName == 'Konzentration steigern',
+        orElse: () => null);
+    if (milestoneThree != null) {
+      tempList.add(milestoneThree);
+    }
+
+    Milestone milestoneFour = milestones.firstWhere(
+        (element) => element.habitName == 'Mehr Wasser trinken',
+        orElse: () => null);
+    if (milestoneFour != null) {
+      tempList.add(milestoneFour);
+    }
+
+    Milestone milestoneFive = milestones.firstWhere(
+        (element) => element.habitName == 'Mehr bewegen',
+        orElse: () => null);
+    if (milestoneFive != null) {
+      tempList.add(milestoneFive);
+    }
+
+    Milestone milestoneSix = milestones.firstWhere(
+        (element) => element.habitName == 'Weniger Fleisch essen',
+        orElse: () => null);
+    if (milestoneSix != null) {
+      tempList.add(milestoneSix);
+    }
+
+    int counter = tempList.length;
+
+    for (Milestone item in tempList) {
+      sumFeeling = sumFeeling + item.evaluation;
+    }
+
+    return [sumFeeling, counter];
   }
 }

@@ -1,6 +1,5 @@
 import 'package:habitbuddyvvmm/constants/arrangements.dart';
 import 'package:flutter/material.dart';
-import 'package:habitbuddyvvmm/constants/app_colors.dart';
 
 /// A button that shows a busy indicator in place of title
 class BusyButton extends StatefulWidget {

@@ -111,10 +111,10 @@ class FirestoreService {
     }
   }
 
-  Future getChartData(User user, String habitName) async {
+  Future getChartData(String userId) async {
     var sevenDays = DateTime.now().subtract(Duration(days: 7));
     var chartDataSnapshot = await _usersCollectionReference
-        .document(user.id)
+        .document(userId)
         .collection('milestones')
         .where('timestamp', isLessThanOrEqualTo: DateTime.now())
         .where('timestamp', isGreaterThan: sevenDays)

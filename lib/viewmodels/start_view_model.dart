@@ -1,4 +1,3 @@
-import 'package:flutter/services.dart';
 import 'package:habitbuddyvvmm/models/habit_buddy.dart';
 import 'package:habitbuddyvvmm/services/authentication_service.dart';
 import 'package:habitbuddyvvmm/services/firestore_service.dart';

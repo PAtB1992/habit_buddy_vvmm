@@ -37,11 +37,11 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         ),
       );
     case BuddyViewRoute:
-      var habitBuddy = settings.arguments;
+      var habitBuddyInfo = settings.arguments;
       return _getPageRoute(
         routeName: settings.name,
         viewToShow: BuddyView(
-          habitBuddy: habitBuddy,
+          habitBuddyInfo: habitBuddyInfo,
         ),
       );
     case AddHabitViewRoute:
@@ -94,3 +94,10 @@ PageRoute _getPageRoute({String routeName, Widget viewToShow}) {
       ),
       builder: (_) => viewToShow);
 }
+
+//class ScreenArgumentsBuddyView {
+//  final HabitBuddy habitBuddy;
+//  final List evaluationList;
+//
+//  ScreenArgumentsBuddyView(this.habitBuddy, this.evaluationList);
+//}

@@ -1,19 +1,16 @@
+import 'package:habitbuddyvvmm/models/habit_buddy_info.dart';
 import 'package:habitbuddyvvmm/models/message.dart';
 import 'package:habitbuddyvvmm/viewmodels/base_model.dart';
 import 'package:habitbuddyvvmm/locator.dart';
 import 'package:habitbuddyvvmm/services/firestore_service.dart';
-import 'package:habitbuddyvvmm/services/dialog_service.dart';
-import 'package:habitbuddyvvmm/services/navigation_service.dart';
 
 class BuddyViewModel extends BaseModel {
   final FirestoreService _firestoreService = locator<FirestoreService>();
-  final DialogService _dialogService = locator<DialogService>();
-  final NavigationService _navigationService = locator<NavigationService>();
 
-  List<Message> _messages;
+  List chartItems = [];
+  List<Message> _messages = [];
   List<Message> get messages => _messages;
-//TODO: Liste wird erst beim zweiten reintappen angezeigt. Wirft einen Fehler wenn weniger als 3 Einträge vorhanden sind
-  void listenToMessages() {
+  void listenToMessages(HabitBuddyInfo habitBuddyInfo) {
     setBusy(true);
 
     _firestoreService.listenToMessagesRealTime().listen((messagesData) {
@@ -25,12 +22,23 @@ class BuddyViewModel extends BaseModel {
           }
         }
       });
-      if (updatedMessages != null && updatedMessages.length > 0) {
+      if (updatedMessages != null &&
+          updatedMessages.length > _messages.length) {
         _messages = updatedMessages;
+        if (habitBuddyInfo.buddyLevel < 3) {
+          habitBuddyInfo.buddyLevel += 1;
+        }
         notifyListeners();
       }
       setBusy(false);
     });
+  }
+
+  giveFirstMessage() {
+    if (busy != true) {
+      Message firstMessage = _messages[0];
+      return firstMessage;
+    }
   }
 
   bool isMe({int index}) {

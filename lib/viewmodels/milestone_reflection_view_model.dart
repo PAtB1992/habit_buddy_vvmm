@@ -1,22 +1,11 @@
-import 'package:flutter/services.dart';
 import 'package:habitbuddyvvmm/models/habit.dart';
-import 'package:habitbuddyvvmm/models/habit_buddy.dart';
 import 'package:habitbuddyvvmm/models/milestone.dart';
-import 'package:habitbuddyvvmm/services/authentication_service.dart';
 import 'package:habitbuddyvvmm/services/dialog_service.dart';
 import 'package:habitbuddyvvmm/services/firestore_service.dart';
-import 'package:habitbuddyvvmm/services/navigation_service.dart';
 import 'package:habitbuddyvvmm/locator.dart';
-import 'package:habitbuddyvvmm/services/push_notification_service.dart';
 import 'package:habitbuddyvvmm/viewmodels/base_model.dart';
-import 'package:habitbuddyvvmm/constants/route_names.dart';
 
 class MilestoneReflectionViewModel extends BaseModel {
-  final NavigationService _navigationService = locator<NavigationService>();
-  final AuthenticationService _authenticationService =
-      locator<AuthenticationService>();
-  final PushNotificationService _pushNotificationService =
-      locator<PushNotificationService>();
   final FirestoreService _firestoreService = locator<FirestoreService>();
   final DialogService _dialogService = locator<DialogService>();
 
@@ -43,6 +32,7 @@ class MilestoneReflectionViewModel extends BaseModel {
             timestamp: DateTime.now(),
             habitName: habit.name,
             repetitions: habitList.populateRepetitions(habit.listIndex),
-            evaluation: value));
+            evaluation: value,
+            userId: currentUser.id));
   }
 }

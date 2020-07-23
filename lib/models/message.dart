@@ -36,6 +36,7 @@ class Message {
       receiverID: map['receiverID'],
       userID: map['userID'],
       documentID: documentID,
+      timestamp: map['timestamp'],
     );
   }
 }

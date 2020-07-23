@@ -1,19 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:habitbuddyvvmm/models/habit_buddy.dart';
-import 'package:habitbuddyvvmm/ui/components/mock_up_motivation_streak.dart';
+import 'package:habitbuddyvvmm/models/habit_buddy_info.dart';
+import 'package:habitbuddyvvmm/models/message.dart';
 import 'package:habitbuddyvvmm/ui/components/reusable_card.dart';
 import 'package:habitbuddyvvmm/constants/app_colors.dart';
 import 'package:habitbuddyvvmm/viewmodels/profile_sub_view_model.dart';
 import 'package:stacked/_viewmodel_builder.dart';
 
+// ignore: must_be_immutable
 class ProfileSubView extends StatelessWidget {
-  final HabitBuddy habitBuddy;
-  ProfileSubView({Key key, this.habitBuddy}) : super(key: key);
+  final HabitBuddyInfo habitBuddyInfo;
+  Message firstMessage;
+  ProfileSubView({Key key, this.habitBuddyInfo, this.firstMessage})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<ProfileSubViewModel>.reactive(
       viewModelBuilder: () => ProfileSubViewModel(),
+      onModelReady: (model) =>
+          model.reduceBuddyLevel(firstMessage, habitBuddyInfo),
       disposeViewModel: true,
       builder: (context, model, child) => Container(
         child: ReusableCard(
@@ -32,7 +37,7 @@ class ProfileSubView extends StatelessWidget {
                     width: 25,
                   ),
                   Text(
-                    habitBuddy.username,
+                    habitBuddyInfo.habitBuddy.username,
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 25,
@@ -45,30 +50,8 @@ class ProfileSubView extends StatelessWidget {
               ),
               Row(
                 children: <Widget>[
-//                TODO Buddy Zustandstext muss sich anpassen
-                  Flexible(
-                    child: RichText(
-                      text: TextSpan(
-                        text:
-                            'Dein Habit Buddy ${habitBuddy.username} fühlt sich derzeit etwas ',
-                        style: TextStyle(
-                          color: Color(0xFFFFFFFF),
-                        ),
-                        children: <TextSpan>[
-                          TextSpan(
-                            text: 'unmotiviert',
-                            style: TextStyle(
-                              color: Color(0xFFFF4081),
-                            ),
-                          ),
-                          TextSpan(
-                            text: ', vielleicht kannst Du ihm helfen!',
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-//TODO Tooltip designen?
+                  Flexible(child: model.showHabitBuddyMood(habitBuddyInfo)),
+                  //TODO Tooltip designen?
                 ],
               ),
               SizedBox(
@@ -89,7 +72,8 @@ class ProfileSubView extends StatelessWidget {
                     ),
                     onPress: () {
                       model.sendMessage(
-                          text: 'Gut gemacht!', receiverID: habitBuddy.id);
+                          text: 'Gut gemacht!',
+                          receiverID: habitBuddyInfo.habitBuddy.id);
                     },
                   ),
                   ReusableCard(
@@ -102,7 +86,8 @@ class ProfileSubView extends StatelessWidget {
                     ),
                     onPress: () {
                       model.sendMessage(
-                          text: 'Bleib dran!', receiverID: habitBuddy.id);
+                          text: 'Bleib dran!',
+                          receiverID: habitBuddyInfo.habitBuddy.id);
                     },
                   ),
                   ReusableCard(
@@ -115,7 +100,8 @@ class ProfileSubView extends StatelessWidget {
                     ),
                     onPress: () {
                       model.sendMessage(
-                          text: 'Alles klar?', receiverID: habitBuddy.id);
+                          text: 'Alles klar?',
+                          receiverID: habitBuddyInfo.habitBuddy.id);
                     },
                   ),
                   ReusableCard(
@@ -129,7 +115,7 @@ class ProfileSubView extends StatelessWidget {
                     onPress: () {
                       model.sendMessage(
                           text: 'Alles gut bei mir.!',
-                          receiverID: habitBuddy.id);
+                          receiverID: habitBuddyInfo.habitBuddy.id);
                     },
                   ),
                   ReusableCard(
@@ -142,7 +128,8 @@ class ProfileSubView extends StatelessWidget {
                     ),
                     onPress: () {
                       model.sendMessage(
-                          text: 'Gut gemacht!', receiverID: habitBuddy.id);
+                          text: 'Gut gemacht!',
+                          receiverID: habitBuddyInfo.habitBuddy.id);
                     },
                   ),
                   ReusableCard(
@@ -155,7 +142,8 @@ class ProfileSubView extends StatelessWidget {
                     ),
                     onPress: () {
                       model.sendMessage(
-                          text: 'Gut gemacht!', receiverID: habitBuddy.id);
+                          text: 'Gut gemacht!',
+                          receiverID: habitBuddyInfo.habitBuddy.id);
                     },
                   ),
                 ],
@@ -170,7 +158,7 @@ class ProfileSubView extends StatelessWidget {
                   SizedBox(
                     width: 10,
                   ),
-                  MotivationStreak(),
+                  model.buddyLevel(habitBuddyInfo),
                 ],
               ),
             ],

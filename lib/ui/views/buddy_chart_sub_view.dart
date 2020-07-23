@@ -1,59 +1,72 @@
-import 'package:fl_chart/fl_chart.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:habitbuddyvvmm/constants/app_colors.dart';
+import 'package:habitbuddyvvmm/models/habit_buddy_info.dart';
+import 'package:habitbuddyvvmm/ui/components/reusable_card.dart';
+import 'package:habitbuddyvvmm/viewmodels/buddy_chart_sub_view_model.dart';
+import 'package:stacked/stacked.dart';
+import 'package:fl_chart/fl_chart.dart';
 
 // ignore: must_be_immutable
-class UserChart extends StatelessWidget {
-  List chartItems;
-  UserChart({Key key, @required this.chartItems}) : super(key: key);
+class BuddyChartSubView extends StatelessWidget {
+  HabitBuddyInfo habitBuddyInfo;
+  BuddyChartSubView({Key key, @required this.habitBuddyInfo}) : super(key: key);
   List<Color> gradientColors = [
     const Color(0xFFC5CAE9),
     const Color(0xFFC5CAE9),
   ];
   int repetitions = 0;
   bool showChart = true;
-
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      alignment: AlignmentDirectional.bottomStart,
-      children: <Widget>[
-        AspectRatio(
-          aspectRatio: 1.70,
-          child: Container(
-            decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(10),
-                ),
-                color: primaryBlue),
-            padding: showChart
-                ? EdgeInsets.only(right: 25.0, top: 24, bottom: 30)
-                : EdgeInsets.all(0),
-            child: chartItems.length >= 2
-                ? LineChart(
-                    mainData(),
-                  )
-                : Center(
-                    child: Text(
-                      'Du musst erst zwei Tage lang deine Meilensteine erledigen, bevor Du deine Statistik sehen kannst.',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.white, fontSize: 20),
-                    ),
+    return ViewModelBuilder<BuddyChartSubViewModel>.reactive(
+      viewModelBuilder: () => BuddyChartSubViewModel(),
+      onModelReady: (model) => model.getBuddyChartItems(habitBuddyInfo),
+      builder: (context, model, child) => Container(
+        child: Stack(
+          alignment: AlignmentDirectional.bottomStart,
+          children: <Widget>[
+            ReusableCard(
+              color1: Color(0xFF303f9f),
+              color2: Color(0xFF3f51b5),
+              cardChild: Container(
+                  decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10),
+                      ),
+                      color: primaryBlue),
+                  padding: showChart
+                      ? EdgeInsets.only(right: 25.0, top: 24, bottom: 30)
+                      : EdgeInsets.all(0),
+                  child: LineChart(mainData(model.chartItems ?? []))
+//                child: model.chartItems.length >= 2
+//                    ? LineChart(
+//                        mainData(model.chartItems),
+//                      )
+//                    : Center(
+//                        child: Text(
+//                          'Dein Buddy muss erst ein paar Meilensteine erledigen, bevor Du seine Statistik sehen kannst.',
+//                          textAlign: TextAlign.center,
+//                          style: TextStyle(color: Colors.white, fontSize: 20),
+//                        ),
+//                      ),
                   ),
-          ),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(40, 8, 8, 8),
+              child: model.chartItems.length >= 2
+                  ? Text('Deine letzten sieben Tage.',
+                      style: TextStyle(color: Colors.white))
+                  : SizedBox(),
+            ),
+          ],
         ),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(40, 8, 8, 8),
-          child: chartItems.length >= 2
-              ? Text('Deine letzten sieben Tage.',
-                  style: TextStyle(color: Colors.white))
-              : SizedBox(),
-        ),
-      ],
+      ),
     );
   }
 
-  LineChartData mainData() {
+  LineChartData mainData(List chartItems) {
+    print('übergebene chartItems: $chartItems');
     List convertIntoFLSpots() {
       List<FlSpot> chartSpots = [];
       var map = Map();

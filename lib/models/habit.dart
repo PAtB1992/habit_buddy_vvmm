@@ -2,13 +2,6 @@ import 'dart:collection';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:habitbuddyvvmm/constants/app_colors.dart';
-import 'package:habitbuddyvvmm/constants/route_names.dart';
-import 'package:habitbuddyvvmm/services/navigation_service.dart';
-import 'package:habitbuddyvvmm/ui/components/habit_tile.dart';
-import 'package:habitbuddyvvmm/ui/components/dynamic_components.dart';
-
-import '../locator.dart';
 
 class Habit {
   final String name;
@@ -51,7 +44,6 @@ class Habit {
 }
 
 class HabitList {
-  final NavigationService _navigationService = locator<NavigationService>();
   List<Habit> _habitList = [];
 
   UnmodifiableListView<Habit> get habitList {

@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-import 'package:fl_chart/fl_chart.dart';
 
 class ChartData {
   final String habitName;
