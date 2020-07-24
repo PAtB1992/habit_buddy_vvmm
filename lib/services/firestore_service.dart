@@ -156,4 +156,19 @@ class FirestoreService {
         .get();
     return HabitBuddy.fromData(tempData.data);
   }
+
+  Future updateBuddyTimestamp(HabitBuddy habitBuddy, String userID) async {
+    try {
+      await _usersCollectionReference
+          .document(userID)
+          .collection('habit_buddy')
+          .document('habit_buddy')
+          .updateData(habitBuddy.toMap());
+    } catch (e) {
+      if (e is PlatformException) {
+        return e.message;
+      }
+      return e.toString();
+    }
+  }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:habitbuddyvvmm/models/habit_buddy_info.dart';
+import 'package:habitbuddyvvmm/models/habit_buddy.dart';
 import 'package:habitbuddyvvmm/models/message.dart';
 import 'package:habitbuddyvvmm/ui/components/reusable_card.dart';
 import 'package:habitbuddyvvmm/constants/app_colors.dart';
@@ -9,16 +9,15 @@ import 'package:stacked/_viewmodel_builder.dart';
 
 // ignore: must_be_immutable
 class ProfileSubView extends StatelessWidget {
-  final HabitBuddyInfo habitBuddyInfo;
+  final HabitBuddy habitBuddy;
   Message firstMessage;
-  ProfileSubView({Key key, this.habitBuddyInfo, this.firstMessage})
+  ProfileSubView({Key key, this.habitBuddy, this.firstMessage})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<ProfileSubViewModel>.reactive(
       viewModelBuilder: () => ProfileSubViewModel(),
-      onModelReady: (model) =>
-          model.reduceBuddyLevel(firstMessage, habitBuddyInfo),
+      onModelReady: (model) => model.reduceBuddyLevel(firstMessage),
       disposeViewModel: true,
       builder: (context, model, child) => Container(
         child: Stack(
@@ -39,7 +38,7 @@ class ProfileSubView extends StatelessWidget {
                         width: 25,
                       ),
                       Text(
-                        habitBuddyInfo.habitBuddy.username,
+                        model.habitBuddy.myHabitBuddy.username,
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 25,
@@ -52,7 +51,7 @@ class ProfileSubView extends StatelessWidget {
                   ),
                   Row(
                     children: <Widget>[
-                      Flexible(child: model.showHabitBuddyMood(habitBuddyInfo)),
+                      Flexible(child: model.showHabitBuddyMood()),
                     ],
                   ),
                   SizedBox(
@@ -78,7 +77,7 @@ class ProfileSubView extends StatelessWidget {
                           onPress: () {
                             model.sendMessage(
                                 text: 'Gut gemacht!',
-                                receiverID: habitBuddyInfo.habitBuddy.id);
+                                receiverID: model.habitBuddy.myHabitBuddy.id);
                           },
                         ),
                         ReusableCard(
@@ -93,7 +92,7 @@ class ProfileSubView extends StatelessWidget {
                           onPress: () {
                             model.sendMessage(
                                 text: 'Bleib dran!',
-                                receiverID: habitBuddyInfo.habitBuddy.id);
+                                receiverID: model.habitBuddy.myHabitBuddy.id);
                           },
                         ),
                         ReusableCard(
@@ -108,7 +107,7 @@ class ProfileSubView extends StatelessWidget {
                           onPress: () {
                             model.sendMessage(
                                 text: 'Alles klar?',
-                                receiverID: habitBuddyInfo.habitBuddy.id);
+                                receiverID: model.habitBuddy.myHabitBuddy.id);
                           },
                         ),
                         ReusableCard(
@@ -127,7 +126,7 @@ class ProfileSubView extends StatelessWidget {
                           onPress: () {
                             model.sendMessage(
                                 text: 'Alles gut bei mir',
-                                receiverID: habitBuddyInfo.habitBuddy.id);
+                                receiverID: model.habitBuddy.myHabitBuddy.id);
                           },
                         ),
                         ReusableCard(
@@ -142,7 +141,7 @@ class ProfileSubView extends StatelessWidget {
                           onPress: () {
                             model.sendMessage(
                                 text: 'Keine Lust mehr',
-                                receiverID: habitBuddyInfo.habitBuddy.id);
+                                receiverID: model.habitBuddy.myHabitBuddy.id);
                           },
                         ),
                         ReusableCard(
@@ -157,7 +156,7 @@ class ProfileSubView extends StatelessWidget {
                           onPress: () {
                             model.sendMessage(
                                 text: 'Gut gemacht!',
-                                receiverID: habitBuddyInfo.habitBuddy.id);
+                                receiverID: model.habitBuddy.myHabitBuddy.id);
                           },
                         ),
                       ],
@@ -173,7 +172,7 @@ class ProfileSubView extends StatelessWidget {
                       SizedBox(
                         width: 10,
                       ),
-                      model.buddyLevel(habitBuddyInfo),
+                      model.buddyLevel(),
                     ],
                   ),
                 ],

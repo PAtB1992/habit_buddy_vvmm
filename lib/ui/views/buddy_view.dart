@@ -1,25 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:habitbuddyvvmm/models/habit_buddy_info.dart';
+import 'package:habitbuddyvvmm/models/habit_buddy.dart';
 import 'package:habitbuddyvvmm/ui/components/message_bubble.dart';
 import 'package:habitbuddyvvmm/ui/views/buddy_chart_sub_view.dart';
 import 'package:habitbuddyvvmm/ui/views/profile_sub_view.dart';
 import 'package:stacked/stacked.dart';
 import 'package:habitbuddyvvmm/viewmodels/buddy_view_model.dart';
 import 'package:habitbuddyvvmm/constants/app_colors.dart';
+import 'package:habitbuddyvvmm/models/message.dart';
 
 class BuddyView extends StatelessWidget {
   final controller = PageController(
     initialPage: 0,
   );
-  final HabitBuddyInfo habitBuddyInfo;
-  BuddyView({Key key, this.habitBuddyInfo}) : super(key: key);
+  final HabitBuddy habitBuddy;
+  BuddyView({Key key, this.habitBuddy}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<BuddyViewModel>.reactive(
       viewModelBuilder: () => BuddyViewModel(),
       disposeViewModel: false,
-      onModelReady: (model) => model.listenToMessages(habitBuddyInfo),
+      onModelReady: (model) => model.listenToMessages(),
       builder: (context, model, child) => Scaffold(
         appBar: AppBar(
           backgroundColor: primaryBlue,
@@ -69,16 +70,17 @@ class BuddyView extends StatelessWidget {
                   controller: controller,
                   children: <Widget>[
                     ProfileSubView(
-                        habitBuddyInfo: habitBuddyInfo,
-                        firstMessage: model.giveFirstMessage()),
+                        habitBuddy: habitBuddy,
+                        firstMessage: model.giveFirstMessage() ??
+                            Message(timestamp: DateTime.now())),
                     BuddyChartSubView(
-                      habitBuddyInfo: habitBuddyInfo,
+                      habitBuddy: model.habitBuddy,
                     ),
                   ],
                 ),
               ),
               Expanded(
-                child: model.messages != null
+                child: model.messages.length != 0
                     ? ListView.builder(
                         itemCount: model.messages.length,
                         shrinkWrap: true,

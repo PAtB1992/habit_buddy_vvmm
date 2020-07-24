@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:habitbuddyvvmm/constants/app_colors.dart';
-import 'package:habitbuddyvvmm/models/habit_buddy_info.dart';
+import 'package:habitbuddyvvmm/models/habit_buddy.dart';
 import 'package:habitbuddyvvmm/ui/components/reusable_card.dart';
 import 'package:habitbuddyvvmm/viewmodels/buddy_chart_sub_view_model.dart';
 import 'package:stacked/stacked.dart';
@@ -10,19 +10,18 @@ import 'package:habitbuddyvvmm/constants/texts.dart';
 
 // ignore: must_be_immutable
 class BuddyChartSubView extends StatelessWidget {
-  HabitBuddyInfo habitBuddyInfo;
-  BuddyChartSubView({Key key, @required this.habitBuddyInfo}) : super(key: key);
+  HabitBuddy habitBuddy;
+  BuddyChartSubView({Key key, @required this.habitBuddy}) : super(key: key);
   List<Color> gradientColors = [
     lightPrimaryBlue,
     lightPrimaryBlue,
   ];
   int repetitions = 0;
-  bool showChart = true;
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<BuddyChartSubViewModel>.reactive(
       viewModelBuilder: () => BuddyChartSubViewModel(),
-      onModelReady: (model) => model.getBuddyChartItems(habitBuddyInfo),
+      onModelReady: (model) => model.getBuddyChartItems(habitBuddy),
       builder: (context, model, child) => Container(
           child: Stack(
         children: <Widget>[
@@ -39,20 +38,24 @@ class BuddyChartSubView extends StatelessWidget {
                           Radius.circular(10),
                         ),
                         color: primaryBlue),
-                    padding: showChart
-                        ? EdgeInsets.only(right: 25.0, top: 24, bottom: 10)
-                        : EdgeInsets.all(0),
-//                    child: LineChart(mainData(model.chartItems ?? []))
                     child: model.chartItems.length >= 2
-                        ? LineChart(
-                            mainData(model.chartItems ?? []),
+                        ? Padding(
+                            padding:
+                                EdgeInsets.only(right: 30, top: 24, bottom: 10),
+                            child: LineChart(
+                              mainData(model.chartItems ?? []),
+                            ),
                           )
                         : Center(
-                            child: Text(
-                              minimumBuddyMilestones,
-                              textAlign: TextAlign.center,
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 20),
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 30.0),
+                              child: Text(
+                                minimumBuddyMilestones,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 20),
+                              ),
                             ),
                           ),
                   ),
@@ -90,7 +93,6 @@ class BuddyChartSubView extends StatelessWidget {
   }
 
   LineChartData mainData(List chartItems) {
-    print('übergebene chartItems: $chartItems');
     List convertIntoFLSpots() {
       List<FlSpot> chartSpots = [];
       var map = Map();

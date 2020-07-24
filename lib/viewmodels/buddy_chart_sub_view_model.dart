@@ -1,5 +1,5 @@
 import 'package:habitbuddyvvmm/models/chart_data.dart';
-import 'package:habitbuddyvvmm/models/habit_buddy_info.dart';
+import 'package:habitbuddyvvmm/models/habit_buddy.dart';
 import 'package:habitbuddyvvmm/services/firestore_service.dart';
 import 'package:habitbuddyvvmm/locator.dart';
 import 'package:flutter/material.dart';
@@ -22,10 +22,9 @@ class BuddyChartSubViewModel extends BaseModel {
     setBusy(false);
   }
 
-  getBuddyChartItems(HabitBuddyInfo habitBuddyInfo) async {
+  getBuddyChartItems(HabitBuddy habitBuddy) async {
     setBusy(true);
-    var test =
-        await _firestoreService.getChartData(habitBuddyInfo.habitBuddy.id);
+    var test = await _firestoreService.getChartData(habitBuddy.myHabitBuddy.id);
     for (ChartData item in test) {
       _chartItems.add(item);
       notifyListeners();

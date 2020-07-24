@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:habitbuddyvvmm/constants/app_colors.dart';
-import 'package:habitbuddyvvmm/models/habit_buddy_info.dart';
 import 'package:habitbuddyvvmm/viewmodels/base_model.dart';
 import 'package:habitbuddyvvmm/locator.dart';
 import 'package:habitbuddyvvmm/services/firestore_service.dart';
@@ -12,15 +11,20 @@ class ProfileSubViewModel extends BaseModel {
   final FirestoreService _firestoreService = locator<FirestoreService>();
   final DialogService _dialogService = locator<DialogService>();
 
-  Widget showHabitBuddyMood(HabitBuddyInfo habitBuddyInfo) {
-    double normalizedMood =
-        habitBuddyInfo.evaluationData[0] / habitBuddyInfo.evaluationData[1];
+  Widget showHabitBuddyMood() {
+    double normalizedMood;
+    if (habitBuddy.myHabitBuddy.evaluationData.length == 0) {
+      normalizedMood = 99;
+    } else {
+      normalizedMood = habitBuddy.myHabitBuddy.evaluationData[0] /
+          habitBuddy.myHabitBuddy.evaluationData[1];
+    }
 
     if (normalizedMood < 4) {
       return RichText(
         text: TextSpan(
           text:
-              'Dein Habit Buddy ${habitBuddyInfo.habitBuddy.username} fühlt sich derzeit etwas ',
+              'Dein Habit Buddy ${habitBuddy.myHabitBuddy.username} fühlt sich derzeit etwas ',
           style: TextStyle(
             color: Color(0xFFFFFFFF),
           ),
@@ -42,7 +46,7 @@ class ProfileSubViewModel extends BaseModel {
       return RichText(
         text: TextSpan(
           text:
-              'Deinem Habit Buddy ${habitBuddyInfo.habitBuddy.username} geht es derzeit ganz ',
+              'Deinem Habit Buddy ${habitBuddy.myHabitBuddy.username} geht es derzeit ganz ',
           style: TextStyle(
             color: Color(0xFFFFFFFF),
           ),
@@ -55,16 +59,16 @@ class ProfileSubViewModel extends BaseModel {
             ),
             TextSpan(
               text:
-                  ', es könnte aber besser laufen. Vielleicht kannst Du ihn etwas motivieren!',
+                  ', es könnte aber bestimmt besser laufen. Vielleicht kannst Du ihn etwas motivieren!',
             ),
           ],
         ),
       );
-    } else {
+    }
+    if (normalizedMood > 6 && normalizedMood < 11) {
       return RichText(
         text: TextSpan(
-          text:
-              'Dein Habit Buddy ${habitBuddyInfo.habitBuddy.username} is sehr ',
+          text: 'Dein Habit Buddy ${habitBuddy.myHabitBuddy.username} is sehr ',
           style: TextStyle(
             color: Color(0xFFFFFFFF),
           ),
@@ -81,30 +85,77 @@ class ProfileSubViewModel extends BaseModel {
           ],
         ),
       );
+    } else {
+      return RichText(
+        text: TextSpan(
+          text:
+              'Dein Habit Buddy ${habitBuddy.myHabitBuddy.username} hat noch ',
+          style: TextStyle(
+            color: Color(0xFFFFFFFF),
+          ),
+          children: <TextSpan>[
+            TextSpan(
+              text: 'keine ',
+              style: TextStyle(
+                color: Color(0xFFFF4081),
+              ),
+            ),
+            TextSpan(
+              text:
+                  'Meilensteine absolviert. Vielleicht kannst Du ihn motivieren.',
+            ),
+          ],
+        ),
+      );
     }
   }
 
-  Widget buddyLevel(HabitBuddyInfo habitBuddyInfo) {
-    if (habitBuddyInfo.buddyLevel == 0) {
-      return Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[Text('0', style: TextStyle(color: Colors.white))],
-      );
-    }
-    if (habitBuddyInfo.buddyLevel == 1) {
+  Widget buddyLevel() {
+    if (habitBuddy.myHabitBuddy.buddyLevel == 0) {
       return Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Icon(Icons.favorite, color: accentColor),
+          Icon(
+            Icons.favorite_border,
+            color: Colors.white,
+          ),
+          Icon(
+            Icons.favorite_border,
+            color: Colors.white,
+          ),
+          Icon(
+            Icons.favorite_border,
+            color: Colors.white,
+          ),
         ],
       );
     }
-    if (habitBuddyInfo.buddyLevel == 2) {
+    if (habitBuddy.myHabitBuddy.buddyLevel == 1) {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Icon(Icons.favorite, color: accentColor),
+          Icon(
+            Icons.favorite_border,
+            color: Colors.white,
+          ),
+          Icon(
+            Icons.favorite_border,
+            color: Colors.white,
+          ),
+        ],
+      );
+    }
+    if (habitBuddy.myHabitBuddy.buddyLevel == 2) {
       return Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Icon(Icons.favorite, color: accentColor),
           Icon(Icons.favorite, color: accentColor),
+          Icon(
+            Icons.favorite_border,
+            color: Colors.white,
+          ),
         ],
       );
     } else {
@@ -119,10 +170,10 @@ class ProfileSubViewModel extends BaseModel {
     }
   }
 
-  Future sendMessage(
-      {@required String text,
-      @required String receiverID,
-      HabitBuddyInfo habitBuddyInfo}) async {
+  Future sendMessage({
+    @required String text,
+    @required String receiverID,
+  }) async {
     setBusy(true);
     var result = await _firestoreService.sendMessage(Message(
       text: text,
@@ -130,7 +181,6 @@ class ProfileSubViewModel extends BaseModel {
       receiverID: receiverID,
       timestamp: DateTime.now(),
     ));
-    setBusy(false);
 
     if (result is String) {
       await _dialogService.showDialog(
@@ -138,23 +188,59 @@ class ProfileSubViewModel extends BaseModel {
         description: result,
       );
     }
-  }
+    if (habitBuddy.myHabitBuddy.buddyLevel < 3 &&
+        habitBuddy.myHabitBuddy.timestampIncreased == null) {
+      habitBuddy.myHabitBuddy.timestampIncreased = DateTime.now();
+      habitBuddy.myHabitBuddy.buddyLevel += 1;
 
-  void reduceBuddyLevel(Message firstMessage, HabitBuddyInfo habitBuddyInfo) {
-    setBusy(true);
-    if (firstMessage != null) {
+      await _firestoreService.updateBuddyTimestamp(
+          habitBuddy.myHabitBuddy, currentUser.id);
+      notifyListeners();
+    }
+    if (habitBuddy.myHabitBuddy.buddyLevel < 3 &&
+        habitBuddy.myHabitBuddy.timestampIncreased != null) {
+      var increaseDate =
+          habitBuddy.myHabitBuddy.timestampIncreased.millisecondsSinceEpoch;
       var thresholdDay =
           DateTime.now().subtract(Duration(days: 1)).millisecondsSinceEpoch;
 
-      var lastEntryDate = firstMessage.timestamp.millisecondsSinceEpoch;
-      if (thresholdDay > lastEntryDate) {
-        print('wahrheit!');
-        if (habitBuddyInfo.buddyLevel == 0) {
-          print(habitBuddyInfo.buddyLevel);
-        } else {
-          habitBuddyInfo.buddyLevel -= 1;
-          print("reduziert: ${habitBuddyInfo.buddyLevel}");
-        }
+      if (thresholdDay > increaseDate) {
+        habitBuddy.myHabitBuddy.buddyLevel += 1;
+        habitBuddy.myHabitBuddy.timestampIncreased = DateTime.now();
+        await _firestoreService.updateBuddyTimestamp(
+            habitBuddy.myHabitBuddy, currentUser.id);
+      }
+    }
+    setBusy(false);
+  }
+
+  Future reduceBuddyLevel(Message firstMessage) async {
+    setBusy(true);
+    if (habitBuddy.myHabitBuddy.buddyLevel > 0 &&
+        habitBuddy.myHabitBuddy.timestampReduced == null) {
+      var firstMessageTimestamp = firstMessage.timestamp.millisecondsSinceEpoch;
+      var thresholdDay =
+          DateTime.now().subtract(Duration(days: 1)).millisecondsSinceEpoch;
+      if (thresholdDay > firstMessageTimestamp) {
+        habitBuddy.myHabitBuddy.timestampReduced = DateTime.now();
+        habitBuddy.myHabitBuddy.buddyLevel -= 1;
+        await _firestoreService.updateBuddyTimestamp(
+            habitBuddy.myHabitBuddy, currentUser.id);
+        notifyListeners();
+      }
+    }
+    if (habitBuddy.myHabitBuddy.buddyLevel > 0 &&
+        habitBuddy.myHabitBuddy.timestampReduced != null) {
+      var reduceDate =
+          habitBuddy.myHabitBuddy.timestampReduced.millisecondsSinceEpoch;
+      var thresholdDay =
+          DateTime.now().subtract(Duration(days: 1)).millisecondsSinceEpoch;
+      if (thresholdDay > reduceDate) {
+        habitBuddy.myHabitBuddy.timestampReduced = DateTime.now();
+        habitBuddy.myHabitBuddy.buddyLevel -= 1;
+        await _firestoreService.updateBuddyTimestamp(
+            habitBuddy.myHabitBuddy, currentUser.id);
+        notifyListeners();
       }
     }
     setBusy(false);

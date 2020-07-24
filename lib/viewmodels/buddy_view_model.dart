@@ -1,4 +1,3 @@
-import 'package:habitbuddyvvmm/models/habit_buddy_info.dart';
 import 'package:habitbuddyvvmm/models/message.dart';
 import 'package:habitbuddyvvmm/viewmodels/base_model.dart';
 import 'package:habitbuddyvvmm/locator.dart';
@@ -11,7 +10,7 @@ class BuddyViewModel extends BaseModel {
   List<Message> _messages = [];
   List<Message> get messages => _messages;
 
-  void listenToMessages(HabitBuddyInfo habitBuddyInfo) {
+  void listenToMessages() {
     setBusy(true);
     _firestoreService
         .listenToMessagesRealTime(currentUser)
@@ -19,27 +18,18 @@ class BuddyViewModel extends BaseModel {
       List<Message> updatedMessages = messagesData;
       if (updatedMessages != null && updatedMessages.length > 0) {
         _messages = updatedMessages;
-        if (habitBuddyInfo.buddyLevel < 3) {
-          habitBuddyInfo.buddyLevel += 1;
-        }
         notifyListeners();
       }
       setBusy(false);
     });
   }
 
-//  updatedMessages.forEach((message) {
-//  if (message.userID != currentUser.id) {
-//  if (message.receiverID != currentUser.id) {
-//  updatedMessages.remove(message);
-//  }
-//  }
-//  });
-
   giveFirstMessage() {
     if (busy != true) {
-      Message firstMessage = _messages[0];
-      return firstMessage;
+      if (_messages.length > 0) {
+        Message firstMessage = _messages[0];
+        return firstMessage;
+      }
     }
   }
 

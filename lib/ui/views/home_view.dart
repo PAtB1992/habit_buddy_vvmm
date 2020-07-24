@@ -8,7 +8,7 @@ import 'package:habitbuddyvvmm/locator.dart';
 import 'package:habitbuddyvvmm/constants/route_names.dart';
 import 'package:stacked/_viewmodel_builder.dart';
 import 'package:habitbuddyvvmm/models/habit.dart';
-import 'package:habitbuddyvvmm/models/habit_buddy_info.dart';
+import 'package:habitbuddyvvmm/models/habit_buddy.dart';
 
 class HomeView extends StatelessWidget {
   final NavigationService _navigationService = locator<NavigationService>();
@@ -74,14 +74,17 @@ class HomeView extends StatelessWidget {
                   color2: accentColor,
                   onPress: hasHabitBuddy
                       ? () {
-                          _navigationService.navigateTo(
-                            BuddyViewRoute,
-                            arguments: HabitBuddyInfo(
-                              habitBuddy: model.habitBuddy.myHabitBuddy,
-                              evaluationData:
-                                  model.averageBuddyFeeling(model.milestones),
-                            ),
-                          );
+                          model.averageBuddyFeeling();
+                          _navigationService.navigateTo(BuddyViewRoute,
+                              arguments: model.habitBuddy.myHabitBuddy
+//                            HabitBuddy(
+//                              habitBuddy: model.habitBuddy.myHabitBuddy,
+//                              evaluationData:
+//                                  model.averageBuddyFeeling(model.milestones),
+//                              buddyLevel:
+//                                  model.habitBuddy.myHabitBuddy.buddyLevel,
+//                            ),
+                              );
                         }
                       : () {},
                   cardChild: Container(

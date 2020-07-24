@@ -87,57 +87,61 @@ class HomeViewModel extends BaseModel {
     return 'Dein Habit Buddy hat diese Habit nicht.';
   }
 
-  List averageBuddyFeeling(List<Milestone> milestones) {
+  void averageBuddyFeeling() {
     int sumFeeling = 0;
     List<Milestone> tempList = [];
-    Milestone milestoneOne = milestones.firstWhere(
-        (element) => element.habitName == 'Fähigkeiten lernen',
-        orElse: () => null);
-    if (milestoneOne != null) {
-      tempList.add(milestoneOne);
+    if (milestones == null) {
+      habitBuddy.myHabitBuddy.evaluationData = [];
+    } else {
+      Milestone milestoneOne = milestones.firstWhere(
+          (element) => element.habitName == 'Fähigkeiten lernen',
+          orElse: () => null);
+      if (milestoneOne != null) {
+        tempList.add(milestoneOne);
+      }
+
+      Milestone milestoneTwo = milestones.firstWhere(
+          (element) => element.habitName == 'Gesünder ernähren',
+          orElse: () => null);
+      if (milestoneTwo != null) {
+        tempList.add(milestoneTwo);
+      }
+
+      Milestone milestoneThree = milestones.firstWhere(
+          (element) => element.habitName == 'Konzentration steigern',
+          orElse: () => null);
+      if (milestoneThree != null) {
+        tempList.add(milestoneThree);
+      }
+
+      Milestone milestoneFour = milestones.firstWhere(
+          (element) => element.habitName == 'Mehr Wasser trinken',
+          orElse: () => null);
+      if (milestoneFour != null) {
+        tempList.add(milestoneFour);
+      }
+
+      Milestone milestoneFive = milestones.firstWhere(
+          (element) => element.habitName == 'Mehr bewegen',
+          orElse: () => null);
+      if (milestoneFive != null) {
+        tempList.add(milestoneFive);
+      }
+
+      Milestone milestoneSix = milestones.firstWhere(
+          (element) => element.habitName == 'Weniger Fleisch essen',
+          orElse: () => null);
+      if (milestoneSix != null) {
+        tempList.add(milestoneSix);
+      }
+
+      int counter = tempList.length;
+
+      for (Milestone item in tempList) {
+        sumFeeling = sumFeeling + item.evaluation;
+      }
+
+      habitBuddy.myHabitBuddy.evaluationData = [sumFeeling, counter];
     }
-
-    Milestone milestoneTwo = milestones.firstWhere(
-        (element) => element.habitName == 'Gesünder ernähren',
-        orElse: () => null);
-    if (milestoneTwo != null) {
-      tempList.add(milestoneTwo);
-    }
-
-    Milestone milestoneThree = milestones.firstWhere(
-        (element) => element.habitName == 'Konzentration steigern',
-        orElse: () => null);
-    if (milestoneThree != null) {
-      tempList.add(milestoneThree);
-    }
-
-    Milestone milestoneFour = milestones.firstWhere(
-        (element) => element.habitName == 'Mehr Wasser trinken',
-        orElse: () => null);
-    if (milestoneFour != null) {
-      tempList.add(milestoneFour);
-    }
-
-    Milestone milestoneFive = milestones.firstWhere(
-        (element) => element.habitName == 'Mehr bewegen',
-        orElse: () => null);
-    if (milestoneFive != null) {
-      tempList.add(milestoneFive);
-    }
-
-    Milestone milestoneSix = milestones.firstWhere(
-        (element) => element.habitName == 'Weniger Fleisch essen',
-        orElse: () => null);
-    if (milestoneSix != null) {
-      tempList.add(milestoneSix);
-    }
-
-    int counter = tempList.length;
-
-    for (Milestone item in tempList) {
-      sumFeeling = sumFeeling + item.evaluation;
-    }
-
-    return [sumFeeling, counter];
   }
 }
