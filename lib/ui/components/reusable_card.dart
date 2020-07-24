@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class ReusableCard extends StatelessWidget {
   ReusableCard(
       {@required this.color1,
@@ -7,13 +8,15 @@ class ReusableCard extends StatelessWidget {
       this.cardChild,
       this.onPress,
       this.borderColor,
-      this.height});
+      this.height,
+      this.center = false});
   final Color color1;
   final Color color2;
   final Color borderColor;
   final Widget cardChild;
   final Function onPress;
   final double height;
+  bool center;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +25,7 @@ class ReusableCard extends StatelessWidget {
       child: Container(
         height: height,
         padding: EdgeInsets.symmetric(horizontal: 8),
-        child: cardChild,
+        child: center ? Center(child: cardChild) : cardChild,
         margin: EdgeInsets.fromLTRB(5.0, 0, 5.0, 10),
         decoration: BoxDecoration(
           gradient: LinearGradient(

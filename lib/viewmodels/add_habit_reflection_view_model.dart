@@ -5,6 +5,7 @@ import 'package:habitbuddyvvmm/viewmodels/base_model.dart';
 import 'package:habitbuddyvvmm/locator.dart';
 import 'package:habitbuddyvvmm/services/firestore_service.dart';
 import 'package:habitbuddyvvmm/models/habit.dart';
+import 'package:habitbuddyvvmm/constants/texts.dart';
 
 class AddHabitReflectionViewModel extends BaseModel {
   final FirestoreService _firestoreService = locator<FirestoreService>();
@@ -17,17 +18,22 @@ class AddHabitReflectionViewModel extends BaseModel {
     String customDescription,
   ) async {
     setBusy(true);
-    var habit = await _firestoreService.getHabitTemplate(habitName);
-    habit.customDescription = customDescription;
-    habit.habitIcon = habitIcon(habitName);
-    _habitList.checkListForDupes(habit.name)
-        ? _dialogService.showDialog(
-            title: 'Obacht!',
-            description:
-                '"Schön, dass du so motiviert bist, aber du kannst keine Habit mehrfach hinzufügen." - Oscar Wilde',
-            buttonTitle: 'Och manno..')
-        : _habitList.addHabit(habit);
-    setBusy(false);
-    _navigationService.pop();
+    if (customDescription == '') {
+      _dialogService.showDialog(
+          title: 'Deine Beschreibung fehlt.',
+          description: noMilestoneDescription);
+    } else {
+      var habit = await _firestoreService.getHabitTemplate(habitName);
+      habit.customDescription = customDescription;
+      habit.habitIcon = habitIcon(habitName);
+      _habitList.checkListForDupes(habit.name)
+          ? _dialogService.showDialog(
+              title: 'Obacht!',
+              description: doubleMilestoneAdd,
+              buttonTitle: 'Och manno..')
+          : _habitList.addHabit(habit);
+      setBusy(false);
+      _navigationService.pop();
+    }
   }
 }

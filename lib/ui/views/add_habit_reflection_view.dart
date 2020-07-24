@@ -29,14 +29,13 @@ class AddHabitReflectionView extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: dynamicImage(habitName)),
               ReusableCard(
+                center: true,
                 height: 200,
                 color1: primaryBlue,
                 color2: primaryBlue,
-                cardChild: Center(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: dynamicDescription(habitName),
-                  ),
+                cardChild: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: dynamicDescription(habitName),
                 ),
               ),
               Padding(
@@ -48,17 +47,16 @@ class AddHabitReflectionView extends StatelessWidget {
                 ),
               ),
               ReusableCard(
+                center: true,
                 height: 40,
                 color1: accentColor,
                 color2: accentColor,
-                cardChild: Center(
-                  child: Text(
-                    'Loslegen!',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold),
-                  ),
+                cardChild: Text(
+                  'Loslegen!',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold),
                 ),
                 onPress: () {
                   model.addHabitWithTemplate(

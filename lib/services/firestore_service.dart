@@ -53,7 +53,7 @@ class FirestoreService {
     }
   }
 
-  Stream listenToMessagesRealTime() {
+  Stream listenToMessagesRealTime(User currentUser) {
     // Register the handler for when the posts data changes
     _messagesCollectionReference
         .orderBy('timestamp', descending: true)
@@ -65,8 +65,22 @@ class FirestoreService {
                 Message.fromMap(snapshot.data, snapshot.documentID))
             .where((mappedItem) => mappedItem.text != null)
             .toList();
-        // Add the posts onto the controller
-        _messagesController.add(messages);
+        List<Message> filteredMessages = [];
+        for (Message message in messages) {
+          if (message.userID == currentUser.id) {
+            filteredMessages.add(message);
+          }
+
+          if (message.receiverID == currentUser.id) {
+            filteredMessages.add(message);
+          }
+        }
+        if (filteredMessages.length > 4) {
+          int n = filteredMessages.length - 4;
+          filteredMessages.removeRange(4, 4 + n);
+        }
+        // Add the messages onto the controller
+        _messagesController.add(filteredMessages);
       }
     });
     //local stream
@@ -142,6 +156,4 @@ class FirestoreService {
         .get();
     return HabitBuddy.fromData(tempData.data);
   }
-
-// TODO write function streak()
 }

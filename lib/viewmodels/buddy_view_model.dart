@@ -10,20 +10,14 @@ class BuddyViewModel extends BaseModel {
   List chartItems = [];
   List<Message> _messages = [];
   List<Message> get messages => _messages;
+
   void listenToMessages(HabitBuddyInfo habitBuddyInfo) {
     setBusy(true);
-
-    _firestoreService.listenToMessagesRealTime().listen((messagesData) {
+    _firestoreService
+        .listenToMessagesRealTime(currentUser)
+        .listen((messagesData) {
       List<Message> updatedMessages = messagesData;
-      updatedMessages.forEach((message) {
-        if (message.userID != currentUser.id) {
-          if (message.receiverID != currentUser.id) {
-            updatedMessages.remove(message);
-          }
-        }
-      });
-      if (updatedMessages != null &&
-          updatedMessages.length > _messages.length) {
+      if (updatedMessages != null && updatedMessages.length > 0) {
         _messages = updatedMessages;
         if (habitBuddyInfo.buddyLevel < 3) {
           habitBuddyInfo.buddyLevel += 1;
@@ -33,6 +27,14 @@ class BuddyViewModel extends BaseModel {
       setBusy(false);
     });
   }
+
+//  updatedMessages.forEach((message) {
+//  if (message.userID != currentUser.id) {
+//  if (message.receiverID != currentUser.id) {
+//  updatedMessages.remove(message);
+//  }
+//  }
+//  });
 
   giveFirstMessage() {
     if (busy != true) {

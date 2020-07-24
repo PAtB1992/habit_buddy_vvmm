@@ -63,15 +63,14 @@ class _MilestoneReflectionViewState extends State<MilestoneReflectionView> {
               ),
             ),
             ReusableCard(
+              center: true,
               height: 80,
               color1: primaryBlue,
               color2: primaryBlue,
-              cardChild: Center(
-                child: Text(
-                  milestoneFrage,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(color: Colors.white, fontSize: 20),
-                ),
+              cardChild: Text(
+                milestoneFrage,
+                textAlign: TextAlign.center,
+                style: TextStyle(color: Colors.white, fontSize: 20),
               ),
             ),
             SizedBox(
@@ -133,17 +132,16 @@ class _MilestoneReflectionViewState extends State<MilestoneReflectionView> {
               ],
             ),
             ReusableCard(
+              center: true,
               height: 50,
               color1: accentColor,
               color2: accentColor,
-              cardChild: Center(
-                child: Text(
-                  'Meilenstein abschließen',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold),
-                ),
+              cardChild: Text(
+                'Meilenstein abschließen',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold),
               ),
               onPress: () async {
                 await model.completeMilestone(widget.habit.listIndex);

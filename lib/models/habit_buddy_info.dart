@@ -11,6 +11,6 @@ class HabitBuddyInfo {
   HabitBuddyInfo({
     @required this.habitBuddy,
     @required this.evaluationData,
-    this.buddyLevel = 3,
+    this.buddyLevel = 0,
   });
 }

@@ -6,14 +6,15 @@ import 'package:habitbuddyvvmm/ui/components/reusable_card.dart';
 import 'package:habitbuddyvvmm/viewmodels/buddy_chart_sub_view_model.dart';
 import 'package:stacked/stacked.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:habitbuddyvvmm/constants/texts.dart';
 
 // ignore: must_be_immutable
 class BuddyChartSubView extends StatelessWidget {
   HabitBuddyInfo habitBuddyInfo;
   BuddyChartSubView({Key key, @required this.habitBuddyInfo}) : super(key: key);
   List<Color> gradientColors = [
-    const Color(0xFFC5CAE9),
-    const Color(0xFFC5CAE9),
+    lightPrimaryBlue,
+    lightPrimaryBlue,
   ];
   int repetitions = 0;
   bool showChart = true;
@@ -23,45 +24,68 @@ class BuddyChartSubView extends StatelessWidget {
       viewModelBuilder: () => BuddyChartSubViewModel(),
       onModelReady: (model) => model.getBuddyChartItems(habitBuddyInfo),
       builder: (context, model, child) => Container(
-        child: Stack(
-          alignment: AlignmentDirectional.bottomStart,
-          children: <Widget>[
-            ReusableCard(
-              color1: Color(0xFF303f9f),
-              color2: Color(0xFF3f51b5),
-              cardChild: Container(
-                  decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10),
-                      ),
-                      color: primaryBlue),
-                  padding: showChart
-                      ? EdgeInsets.only(right: 25.0, top: 24, bottom: 30)
-                      : EdgeInsets.all(0),
-                  child: LineChart(mainData(model.chartItems ?? []))
-//                child: model.chartItems.length >= 2
-//                    ? LineChart(
-//                        mainData(model.chartItems),
-//                      )
-//                    : Center(
-//                        child: Text(
-//                          'Dein Buddy muss erst ein paar Meilensteine erledigen, bevor Du seine Statistik sehen kannst.',
-//                          textAlign: TextAlign.center,
-//                          style: TextStyle(color: Colors.white, fontSize: 20),
-//                        ),
-//                      ),
+          child: Stack(
+        children: <Widget>[
+          ReusableCard(
+            color1: primaryBlue,
+            color2: primaryBlue,
+            cardChild: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                Flexible(
+                  child: Container(
+                    decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10),
+                        ),
+                        color: primaryBlue),
+                    padding: showChart
+                        ? EdgeInsets.only(right: 25.0, top: 24, bottom: 10)
+                        : EdgeInsets.all(0),
+//                    child: LineChart(mainData(model.chartItems ?? []))
+                    child: model.chartItems.length >= 2
+                        ? LineChart(
+                            mainData(model.chartItems ?? []),
+                          )
+                        : Center(
+                            child: Text(
+                              minimumBuddyMilestones,
+                              textAlign: TextAlign.center,
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 20),
+                            ),
+                          ),
                   ),
+                ),
+                model.chartItems.length >= 2
+                    ? Row(
+                        children: <Widget>[
+                          SizedBox(
+                            width: 39,
+                          ),
+                          Text('Die letzten sieben Tage Deines Buddies.',
+                              style: TextStyle(color: Colors.white)),
+                        ],
+                      )
+                    : SizedBox(
+                        height: 5,
+                      ),
+                SizedBox(
+                  height: 5,
+                ),
+              ],
             ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(40, 8, 8, 8),
-              child: model.chartItems.length >= 2
-                  ? Text('Deine letzten sieben Tage.',
-                      style: TextStyle(color: Colors.white))
-                  : SizedBox(),
+          ),
+          Positioned(
+            child: Icon(
+              Icons.arrow_back_ios,
+              color: Colors.white,
             ),
-          ],
-        ),
-      ),
+            left: 10,
+            top: 160,
+          ),
+        ],
+      )),
     );
   }
 

@@ -1,6 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:habitbuddyvvmm/constants/app_colors.dart';
+import 'package:habitbuddyvvmm/constants/texts.dart';
 
 // ignore: must_be_immutable
 class UserChart extends StatelessWidget {
@@ -21,34 +22,22 @@ class UserChart extends StatelessWidget {
         AspectRatio(
           aspectRatio: 1.70,
           child: Container(
-            decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(10),
-                ),
-                color: primaryBlue),
-            padding: showChart
-                ? EdgeInsets.only(right: 25.0, top: 24, bottom: 30)
-                : EdgeInsets.all(0),
-            child: chartItems.length >= 2
-                ? LineChart(
-                    mainData(),
-                  )
-                : Center(
-                    child: Text(
-                      'Du musst erst zwei Tage lang deine Meilensteine erledigen, bevor Du deine Statistik sehen kannst.',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.white, fontSize: 20),
-                    ),
+              decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(10),
                   ),
-          ),
+                  color: primaryBlue),
+              padding: showChart
+                  ? EdgeInsets.only(right: 25.0, top: 24, bottom: 30)
+                  : EdgeInsets.all(0),
+              child: LineChart(
+                mainData(),
+              )),
         ),
         Padding(
-          padding: const EdgeInsets.fromLTRB(40, 8, 8, 8),
-          child: chartItems.length >= 2
-              ? Text('Deine letzten sieben Tage.',
-                  style: TextStyle(color: Colors.white))
-              : SizedBox(),
-        ),
+            padding: const EdgeInsets.fromLTRB(40, 8, 8, 8),
+            child: Text('Deine letzten sieben Tage.',
+                style: TextStyle(color: Colors.white))),
       ],
     );
   }
@@ -68,7 +57,12 @@ class UserChart extends StatelessWidget {
       for (var i = 0; i < tempList.length; i++) {
         chartSpots.add(FlSpot(i.toDouble() + 1, tempList[i].toDouble()));
       }
-      return chartSpots;
+      if (chartSpots.length == 0) {
+        chartSpots.add(FlSpot(0, 0));
+        return chartSpots;
+      } else {
+        return chartSpots;
+      }
     }
 
     return LineChartData(

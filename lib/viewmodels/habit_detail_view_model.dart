@@ -39,11 +39,14 @@ class HabitDetailViewModel extends BaseModel {
   }
 
   Future getChartItems(String habitName) async {
+    setBusy(true);
     var test = await _firestoreService.getChartData(currentUser.id);
     for (ChartData item in test) {
       if (habitName == item.habitName) {
         chartItems.add(item);
+        notifyListeners();
       }
     }
+    setBusy(false);
   }
 }

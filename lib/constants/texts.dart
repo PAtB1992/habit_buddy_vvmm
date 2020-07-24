@@ -20,4 +20,16 @@ const String konzentrationSteigern =
     'Sich zu konzentrieren ist manchmal gar nicht so einfach. Aber es ist erlernbar, man kann es sich angewöhnen. Überlege Dir, was Du tun kannst. Das Handy in einen anderen Raum legen oder es in den Flugmodus stellen? In 30Minuten Blöcken zu arbeiten und dann eine kleine Pause einlegen? Es liegt ganz bei Dir, wie Du deine Konzentration steigerst!';
 
 const String milestoneFrage =
-    'Wie einfach war es für Dich heute deinen Milestone abzuschließen?';
+    'Wie schwierig war es für Dich heute deinen Milestone abzuschließen?';
+
+const String noMilestoneDescription =
+    'Es ist enorm wichtig für Deinen Erfolg, dass Du dir jetzt die Zeit nimmst und Deinen Meilenstein bestimmst.';
+
+const String doubleMilestoneAdd =
+    '"Schön, dass Du so motiviert bist, aber Du kannst keine Habit mehrfach hinzufügen." - Oscar Wilde';
+
+const String minimumBuddyMilestones =
+    'Dein Buddy muss erst ein paar Meilensteine erledigen, bevor Du seine Statistik sehen kannst.';
+
+const String minimumMilestones =
+    'Du musst erst zwei Tage lang deine Meilensteine erledigen, bevor Du deine Statistik sehen kannst.';

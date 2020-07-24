@@ -79,7 +79,6 @@ class BuddyView extends StatelessWidget {
               ),
               Expanded(
                 child: model.messages != null
-//                TODO Unendlich lange Liste
                     ? ListView.builder(
                         itemCount: model.messages.length,
                         shrinkWrap: true,

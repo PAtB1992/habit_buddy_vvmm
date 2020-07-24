@@ -61,29 +61,27 @@ class HabitDetailView extends StatelessWidget {
               child: ListView(
                 children: <Widget>[
                   ReusableCard(
+                    center: true,
                     height: 150,
                     color1: primaryBlue,
                     color2: primaryBlue,
-                    cardChild: Center(
-                      child: Text(
-                        '${habit.customDescription}',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(color: Colors.white, fontSize: 20),
-                      ),
+                    cardChild: Text(
+                      '${habit.customDescription}',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: Colors.white, fontSize: 20),
                     ),
                   ),
                   ReusableCard(
+                    center: true,
                     height: 100,
                     color1: accentColor,
                     color2: accentColor,
-                    cardChild: Center(
-                      child: Text(
-                        'Meilenstein eintragen',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold),
-                      ),
+                    cardChild: Text(
+                      'Meilenstein eintragen',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold),
                     ),
                     onPress: () async {
                       await _navigationService.navigateTo(
@@ -115,22 +113,20 @@ class HabitDetailView extends StatelessWidget {
                     ),
                   ),
                   ReusableCard(
+                    center: true,
                     height: 150,
                     color1: primaryBlue,
                     color2: primaryBlue,
-                    cardChild: Center(
-                      child: Text(
-                        '${habit.description}',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(color: Colors.white, fontSize: 20),
-                      ),
+                    cardChild: Text(
+                      '${habit.description}',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: Colors.white, fontSize: 20),
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(
-                        left: 5.0, right: 5.0, bottom: 20.0),
-                    child: UserChart(chartItems: model.chartItems),
-                  )
+                      padding: const EdgeInsets.only(
+                          left: 5.0, right: 5.0, bottom: 20.0),
+                      child: UserChart(chartItems: model.chartItems))
                 ],
               ),
             ),
