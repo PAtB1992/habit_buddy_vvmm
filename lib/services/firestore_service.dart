@@ -75,40 +75,68 @@ class FirestoreService {
             filteredMessages.add(message);
           }
         }
-        if (filteredMessages.length > 4) {
-          int n = filteredMessages.length - 4;
-          filteredMessages.removeRange(4, 4 + n);
+        if (filteredMessages.length > 5) {
+          int n = filteredMessages.length - 5;
+          filteredMessages.removeRange(5, 5 + n);
         }
+        List reversedList = filteredMessages.reversed.toList();
+
         // Add the messages onto the controller
-        _messagesController.add(filteredMessages);
+        _messagesController.add(reversedList);
       }
     });
     //local stream
     return _messagesController.stream;
   }
 
-  Stream listenToBuddyRealTime() {
-    _usersCollectionReference
-        .document(_habitBuddy.myHabitBuddy.id)
-        .collection('milestones')
-        .orderBy('timestamp', descending: true)
-        .snapshots()
-        .listen((milestonesSnapshot) {
-      if (milestonesSnapshot.documents.isNotEmpty) {
-        var milestones = milestonesSnapshot.documents
-            .map((snapshot) =>
-                Milestone.fromMap(snapshot.data, snapshot.documentID))
+  Future getHabits(User user) async {
+    try {
+      var habitDocuments = await _usersCollectionReference
+          .document(user.id)
+          .collection('habits')
+          .where('isDeleted', isEqualTo: false)
+          .getDocuments();
+      if (habitDocuments.documents.isNotEmpty) {
+        return habitDocuments.documents
+            .map(
+                (snapshot) => Habit.fromMap(snapshot.data, snapshot.documentID))
             .toList();
-        _milestonesController.add(milestones);
       }
-    });
-    return _milestonesController.stream;
+    } catch (e) {
+      if (e is PlatformException) {
+        return e.message;
+      }
+      return e.toString();
+    }
   }
 
-  Future<Habit> getHabitTemplate(String habitName) async {
-    var habitTemplate =
-        await _habitsCollectionReference.document(habitName).get();
-    return Habit.fromData(habitTemplate.data);
+  Future addHabitToDB(Habit habit, User user) async {
+    try {
+      await _usersCollectionReference
+          .document(user.id)
+          .collection('habits')
+          .add(habit.toMap());
+    } catch (e) {
+      if (e is PlatformException) {
+        return e.message;
+      }
+      return e.toString();
+    }
+  }
+
+  Future updateHabit(Habit habit, User user) async {
+    try {
+      await _usersCollectionReference
+          .document(user.id)
+          .collection('habits')
+          .document(habit.habitID)
+          .updateData(habit.toMap());
+    } catch (e) {
+      if (e is PlatformException) {
+        return e.message;
+      }
+      return e.toString();
+    }
   }
 
   Future saveMilestone(User user, Milestone milestone) async {
@@ -141,6 +169,47 @@ class FirestoreService {
       chartDataList.add(tempChartData);
     }
     return chartDataList;
+  }
+
+  Stream listenToBuddyRealTime() {
+    _usersCollectionReference
+        .document(_habitBuddy.myHabitBuddy.id)
+        .collection('milestones')
+        .orderBy('timestamp', descending: true)
+        .snapshots()
+        .listen((milestonesSnapshot) {
+      if (milestonesSnapshot.documents.isNotEmpty) {
+        var milestones = milestonesSnapshot.documents
+            .map((snapshot) =>
+                Milestone.fromMap(snapshot.data, snapshot.documentID))
+            .toList();
+
+        _milestonesController.add(milestones);
+      }
+    });
+    return _milestonesController.stream;
+  }
+
+  Future createBuddyTemplate(User user) async {
+    final snapshot = await _usersCollectionReference
+        .document(user.id)
+        .collection('habit_buddy')
+        .document('habit_buddy')
+        .get();
+
+    if (snapshot == null || !snapshot.exists) {
+      await _usersCollectionReference
+          .document(user.id)
+          .collection('habit_buddy')
+          .document('habit_buddy')
+          .setData(HabitBuddy(
+                  buddyLevel: 0,
+                  id: 'null',
+                  timestampIncreased: null,
+                  timestampReduced: null,
+                  username: 'null')
+              .toMap());
+    }
   }
 
   Future hasHabitBuddy(User user) async {

@@ -9,6 +9,7 @@ import 'package:habitbuddyvvmm/constants/route_names.dart';
 import 'package:stacked/_viewmodel_builder.dart';
 import 'package:habitbuddyvvmm/models/habit.dart';
 import 'package:habitbuddyvvmm/models/habit_buddy.dart';
+import 'package:habitbuddyvvmm/ui/components/dynamic_components.dart';
 
 class HomeView extends StatelessWidget {
   final NavigationService _navigationService = locator<NavigationService>();
@@ -20,7 +21,7 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<HomeViewModel>.reactive(
       disposeViewModel: true,
-      onModelReady: (model) => model.listenToHabitBuddy(hasHabitBuddy),
+      onModelReady: (model) => model.homeViewInitialization(hasHabitBuddy),
       viewModelBuilder: () => HomeViewModel(),
       builder: (context, model, child) => Scaffold(
         floatingActionButton: FloatingActionButton(
@@ -35,7 +36,13 @@ class HomeView extends StatelessWidget {
           children: <Widget>[
 //          Header
             Container(
-              color: primaryBlue,
+              decoration: BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                      color: Colors.grey, blurRadius: 4, offset: Offset(0, 2.5))
+                ],
+                color: primaryBlue,
+              ),
               padding: EdgeInsets.only(top: 60.0, bottom: 30.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -64,37 +71,33 @@ class HomeView extends StatelessWidget {
               ),
             ),
             Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 SizedBox(
                   height: 15,
                 ),
-                ReusableCard(
-                  color1: accentColor,
-                  color2: accentColor,
-                  onPress: hasHabitBuddy
-                      ? () {
-                          model.averageBuddyFeeling();
-                          _navigationService.navigateTo(BuddyViewRoute,
-                              arguments: model.habitBuddy.myHabitBuddy
-//                            HabitBuddy(
-//                              habitBuddy: model.habitBuddy.myHabitBuddy,
-//                              evaluationData:
-//                                  model.averageBuddyFeeling(model.milestones),
-//                              buddyLevel:
-//                                  model.habitBuddy.myHabitBuddy.buddyLevel,
-//                            ),
-                              );
-                        }
-                      : () {},
-                  cardChild: Container(
-                    height: 40,
+                SizedBox(
+                  width: 370,
+                  height: 40,
+                  child: RaisedButton(
+                    color: accentColor,
+                    elevation: 7,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    onPressed: hasHabitBuddy
+                        ? () {
+                            model.averageBuddyFeeling();
+                            _navigationService.navigateTo(BuddyViewRoute,
+                                arguments: model.habitBuddy.myHabitBuddy);
+                          }
+                        : () {},
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
                         hasHabitBuddy
                             ? Text(
-                                'Motiviere Dich und Deinen Habit Buddy!',
+                                'Schaue hier, was Dein Habit Buddy macht!',
                                 style: TextStyle(color: Colors.white),
                               )
                             : Text(
@@ -121,7 +124,7 @@ class HomeView extends StatelessWidget {
               color: Colors.white,
               child: model.habitList.habitCount == 0
                   ? Text(
-                      'Füge eine Habit hinzu und starte durch!',
+                      'Füge auf dem Plusbutton eine Habit hinzu und starte durch!',
                       style: TextStyle(color: primaryText),
                     )
                   : Text(
@@ -129,22 +132,24 @@ class HomeView extends StatelessWidget {
                       style: TextStyle(color: primaryText),
                     ),
             ),
-            Expanded(
+            Flexible(
               child: Container(
+//                padding: EdgeInsets.symmetric(horizontal: ),
                 color: Colors.white,
-                child: ListView.builder(
+                child: Center(
+                    child: ListView.builder(
                   itemBuilder: (context, index) {
                     final habit = model.habitList.habitList[index];
                     return HabitTile(
-                      name: habit.name,
+                      customName: habit.customName,
+                      name: dynamicCategory(habit.name),
                       repetitions: habit.repetitions,
                       description: habit.customDescription,
-                      habitIcon: Icon(
-                        habit.habitIcon,
-                        color: Colors.white,
-                      ),
+                      habitIcon: habitIcon(habit.name),
                       buddyEvaluation: hasHabitBuddy
-                          ? model.buddyEvaluation(model.milestones, habit.name)
+                          ? model.buddyEvaluation(
+                                  model.milestones, habit.name) ??
+                              'Dein Habit Buddy hat diese Rubrik nicht.'
                           : '',
                       onLongPress: () {
                         model.deleteHabit(habit);
@@ -153,12 +158,13 @@ class HomeView extends StatelessWidget {
                         await _navigationService.navigateTo(
                           HabitDetailViewRoute,
                           arguments: Habit(
+                            habitID: habit.habitID,
                             name: habit.name,
-                            repetitions: habit.repetitions,
-                            description: habit.description,
-                            listIndex: index,
                             customDescription: habit.customDescription,
-                            habitIcon: habit.habitIcon,
+                            customName: habit.customName,
+                            listIndex: index,
+                            repetitions: habit.repetitions,
+                            habitIcon: habitIcon(habit.name),
                           ),
                         );
                         model.setBusy(false);
@@ -166,7 +172,7 @@ class HomeView extends StatelessWidget {
                     );
                   },
                   itemCount: model.habitList.habitCount,
-                ),
+                )),
               ),
             ),
           ],

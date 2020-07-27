@@ -224,3 +224,23 @@ IconData habitIcon(String habitName) {
     return Icons.school;
   }
 }
+
+String dynamicCategory(String habitName) {
+  if (habitName == 'gesünder-ernähren') {
+    return 'Gesünder ernähren';
+  }
+  if (habitName == 'weniger-fleisch-essen') {
+    return 'Weniger Fleisch essen';
+  }
+  if (habitName == 'fähigkeiten-lernen') {
+    return 'Fähigkeit verbessern';
+  }
+  if (habitName == 'sich-mehr-bewegen') {
+    return 'Mehr Bewegung';
+  }
+  if (habitName == 'mehr-wasser-trinken') {
+    return 'Mehr wasser trinken';
+  } else {
+    return 'Konzentration steigern';
+  }
+}

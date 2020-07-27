@@ -25,157 +25,170 @@ class ProfileSubView extends StatelessWidget {
             ReusableCard(
               color1: Color(0xFF303f9f),
               color2: Color(0xFF3f51b5),
-              cardChild: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: <Widget>[
-                  Row(
-                    children: <Widget>[
-                      CircleAvatar(
-                        backgroundColor: accentColor,
-                        child: Image.asset('images/bot2.png'),
-                      ),
-                      SizedBox(
-                        width: 25,
-                      ),
-                      Text(
-                        model.habitBuddy.myHabitBuddy.username,
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 25,
-                            fontWeight: FontWeight.w500),
-                      )
-                    ],
-                  ),
-                  Divider(
-                    color: Color(0xFFBDBDBD),
-                  ),
-                  Row(
-                    children: <Widget>[
-                      Flexible(child: model.showHabitBuddyMood()),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Flexible(
-                    child: GridView.count(
-                      childAspectRatio: 2,
-                      physics: NeverScrollableScrollPhysics(),
-                      mainAxisSpacing: 3,
-                      crossAxisCount: 3,
-                      shrinkWrap: true,
+              cardChild: Container(
+                padding: EdgeInsets.all(9),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+                    Row(
                       children: <Widget>[
-                        ReusableCard(
-                          center: true,
-//                          height: 45,
-                          color1: secondaryBlue,
-                          color2: primaryBlue,
-                          cardChild: Text(
-                            'Gut gemacht!',
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          onPress: () {
-                            model.sendMessage(
-                                text: 'Gut gemacht!',
-                                receiverID: model.habitBuddy.myHabitBuddy.id);
-                          },
+                        CircleAvatar(
+                          radius: 30,
+                          backgroundColor: accentColor,
+                          child: Image.asset('images/bot2.png'),
                         ),
-                        ReusableCard(
-                          center: true,
-                          height: 45,
-                          color1: secondaryBlue,
-                          color2: primaryBlue,
-                          cardChild: Text(
-                            'Bleib dran!',
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          onPress: () {
-                            model.sendMessage(
-                                text: 'Bleib dran!',
-                                receiverID: model.habitBuddy.myHabitBuddy.id);
-                          },
+                        SizedBox(
+                          width: 25,
                         ),
-                        ReusableCard(
-                          center: true,
-                          height: 45,
-                          color1: secondaryBlue,
-                          color2: primaryBlue,
-                          cardChild: Text(
-                            'Alles klar?',
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          onPress: () {
-                            model.sendMessage(
-                                text: 'Alles klar?',
-                                receiverID: model.habitBuddy.myHabitBuddy.id);
-                          },
-                        ),
-                        ReusableCard(
-                          center: true,
-                          height: 45,
-                          color1: secondaryBlue,
-                          color2: primaryBlue,
-                          cardChild: Wrap(
-                            children: <Widget>[
-                              Text(
-                                'Alles gut bei mir',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            ],
-                          ),
-                          onPress: () {
-                            model.sendMessage(
-                                text: 'Alles gut bei mir',
-                                receiverID: model.habitBuddy.myHabitBuddy.id);
-                          },
-                        ),
-                        ReusableCard(
-                          center: true,
-                          height: 45,
-                          color1: secondaryBlue,
-                          color2: primaryBlue,
-                          cardChild: Text(
-                            'Keine Lust mehr',
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          onPress: () {
-                            model.sendMessage(
-                                text: 'Keine Lust mehr',
-                                receiverID: model.habitBuddy.myHabitBuddy.id);
-                          },
-                        ),
-                        ReusableCard(
-                          center: true,
-                          height: 45,
-                          color1: secondaryBlue,
-                          color2: primaryBlue,
-                          cardChild: Text(
-                            'Gut gemacht!',
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          onPress: () {
-                            model.sendMessage(
-                                text: 'Gut gemacht!',
-                                receiverID: model.habitBuddy.myHabitBuddy.id);
-                          },
-                        ),
+                        Text(
+                          model.habitBuddy.myHabitBuddy.username,
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 30,
+                              fontWeight: FontWeight.w500),
+                        )
                       ],
                     ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        'Buddy Level:',
-                        style: TextStyle(color: Colors.white),
+                    Divider(
+                      color: accentColor,
+                      thickness: 0.8,
+                    ),
+                    Row(
+                      children: <Widget>[
+                        Flexible(child: model.showHabitBuddyMood()),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Flexible(
+                      child: GridView.count(
+                        childAspectRatio: 2,
+                        physics: NeverScrollableScrollPhysics(),
+                        mainAxisSpacing: 3,
+                        crossAxisCount: 3,
+                        shrinkWrap: true,
+                        children: <Widget>[
+                          ReusableCard(
+                            boxShadow: false,
+                            center: true,
+//                          height: 45,
+                            color1: secondaryBlue,
+                            color2: primaryBlue,
+                            cardChild: Text(
+                              'Hallo!',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            onPress: () {
+                              model.sendMessage(
+                                  text: 'Hallo!',
+                                  receiverID: model.habitBuddy.myHabitBuddy.id);
+                            },
+                          ),
+                          ReusableCard(
+                            boxShadow: false,
+                            center: true,
+                            height: 45,
+                            color1: secondaryBlue,
+                            color2: primaryBlue,
+                            cardChild: Text(
+                              'Bleib dran!',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            onPress: () {
+                              model.sendMessage(
+                                  text: 'Bleib dran!',
+                                  receiverID: model.habitBuddy.myHabitBuddy.id);
+                            },
+                          ),
+                          ReusableCard(
+                            boxShadow: false,
+                            center: true,
+                            height: 45,
+                            color1: secondaryBlue,
+                            color2: primaryBlue,
+                            cardChild: Text(
+                              'Alles klar?',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            onPress: () {
+                              model.sendMessage(
+                                  text: 'Alles klar?',
+                                  receiverID: model.habitBuddy.myHabitBuddy.id);
+                            },
+                          ),
+                          ReusableCard(
+                            boxShadow: false,
+                            center: true,
+                            height: 45,
+                            color1: secondaryBlue,
+                            color2: primaryBlue,
+                            cardChild: Wrap(
+                              children: <Widget>[
+                                Text(
+                                  'Alles gut bei mir.',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ],
+                            ),
+                            onPress: () {
+                              model.sendMessage(
+                                  text: 'Alles gut bei mir.',
+                                  receiverID: model.habitBuddy.myHabitBuddy.id);
+                            },
+                          ),
+                          ReusableCard(
+                            boxShadow: false,
+                            center: true,
+                            height: 45,
+                            color1: secondaryBlue,
+                            color2: primaryBlue,
+                            cardChild: Text(
+                              'Keine Lust mehr..',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            onPress: () {
+                              model.sendMessage(
+                                  text: 'Keine Lust mehr',
+                                  receiverID: model.habitBuddy.myHabitBuddy.id);
+                            },
+                          ),
+                          ReusableCard(
+                            boxShadow: false,
+                            center: true,
+                            height: 45,
+                            color1: secondaryBlue,
+                            color2: primaryBlue,
+                            cardChild: Text(
+                              'Gut gemacht!',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            onPress: () {
+                              model.sendMessage(
+                                  text: 'Gut gemacht!',
+                                  receiverID: model.habitBuddy.myHabitBuddy.id);
+                            },
+                          ),
+                        ],
                       ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      model.buddyLevel(),
-                    ],
-                  ),
-                ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          'Buddy Level:',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        model.buddyLevel(),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
             Positioned(

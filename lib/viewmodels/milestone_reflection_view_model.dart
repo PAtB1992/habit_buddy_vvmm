@@ -9,30 +9,34 @@ class MilestoneReflectionViewModel extends BaseModel {
   final FirestoreService _firestoreService = locator<FirestoreService>();
   final DialogService _dialogService = locator<DialogService>();
 
-  Future completeMilestone(index) async {
+  Future completeMilestone(Habit habit) async {
     setBusy(true);
-    var dialogResult = await _dialogService.showConfirmationDialog(
-        title: 'Klasse!',
-        description:
-            'Bitte bestätige, dass du den Milestone erfüllt hast. Wenn man so motiviert ist wie du, kann es schon vorkommen, dass man ausversehen auf den großen leuchtenden Button drückt.',
-        cancelTitle: 'Doch nicht..',
-        confirmationTitle: 'Ja, ich bin fertig!');
-    if (dialogResult.confirmed) {
-      habitList.incrementRepetitions(index);
-    } else {
-      print('User has cancelled the dialog');
-    }
+    print(habit.habitID);
+    var result = await _firestoreService.updateHabit(
+        Habit(
+            habitID: habit.habitID,
+            name: habit.name,
+            customName: habit.customName,
+            customDescription: habit.customDescription,
+            repetitions: habit.repetitions + 1,
+            isDeleted: false),
+        currentUser);
+    print('Update result: $result');
+    habitList.incrementRepetitions(habit.listIndex);
     setBusy(false);
   }
 
   Future saveMilestoneToStore(Habit habit, int value) async {
     await _firestoreService.saveMilestone(
-        currentUser,
-        Milestone(
-            timestamp: DateTime.now(),
-            habitName: habit.name,
-            repetitions: habitList.populateRepetitions(habit.listIndex),
-            evaluation: value,
-            userId: currentUser.id));
+      currentUser,
+      Milestone(
+          timestamp: DateTime.now(),
+          habitName: habit.name,
+          repetitions: habitList.populateRepetitions(habit.listIndex),
+          evaluation: value,
+          userId: currentUser.id,
+          habitId: habit.habitID,
+          customName: habit.customName),
+    );
   }
 }

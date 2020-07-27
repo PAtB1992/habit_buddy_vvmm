@@ -24,15 +24,16 @@ class ProfileSubViewModel extends BaseModel {
       return RichText(
         text: TextSpan(
           text:
-              'Dein Habit Buddy ${habitBuddy.myHabitBuddy.username} fühlt sich derzeit etwas ',
+              'Dein Habit Buddy ${habitBuddy.myHabitBuddy.username} fühlt sich wohl derzeit insgesamt etwas ',
           style: TextStyle(
+            fontSize: 16,
             color: Color(0xFFFFFFFF),
           ),
           children: <TextSpan>[
             TextSpan(
               text: 'unmotiviert',
               style: TextStyle(
-                color: Color(0xFFFF4081),
+                color: accentColor,
               ),
             ),
             TextSpan(
@@ -46,15 +47,17 @@ class ProfileSubViewModel extends BaseModel {
       return RichText(
         text: TextSpan(
           text:
-              'Deinem Habit Buddy ${habitBuddy.myHabitBuddy.username} geht es derzeit ganz ',
+              'Deinem Habit Buddy ${habitBuddy.myHabitBuddy.username} geht es derzeit insgesamt ganz ',
           style: TextStyle(
+            fontSize: 16,
             color: Color(0xFFFFFFFF),
           ),
           children: <TextSpan>[
             TextSpan(
               text: 'gut',
               style: TextStyle(
-                color: Color(0xFFFF4081),
+                fontSize: 16,
+                color: accentColor,
               ),
             ),
             TextSpan(
@@ -68,15 +71,18 @@ class ProfileSubViewModel extends BaseModel {
     if (normalizedMood > 6 && normalizedMood < 11) {
       return RichText(
         text: TextSpan(
-          text: 'Dein Habit Buddy ${habitBuddy.myHabitBuddy.username} is sehr ',
+          text:
+              'Dein Habit Buddy ${habitBuddy.myHabitBuddy.username} ist insgesamt sehr  ',
           style: TextStyle(
+            fontSize: 16,
             color: Color(0xFFFFFFFF),
           ),
           children: <TextSpan>[
             TextSpan(
               text: 'motiviert',
               style: TextStyle(
-                color: Color(0xFFFF4081),
+                fontSize: 16,
+                color: accentColor,
               ),
             ),
             TextSpan(
@@ -91,19 +97,24 @@ class ProfileSubViewModel extends BaseModel {
           text:
               'Dein Habit Buddy ${habitBuddy.myHabitBuddy.username} hat noch ',
           style: TextStyle(
+            fontSize: 16,
             color: Color(0xFFFFFFFF),
           ),
           children: <TextSpan>[
             TextSpan(
               text: 'keine ',
               style: TextStyle(
-                color: Color(0xFFFF4081),
+                fontSize: 16,
+                color: accentColor,
               ),
             ),
             TextSpan(
-              text:
-                  'Meilensteine absolviert. Vielleicht kannst Du ihn motivieren.',
-            ),
+                text:
+                    'Meilensteine absolviert. Vielleicht kannst Du ihn motivieren.',
+                style: TextStyle(
+                  fontSize: 16,
+                  color: accentColor,
+                )),
           ],
         ),
       );

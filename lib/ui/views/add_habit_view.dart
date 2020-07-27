@@ -17,16 +17,17 @@ class AddHabitView extends StatelessWidget {
       builder: (context, model, child) => Scaffold(
         appBar: AppBar(
           title: RichText(
+            textAlign: TextAlign.center,
             text: TextSpan(
-              text: 'Verbessere ',
+              text: 'Wähle ',
               style: TextStyle(
-                  fontSize: 30,
+                  fontSize: 29,
                   color: Colors.white,
                   fontWeight: FontWeight.bold),
               children: <TextSpan>[
-                TextSpan(text: 'Dein ', style: TextStyle(color: accentColor)),
+                TextSpan(text: 'Deine ', style: TextStyle(color: accentColor)),
                 TextSpan(
-                  text: 'Leben',
+                  text: 'Habit',
                 ),
               ],
             ),
@@ -50,7 +51,7 @@ class AddHabitView extends StatelessWidget {
                   addHabitViewText,
                   textAlign: TextAlign.justify,
                   style: TextStyle(
-                    fontSize: 20.0,
+                    fontSize: 16.0,
                     color: primaryText,
                   ),
                 ),
@@ -61,6 +62,7 @@ class AddHabitView extends StatelessWidget {
                   child: GridView.count(
                     primary: false,
                     padding: const EdgeInsets.all(20),
+                    childAspectRatio: 1.2,
                     crossAxisSpacing: 10,
                     mainAxisSpacing: 10,
                     crossAxisCount: 2,
@@ -68,9 +70,8 @@ class AddHabitView extends StatelessWidget {
                       HabitSelectionCard(
                         color: primaryBlue,
                         onPress: () {
-                          model.navigateToReflectionView(
-                            "gesünder-ernähren",
-                          );
+                          model.navigateToReflectionViewAndWaitForPop(
+                              context, 'gesünder-ernähren');
                         },
                         habitIcon: Icons.fastfood,
                         cardText: 'Ich möchte mich gesünder ernähren.',
@@ -78,8 +79,8 @@ class AddHabitView extends StatelessWidget {
                       HabitSelectionCard(
                         color: primaryBlue,
                         onPress: () {
-                          model.navigateToReflectionView(
-                              "weniger-fleisch-essen");
+                          model.navigateToReflectionViewAndWaitForPop(
+                              context, 'weniger-fleisch-essen');
                         },
                         habitIcon: Icons.local_dining,
                         cardText: 'Ich möchte weniger Fleisch essen.',
@@ -87,9 +88,8 @@ class AddHabitView extends StatelessWidget {
                       HabitSelectionCard(
                         color: thirdrateBlue,
                         onPress: () {
-                          model.navigateToReflectionView(
-                            "fähigkeiten-lernen",
-                          );
+                          model.navigateToReflectionViewAndWaitForPop(
+                              context, "fähigkeiten-lernen");
                         },
                         habitIcon: Icons.palette,
                         cardText:
@@ -98,7 +98,8 @@ class AddHabitView extends StatelessWidget {
                       HabitSelectionCard(
                         color: thirdrateBlue,
                         onPress: () {
-                          model.navigateToReflectionView("sich-mehr-bewegen");
+                          model.navigateToReflectionViewAndWaitForPop(
+                              context, "sich-mehr-bewegen");
                         },
                         habitIcon: Icons.directions_run,
                         cardText: 'Ich möchte mich mehr bewegen.',
@@ -106,7 +107,8 @@ class AddHabitView extends StatelessWidget {
                       HabitSelectionCard(
                         color: fourthrateBlue,
                         onPress: () {
-                          model.navigateToReflectionView("mehr-wasser-trinken");
+                          model.navigateToReflectionViewAndWaitForPop(
+                              context, "mehr-wasser-trinken");
                         },
                         habitIcon: Icons.invert_colors,
                         cardText: 'Ich möchte mehr Wasser trinken.',
@@ -114,8 +116,8 @@ class AddHabitView extends StatelessWidget {
                       HabitSelectionCard(
                         color: fourthrateBlue,
                         onPress: () {
-                          model.navigateToReflectionView(
-                              "konzentration-steigern");
+                          model.navigateToReflectionViewAndWaitForPop(
+                              context, "konzentration-steigern");
                         },
                         habitIcon: Icons.school,
                         cardText:
@@ -128,7 +130,17 @@ class AddHabitView extends StatelessWidget {
                   height: 20,
                 ),
                 GestureDetector(
-                  child: Text('Bilder Credits'),
+                  child: Container(
+                      padding: EdgeInsets.all(6),
+                      decoration: BoxDecoration(
+                          color: fourthrateBlue,
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(10),
+                              topRight: Radius.circular(10))),
+                      child: Text(
+                        'Bilder Credits',
+                        style: TextStyle(color: Colors.white, fontSize: 11),
+                      )),
                   onTap: () {
                     _navigationService.navigateTo(PictureCreditsViewRoute);
                   },

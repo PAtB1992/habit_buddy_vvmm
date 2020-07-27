@@ -4,40 +4,55 @@ import 'package:flutter/material.dart';
 
 class Habit {
   final String name;
-  final String description;
-  int repetitions;
+  final String customDescription;
+  final String customName;
   final int listIndex;
-  String customDescription;
+  final String habitID;
+  bool isDeleted;
   IconData habitIcon;
+  int repetitions;
 
   Habit({
     @required this.name,
-    @required this.description,
-    this.customDescription,
-    this.repetitions,
+    @required this.customDescription,
+    @required this.customName,
+    this.habitID,
     this.listIndex,
+    this.isDeleted = false,
+    this.repetitions,
     this.habitIcon,
   });
 
+  Map<String, dynamic> toMap() {
+    return {
+      'name': name,
+      'customDescription': customDescription,
+      'customName': customName,
+      'repetitions': repetitions,
+      'isDeleted': isDeleted,
+//      'habitIcon': habitIcon,
+    };
+  }
+
   Habit.fromData(Map<String, dynamic> data)
       : name = data['name'],
-        description = data['description'],
-        repetitions = data['repetitions'],
-        listIndex = data['listIndex'],
         customDescription = data['customDescription'],
-        habitIcon = data['iconIcon'];
+        customName = data['customName'],
+        listIndex = data['listIndex'],
+        repetitions = data['repetitions'],
+        habitIcon = data['iconIcon'],
+        habitID = data['habitID'];
 
-  static Habit fromMap(
-    Map<String, dynamic> map,
-  ) {
+  static Habit fromMap(Map<String, dynamic> map, String documentID) {
     if (map == null) return null;
 
     return Habit(
       name: map['name'],
-      description: map['description'],
-      repetitions: map['repetitions'],
       customDescription: map['customDescription'],
+      customName: map['customName'],
+      repetitions: map['repetitions'],
       habitIcon: map['habitIcon'],
+      habitID: documentID,
     );
   }
 }

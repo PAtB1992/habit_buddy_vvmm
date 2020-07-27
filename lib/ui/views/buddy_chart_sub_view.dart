@@ -22,61 +22,68 @@ class BuddyChartSubView extends StatelessWidget {
     return ViewModelBuilder<BuddyChartSubViewModel>.reactive(
       viewModelBuilder: () => BuddyChartSubViewModel(),
       onModelReady: (model) => model.getBuddyChartItems(habitBuddy),
-      builder: (context, model, child) => Container(
-          child: Stack(
+      builder: (context, model, child) => Stack(
         children: <Widget>[
           ReusableCard(
             color1: primaryBlue,
             color2: primaryBlue,
-            cardChild: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                Flexible(
-                  child: Container(
-                    decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(10),
-                        ),
-                        color: primaryBlue),
-                    child: model.chartItems.length >= 2
-                        ? Padding(
-                            padding:
-                                EdgeInsets.only(right: 30, top: 24, bottom: 10),
-                            child: LineChart(
-                              mainData(model.chartItems ?? []),
-                            ),
-                          )
-                        : Center(
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 30.0),
-                              child: Text(
-                                minimumBuddyMilestones,
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 20),
+            cardChild: Padding(
+              padding: const EdgeInsets.all(9.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  Text(
+                    'Hier kannst Du sehen, wie viele Meilensteine Dein Buddy am Tag erfüllt.',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: Colors.white, fontSize: 15),
+                  ),
+                  Flexible(
+                    child: Container(
+                      decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(10),
+                          ),
+                          color: primaryBlue),
+                      child: model.chartItems.length >= 2
+                          ? Padding(
+                              padding: EdgeInsets.only(
+                                  right: 30, top: 24, bottom: 10),
+                              child: LineChart(
+                                mainData(model.chartItems ?? []),
+                              ),
+                            )
+                          : Center(
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 30.0),
+                                child: Text(
+                                  minimumBuddyMilestones,
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 20),
+                                ),
                               ),
                             ),
-                          ),
+                    ),
                   ),
-                ),
-                model.chartItems.length >= 2
-                    ? Row(
-                        children: <Widget>[
-                          SizedBox(
-                            width: 39,
-                          ),
-                          Text('Die letzten sieben Tage Deines Buddies.',
-                              style: TextStyle(color: Colors.white)),
-                        ],
-                      )
-                    : SizedBox(
-                        height: 5,
-                      ),
-                SizedBox(
-                  height: 5,
-                ),
-              ],
+                  model.chartItems.length >= 2
+                      ? Row(
+                          children: <Widget>[
+                            SizedBox(
+                              width: 39,
+                            ),
+                            Text('Die letzten sieben Tage Deines Buddies.',
+                                style: TextStyle(color: Colors.white)),
+                          ],
+                        )
+                      : SizedBox(
+                          height: 5,
+                        ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                ],
+              ),
             ),
           ),
           Positioned(
@@ -88,7 +95,7 @@ class BuddyChartSubView extends StatelessWidget {
             top: 160,
           ),
         ],
-      )),
+      ),
     );
   }
 

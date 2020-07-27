@@ -7,12 +7,13 @@ class HabitBuddy {
   int buddyLevel;
   List evaluationData;
 
-  HabitBuddy({
-    this.username,
-    this.id,
-    this.buddyLevel,
-    this.evaluationData,
-  });
+  HabitBuddy(
+      {this.username,
+      this.id,
+      this.buddyLevel,
+      this.evaluationData,
+      this.timestampReduced,
+      this.timestampIncreased});
 
   HabitBuddy.fromData(Map<String, dynamic> data)
       : id = data['id'],

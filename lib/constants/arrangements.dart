@@ -2,11 +2,15 @@ import 'package:flutter/material.dart';
 
 // Box Decorations
 
-BoxDecoration fieldDecortaion = BoxDecoration(
-    borderRadius: BorderRadius.circular(5), color: Colors.grey[200]);
+BoxDecoration fieldDecoration = BoxDecoration(
+  borderRadius: BorderRadius.circular(10),
+  color: Colors.red,
+);
 
-BoxDecoration disabledFieldDecortaion = BoxDecoration(
-    borderRadius: BorderRadius.circular(5), color: Colors.grey[100]);
+BoxDecoration disabledFieldDecoration = BoxDecoration(
+  borderRadius: BorderRadius.circular(10),
+  color: Colors.grey[200],
+);
 
 // Field Variables
 

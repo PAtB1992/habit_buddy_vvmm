@@ -27,7 +27,7 @@ class BuddyViewModel extends BaseModel {
   giveFirstMessage() {
     if (busy != true) {
       if (_messages.length > 0) {
-        Message firstMessage = _messages[0];
+        Message firstMessage = _messages.last;
         return firstMessage;
       }
     }

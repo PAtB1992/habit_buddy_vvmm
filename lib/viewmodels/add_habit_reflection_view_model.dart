@@ -12,28 +12,40 @@ class AddHabitReflectionViewModel extends BaseModel {
   final NavigationService _navigationService = locator<NavigationService>();
   final DialogService _dialogService = locator<DialogService>();
   final HabitList _habitList = locator<HabitList>();
+  bool addedHabit = false;
 
-  Future addHabitWithTemplate(
+  Future addHabit({
+    String customName,
     String habitName,
     String customDescription,
-  ) async {
+  }) async {
     setBusy(true);
-    if (customDescription == '') {
+    if (customName == '' || customDescription == '') {
       _dialogService.showDialog(
-          title: 'Deine Beschreibung fehlt.',
+          title: 'Deine Habitbeschreibung ist nicht vollständig.',
           description: noMilestoneDescription);
+      addedHabit = false;
     } else {
-      var habit = await _firestoreService.getHabitTemplate(habitName);
-      habit.customDescription = customDescription;
-      habit.habitIcon = habitIcon(habitName);
-      _habitList.checkListForDupes(habit.name)
-          ? _dialogService.showDialog(
-              title: 'Obacht!',
-              description: doubleMilestoneAdd,
-              buttonTitle: 'Och manno..')
-          : _habitList.addHabit(habit);
+      Habit habit = Habit(
+          name: habitName,
+          customDescription: customDescription,
+          customName: customName,
+          repetitions: 0,
+          habitIcon: habitIcon(habitName));
+
+      if (_habitList.checkListForDupes(habit.name)) {
+        _dialogService.showDialog(
+            title: 'Halt, stop!',
+            description: doubleMilestoneAdd,
+            buttonTitle: 'Alles klar.');
+      } else {
+        var result = await _firestoreService.addHabitToDB(habit, currentUser);
+        print(result);
+        _habitList.addHabit(habit);
+        addedHabit = true;
+      }
+
       setBusy(false);
-      _navigationService.pop();
     }
   }
 }

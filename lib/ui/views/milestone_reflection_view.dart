@@ -50,7 +50,7 @@ class _MilestoneReflectionViewState extends State<MilestoneReflectionView> {
                   Wrap(
                     children: <Widget>[
                       Text(
-                        widget.habit.name,
+                        widget.habit.customName,
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 30.0,
@@ -66,7 +66,7 @@ class _MilestoneReflectionViewState extends State<MilestoneReflectionView> {
               center: true,
               height: 80,
               color1: primaryBlue,
-              color2: primaryBlue,
+              color2: secondaryBlue,
               cardChild: Text(
                 milestoneFrage,
                 textAlign: TextAlign.center,
@@ -74,12 +74,12 @@ class _MilestoneReflectionViewState extends State<MilestoneReflectionView> {
               ),
             ),
             SizedBox(
-              height: 40,
+              height: 30,
             ),
             Text(
               _value.toString(),
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 70, color: primaryBlue),
+              style: TextStyle(fontSize: 90, color: primaryBlue),
             ),
             Column(
               children: <Widget>[
@@ -135,7 +135,7 @@ class _MilestoneReflectionViewState extends State<MilestoneReflectionView> {
               center: true,
               height: 50,
               color1: accentColor,
-              color2: accentColor,
+              color2: accentColorGradient,
               cardChild: Text(
                 'Meilenstein abschließen',
                 style: TextStyle(
@@ -144,7 +144,7 @@ class _MilestoneReflectionViewState extends State<MilestoneReflectionView> {
                     fontWeight: FontWeight.bold),
               ),
               onPress: () async {
-                await model.completeMilestone(widget.habit.listIndex);
+                await model.completeMilestone(widget.habit);
                 await model.saveMilestoneToStore(widget.habit, _value);
                 _navigationService.pop();
               },

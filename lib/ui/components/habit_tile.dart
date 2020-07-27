@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:habitbuddyvvmm/constants/app_colors.dart';
 
 class HabitTile extends StatelessWidget {
+  final String customName;
   final String name;
   final Function onPress;
   final Function onLongPress;
   final int repetitions;
-  final Icon habitIcon;
+  final IconData habitIcon;
   final String description;
   final String buddyEvaluation;
 
   HabitTile(
-      {this.name,
+      {this.customName,
+      this.name,
       this.onPress,
       this.repetitions,
       this.habitIcon,
@@ -24,37 +27,108 @@ class HabitTile extends StatelessWidget {
       onTap: onPress,
       onLongPress: onLongPress,
       child: Container(
+        height: 170,
         padding: EdgeInsets.all(10.0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+            Column(
               children: <Widget>[
                 Text(
-                  name,
-                  style: TextStyle(color: Colors.white, fontSize: 20.0),
+                  customName,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 25.0,
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text('Rubrik: $name',
+                        style: TextStyle(
+                          color: Colors.white,
+                        )),
+                    SizedBox(
+                      width: 3,
+                    ),
+                    Icon(
+                      habitIcon,
+                      size: 14,
+                      color: Colors.white,
+                    ),
+                  ],
                 ),
                 SizedBox(
-                  width: 5,
+                  width: 200,
+                  child: Divider(
+                    thickness: 0.8,
+                    color: accentColor,
+                  ),
                 ),
-                habitIcon,
               ],
             ),
-            SizedBox(
-              height: 10.0,
-            ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text('Dein Meilenstein: ' + description,
-                    style: TextStyle(color: Colors.white)),
-                Text(
-                  'Gesamte Wiederholungen: $repetitions',
-                  style: TextStyle(color: Colors.white),
+                Flexible(
+                  child: Column(
+                    children: <Widget>[
+                      Text('Ziel: ',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold)),
+                      SizedBox(
+                        height: 3,
+                      ),
+                      Text('$description',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(color: Colors.white, fontSize: 14)),
+                    ],
+                    mainAxisAlignment: MainAxisAlignment.start,
+                  ),
                 ),
-                Text(
-                  buddyEvaluation,
-                  style: TextStyle(color: Colors.white),
+                SizedBox(
+                  width: 30,
+                ),
+                Flexible(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text(
+                        '$repetitions',
+                        style: TextStyle(color: Colors.white, fontSize: 45),
+                      ),
+                      Text('Wiederholungen',
+                          style: TextStyle(color: Colors.white)),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  width: 30,
+                ),
+                Flexible(
+                  child: Column(
+                    children: <Widget>[
+                      Text('BuddyInfo: ',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold)),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Text(
+                        buddyEvaluation ??
+                            'Dein Buddy hat noch keinen Meilenstein absolviert.',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ],
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  ),
                 ),
               ],
             ),
@@ -62,6 +136,9 @@ class HabitTile extends StatelessWidget {
         ),
         margin: EdgeInsets.all(5.0),
         decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(color: Colors.grey, blurRadius: 3, offset: Offset(0, 2))
+          ],
           gradient: LinearGradient(
               colors: [Color(0xFF303f9f), Color(0xFF3f51b5)],
               begin: Alignment.bottomCenter,

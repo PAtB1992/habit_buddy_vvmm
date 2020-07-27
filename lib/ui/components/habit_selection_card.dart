@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:habitbuddyvvmm/constants/app_colors.dart';
 
 class HabitSelectionCard extends StatelessWidget {
   HabitSelectionCard({this.color, this.cardText, this.onPress, this.habitIcon});
@@ -9,30 +10,27 @@ class HabitSelectionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onPress,
-      child: Container(
-        alignment: Alignment(0, 0),
-        padding: EdgeInsets.all(8),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Icon(
-              habitIcon,
-              size: 40,
-              color: Colors.white,
-            ),
-            Text(
-              cardText,
-              textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.white),
-            ),
-          ],
-        ),
-        decoration: BoxDecoration(
-          color: color,
-          borderRadius: BorderRadius.circular(10.0),
-        ),
+    return RaisedButton(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+      onPressed: onPress,
+      color: color,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Icon(
+            habitIcon,
+            size: 40,
+            color: Colors.white,
+          ),
+          Text(
+            cardText,
+            textAlign: TextAlign.center,
+            style: TextStyle(color: Colors.white),
+          ),
+        ],
       ),
     );
   }

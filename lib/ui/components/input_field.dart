@@ -61,8 +61,11 @@ class _InputFieldState extends State<InputField> {
           height: widget.smallVersion ? 55 : fieldHeight,
           alignment: Alignment.centerLeft,
           padding: fieldPadding,
-          decoration:
-              widget.isReadOnly ? disabledFieldDecortaion : fieldDecortaion,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            color: Colors.grey[300],
+          ),
+//              widget.isReadOnly ? disabledFieldDecoration : fieldDecoration,
           child: Row(
             children: <Widget>[
               Expanded(

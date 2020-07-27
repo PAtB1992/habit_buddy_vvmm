@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:habitbuddyvvmm/constants/route_names.dart';
+import 'package:habitbuddyvvmm/constants/texts.dart';
 import 'package:habitbuddyvvmm/services/navigation_service.dart';
 import 'package:habitbuddyvvmm/ui/components/reusable_card.dart';
 import 'package:habitbuddyvvmm/ui/components/user_chart.dart';
@@ -30,6 +31,9 @@ class HabitDetailView extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
+                  SizedBox(
+                    width: 10.0,
+                  ),
                   CircleAvatar(
                     child: Icon(
                       habit.habitIcon,
@@ -42,17 +46,15 @@ class HabitDetailView extends StatelessWidget {
                   SizedBox(
                     width: 10.0,
                   ),
-                  Wrap(
-                    children: <Widget>[
-                      Text(
-                        habit.name,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 30.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      )
-                    ],
+                  Flexible(
+                    child: Text(
+                      habit.customName,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 30.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   )
                 ],
               ),
@@ -64,26 +66,39 @@ class HabitDetailView extends StatelessWidget {
                     center: true,
                     height: 150,
                     color1: primaryBlue,
-                    color2: primaryBlue,
-                    cardChild: Text(
-                      '${habit.customDescription}',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.white, fontSize: 20),
+                    color2: secondaryBlue,
+                    cardChild: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text('Deine Meilenstein Beschreibung: ',
+                            textAlign: TextAlign.center,
+                            style:
+                                TextStyle(color: Colors.white, fontSize: 15)),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                          '${habit.customDescription}',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(color: Colors.white, fontSize: 20),
+                        ),
+                      ],
                     ),
                   ),
                   ReusableCard(
                     center: true,
                     height: 100,
                     color1: accentColor,
-                    color2: accentColor,
+                    color2: accentColorGradient,
                     cardChild: Text(
-                      'Meilenstein eintragen',
+                      'Trage hier deinen Meilenstein ein',
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 20,
                           fontWeight: FontWeight.bold),
                     ),
                     onPress: () async {
+                      print(habit.habitID);
                       await _navigationService.navigateTo(
                           MilestoneReflectionViewRoute,
                           arguments: habit);
@@ -93,12 +108,12 @@ class HabitDetailView extends StatelessWidget {
                   ReusableCard(
                     height: 200,
                     color1: primaryBlue,
-                    color2: primaryBlue,
+                    color2: secondaryBlue,
                     cardChild: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Text(
-                          'So oft hast du schon deinen Meilenstein erreicht:',
+                          'So oft hast Du deinen Meilenstein schon erreicht:',
                           style: TextStyle(color: Colors.white, fontSize: 20),
                           textAlign: TextAlign.center,
                           //TODO beim Tap Kalender anzeigen (optional!)
@@ -116,9 +131,9 @@ class HabitDetailView extends StatelessWidget {
                     center: true,
                     height: 150,
                     color1: primaryBlue,
-                    color2: primaryBlue,
+                    color2: secondaryBlue,
                     cardChild: Text(
-                      '${habit.description}',
+                      chartDescription,
                       textAlign: TextAlign.center,
                       style: TextStyle(color: Colors.white, fontSize: 20),
                     ),
