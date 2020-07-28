@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:habitbuddyvvmm/constants/route_names.dart';
 import 'package:habitbuddyvvmm/models/stats.dart';
 import 'package:habitbuddyvvmm/services/firestore_service.dart';
 import 'package:habitbuddyvvmm/locator.dart';

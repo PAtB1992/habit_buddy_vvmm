@@ -7,7 +7,6 @@ import 'package:habitbuddyvvmm/viewmodels/base_model.dart';
 import 'package:habitbuddyvvmm/locator.dart';
 import 'package:habitbuddyvvmm/constants/route_names.dart';
 import 'package:habitbuddyvvmm/services/firestore_service.dart';
-import 'package:habitbuddyvvmm/locator.dart';
 
 class AddHabitViewModel extends BaseModel {
   final NavigationService _navigationService = locator<NavigationService>();

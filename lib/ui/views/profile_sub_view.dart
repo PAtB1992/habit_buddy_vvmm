@@ -5,9 +5,9 @@ import 'package:habitbuddyvvmm/models/message.dart';
 import 'package:habitbuddyvvmm/ui/components/reusable_card.dart';
 import 'package:habitbuddyvvmm/constants/app_colors.dart';
 import 'package:habitbuddyvvmm/viewmodels/buddy_view_model.dart';
-import 'package:habitbuddyvvmm/viewmodels/profile_sub_view_model.dart';
 import 'package:stacked/_viewmodel_builder.dart';
 
+// ignore: must_be_immutable
 class ProfileSubView extends StatefulWidget {
   HabitBuddy habitBuddy;
   Message firstMessage;

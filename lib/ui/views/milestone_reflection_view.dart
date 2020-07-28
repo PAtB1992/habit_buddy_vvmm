@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:habitbuddyvvmm/constants/texts.dart';
 import 'package:habitbuddyvvmm/constants/app_colors.dart';
 import 'package:habitbuddyvvmm/models/habit.dart';
-import 'package:habitbuddyvvmm/services/navigation_service.dart';
 import 'package:habitbuddyvvmm/ui/components/reusable_card.dart';
 import 'package:stacked/stacked.dart';
-import 'package:habitbuddyvvmm/locator.dart';
 import 'package:habitbuddyvvmm/viewmodels/milestone_reflection_view_model.dart';
 
 class MilestoneReflectionView extends StatefulWidget {
@@ -17,7 +15,6 @@ class MilestoneReflectionView extends StatefulWidget {
 }
 
 class _MilestoneReflectionViewState extends State<MilestoneReflectionView> {
-  final NavigationService _navigationService = locator<NavigationService>();
   int _value = 5;
 
   @override

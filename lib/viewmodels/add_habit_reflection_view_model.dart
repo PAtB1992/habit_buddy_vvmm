@@ -1,5 +1,4 @@
 import 'package:habitbuddyvvmm/services/dialog_service.dart';
-import 'package:habitbuddyvvmm/services/navigation_service.dart';
 import 'package:habitbuddyvvmm/ui/components/dynamic_components.dart';
 import 'package:habitbuddyvvmm/viewmodels/base_model.dart';
 import 'package:habitbuddyvvmm/locator.dart';
@@ -9,7 +8,6 @@ import 'package:habitbuddyvvmm/constants/texts.dart';
 
 class AddHabitReflectionViewModel extends BaseModel {
   final FirestoreService _firestoreService = locator<FirestoreService>();
-  final NavigationService _navigationService = locator<NavigationService>();
   final DialogService _dialogService = locator<DialogService>();
   final HabitList _habitList = locator<HabitList>();
   bool addedHabit = false;

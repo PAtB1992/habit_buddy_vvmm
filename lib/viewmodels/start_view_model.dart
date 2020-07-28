@@ -1,5 +1,4 @@
 import 'package:habitbuddyvvmm/models/habit_buddy.dart';
-import 'package:habitbuddyvvmm/models/stats.dart';
 import 'package:habitbuddyvvmm/services/authentication_service.dart';
 import 'package:habitbuddyvvmm/services/firestore_service.dart';
 import 'package:habitbuddyvvmm/services/navigation_service.dart';
