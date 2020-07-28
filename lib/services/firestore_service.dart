@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:habitbuddyvvmm/models/chart_data.dart';
 import 'package:habitbuddyvvmm/models/habit_buddy.dart';
 import 'package:habitbuddyvvmm/models/milestone.dart';
+import 'package:habitbuddyvvmm/models/stats.dart';
 import 'package:habitbuddyvvmm/models/user.dart';
 import 'package:habitbuddyvvmm/models/message.dart';
 import 'package:habitbuddyvvmm/models/habit.dart';
@@ -11,12 +12,13 @@ import 'package:habitbuddyvvmm/models/habit.dart';
 import '../locator.dart';
 
 class FirestoreService {
+  final CollectionReference _statsCollectionReference =
+      Firestore.instance.collection('statistics');
   final CollectionReference _usersCollectionReference =
       Firestore.instance.collection('users');
   final CollectionReference _messagesCollectionReference =
       Firestore.instance.collection('messages');
-  final CollectionReference _habitsCollectionReference =
-      Firestore.instance.collection('habits');
+
   final StreamController<List<Message>> _messagesController =
       StreamController<List<Message>>.broadcast();
   final StreamController<List<Milestone>> _milestonesController =
@@ -39,6 +41,17 @@ class FirestoreService {
       return User.fromData(userData.data);
     } catch (e) {
       return e.message;
+    }
+  }
+
+  Future addStats(Statistics stats) async {
+    try {
+      await _statsCollectionReference.add(stats.toMap());
+    } catch (e) {
+      if (e is PlatformException) {
+        return e.message;
+      }
+      return e.toString();
     }
   }
 
@@ -115,7 +128,8 @@ class FirestoreService {
       await _usersCollectionReference
           .document(user.id)
           .collection('habits')
-          .add(habit.toMap());
+          .document(habit.customName)
+          .setData(habit.toMap());
     } catch (e) {
       if (e is PlatformException) {
         return e.message;

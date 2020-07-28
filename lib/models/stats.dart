@@ -1,17 +1,17 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
-
 class Statistics {
+  final String userID;
   final String pageViewName;
   final timestamp;
 
   Statistics({
-    @required this.pageViewName,
-    @required this.timestamp,
+    this.userID,
+    this.pageViewName,
+    this.timestamp,
   });
 
   Map<String, dynamic> toMap() {
     return {
+      'userID': userID,
       'pageViewName': pageViewName,
       'timestamp': timestamp,
     };

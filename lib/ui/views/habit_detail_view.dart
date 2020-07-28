@@ -98,10 +98,11 @@ class HabitDetailView extends StatelessWidget {
                           fontWeight: FontWeight.bold),
                     ),
                     onPress: () async {
-                      print(habit.habitID);
-                      await _navigationService.navigateTo(
-                          MilestoneReflectionViewRoute,
-                          arguments: habit);
+//                      await _navigationService.navigateTo(
+//                          MilestoneReflectionViewRoute,
+//                          arguments: habit);
+                      model.navigateToReflectionViewAndWaitForPop(
+                          context, habit);
                       model.getRepetitions(habit.listIndex);
                     },
                   ),

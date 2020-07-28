@@ -20,7 +20,6 @@ class HomeViewModel extends BaseModel {
     notifyListeners();
   }
 
-  //TODO delete habit eventuell habit flaggen in DB?
   Future deleteHabit(Habit habit) async {
     setBusy(true);
     var dialogResult = await _dialogService.showConfirmationDialog(
@@ -162,13 +161,11 @@ class HomeViewModel extends BaseModel {
   Future fetchHabits() async {
     setBusy(true);
     var habitResults = await _firestoreService.getHabits(currentUser);
-    print(habitResults);
     setBusy(false);
 
     if (habitResults is List<Habit>) {
       for (Habit habit in habitResults) {
         habitList.addHabit(habit);
-        print(habit.habitID);
       }
       notifyListeners();
     }

@@ -189,6 +189,10 @@ class BuddyChartSubView extends StatelessWidget {
                 return '7';
               case 8:
                 return '8';
+              case 9:
+                return '9';
+              case 10:
+                return '10';
             }
             return '';
           },
@@ -201,7 +205,7 @@ class BuddyChartSubView extends StatelessWidget {
       minX: 1,
       maxX: 7,
       minY: 0,
-      maxY: 8,
+      maxY: 10,
       lineBarsData: [
         LineChartBarData(
           spots: convertIntoFLSpots(),

@@ -30,6 +30,5 @@ class BuddyChartSubViewModel extends BaseModel {
       notifyListeners();
     }
     setBusy(false);
-    print(busy);
   }
 }

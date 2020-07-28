@@ -10,6 +10,12 @@ import 'package:habitbuddyvvmm/ui/views/registration_view.dart';
 import 'package:habitbuddyvvmm/ui/views/buddy_view.dart';
 import 'package:habitbuddyvvmm/ui/views/habit_detail_view.dart';
 import 'package:habitbuddyvvmm/ui/views/add_habit_reflection_view.dart';
+import 'package:habitbuddyvvmm/locator.dart';
+import 'package:habitbuddyvvmm/services/firestore_service.dart';
+import 'package:habitbuddyvvmm/models/stats.dart';
+import 'package:habitbuddyvvmm/viewmodels/base_model.dart';
+
+final FirestoreService _firestoreService = locator<FirestoreService>();
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {

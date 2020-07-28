@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:habitbuddyvvmm/services/firestore_service.dart';
 import 'package:habitbuddyvvmm/ui/components/habit_tile.dart';
-import 'package:habitbuddyvvmm/ui/components/reusable_card.dart';
 import 'package:habitbuddyvvmm/constants/app_colors.dart';
 import 'package:habitbuddyvvmm/viewmodels/home_view_model.dart';
 import 'package:habitbuddyvvmm/services/navigation_service.dart';
@@ -8,7 +8,6 @@ import 'package:habitbuddyvvmm/locator.dart';
 import 'package:habitbuddyvvmm/constants/route_names.dart';
 import 'package:stacked/_viewmodel_builder.dart';
 import 'package:habitbuddyvvmm/models/habit.dart';
-import 'package:habitbuddyvvmm/models/habit_buddy.dart';
 import 'package:habitbuddyvvmm/ui/components/dynamic_components.dart';
 
 class HomeView extends StatelessWidget {

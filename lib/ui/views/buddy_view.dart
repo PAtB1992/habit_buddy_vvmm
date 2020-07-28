@@ -67,11 +67,12 @@ class BuddyView extends StatelessWidget {
               Container(
                 height: 350,
                 child: PageView(
+                  onPageChanged: model.onPageChanged,
                   controller: controller,
                   children: <Widget>[
                     ProfileSubView(
                         habitBuddy: habitBuddy,
-                        firstMessage: model.giveFirstMessage() ??
+                        firstMessage: model.firstMessage ??
                             Message(timestamp: DateTime.now())),
                     BuddyChartSubView(
                       habitBuddy: model.habitBuddy,

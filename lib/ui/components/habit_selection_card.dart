@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:habitbuddyvvmm/constants/app_colors.dart';
 
 class HabitSelectionCard extends StatelessWidget {
   HabitSelectionCard({this.color, this.cardText, this.onPress, this.habitIcon});

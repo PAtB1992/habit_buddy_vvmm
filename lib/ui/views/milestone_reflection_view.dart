@@ -146,7 +146,7 @@ class _MilestoneReflectionViewState extends State<MilestoneReflectionView> {
               onPress: () async {
                 await model.completeMilestone(widget.habit);
                 await model.saveMilestoneToStore(widget.habit, _value);
-                _navigationService.pop();
+                Navigator.pop(context, model.completedMilestone);
               },
             ),
             SizedBox(

@@ -1,17 +1,17 @@
 import 'package:habitbuddyvvmm/models/habit.dart';
 import 'package:habitbuddyvvmm/models/milestone.dart';
-import 'package:habitbuddyvvmm/services/dialog_service.dart';
 import 'package:habitbuddyvvmm/services/firestore_service.dart';
 import 'package:habitbuddyvvmm/locator.dart';
 import 'package:habitbuddyvvmm/viewmodels/base_model.dart';
 
 class MilestoneReflectionViewModel extends BaseModel {
   final FirestoreService _firestoreService = locator<FirestoreService>();
-  final DialogService _dialogService = locator<DialogService>();
+  bool completedMilestone = false;
 
   Future completeMilestone(Habit habit) async {
     setBusy(true);
-    print(habit.habitID);
+
+    print(habitList.habitList[habit.listIndex].repetitions);
     var result = await _firestoreService.updateHabit(
         Habit(
             habitID: habit.habitID,
@@ -22,11 +22,13 @@ class MilestoneReflectionViewModel extends BaseModel {
             isDeleted: false),
         currentUser);
     print('Update result: $result');
+    notifyListeners();
     habitList.incrementRepetitions(habit.listIndex);
     setBusy(false);
   }
 
   Future saveMilestoneToStore(Habit habit, int value) async {
+    setBusy(true);
     await _firestoreService.saveMilestone(
       currentUser,
       Milestone(
@@ -38,5 +40,7 @@ class MilestoneReflectionViewModel extends BaseModel {
           habitId: habit.habitID,
           customName: habit.customName),
     );
+    completedMilestone = true;
+    setBusy(false);
   }
 }

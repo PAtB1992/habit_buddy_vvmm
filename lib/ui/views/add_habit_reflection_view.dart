@@ -47,7 +47,7 @@ class AddHabitReflectionView extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 child: InputField(
-                  formatter: LengthLimitingTextInputFormatter(18),
+                  formatter: LengthLimitingTextInputFormatter(25),
                   smallVersion: true,
                   placeholder: 'Schreibe hier den Namen Deiner Habit.',
                   controller: nameController,

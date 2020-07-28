@@ -27,6 +27,7 @@ class AddHabitReflectionViewModel extends BaseModel {
       addedHabit = false;
     } else {
       Habit habit = Habit(
+          habitID: customName,
           name: habitName,
           customDescription: customDescription,
           customName: customName,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:habitbuddyvvmm/services/route_observer.dart';
 import 'package:habitbuddyvvmm/ui/router.dart';
 import 'package:habitbuddyvvmm/locator.dart';
 import 'package:habitbuddyvvmm/services/navigation_service.dart';
@@ -20,11 +21,10 @@ class MyApp extends StatelessWidget {
       builder: (context, child) => Navigator(
         key: locator<DialogService>().dialogNavigationKey,
         onGenerateRoute: (settings) => MaterialPageRoute(
-            builder: (context) => DialogManager(child: child)),
+          builder: (context) => DialogManager(child: child),
+        ),
       ),
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      navigatorObservers: [MyRouteObserver()],
       home: StartView(),
       navigatorKey: locator<NavigationService>().navigationKey,
       onGenerateRoute: generateRoute,

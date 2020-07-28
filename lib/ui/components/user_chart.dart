@@ -1,7 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:habitbuddyvvmm/constants/app_colors.dart';
-import 'package:habitbuddyvvmm/constants/texts.dart';
 
 // ignore: must_be_immutable
 class UserChart extends StatelessWidget {

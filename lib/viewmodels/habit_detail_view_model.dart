@@ -1,13 +1,16 @@
+import 'package:flutter/material.dart';
 import 'package:habitbuddyvvmm/locator.dart';
 import 'package:habitbuddyvvmm/models/chart_data.dart';
-import 'package:habitbuddyvvmm/services/dialog_service.dart';
-import 'package:habitbuddyvvmm/services/firestore_service.dart';
-import 'package:habitbuddyvvmm/viewmodels/base_model.dart';
 import 'package:habitbuddyvvmm/models/habit.dart';
+import 'package:habitbuddyvvmm/models/stats.dart';
+import 'package:habitbuddyvvmm/services/firestore_service.dart';
+import 'package:habitbuddyvvmm/services/navigation_service.dart';
+import 'package:habitbuddyvvmm/ui/views/milestone_reflection_view.dart';
+import 'package:habitbuddyvvmm/viewmodels/base_model.dart';
 
 class HabitDetailViewModel extends BaseModel {
-  final DialogService _dialogService = locator<DialogService>();
   final FirestoreService _firestoreService = locator<FirestoreService>();
+  final NavigationService _navigationService = locator<NavigationService>();
 
   List _chartItems = [];
   List get chartItems => _chartItems;
@@ -33,5 +36,27 @@ class HabitDetailViewModel extends BaseModel {
       }
     }
     setBusy(false);
+  }
+
+  navigateToReflectionViewAndWaitForPop(
+      BuildContext context, Habit habit) async {
+    try {
+      _firestoreService.addStats(Statistics(
+          userID: currentUser.id,
+          pageViewName: 'MilestoneReflectionView',
+          timestamp: DateTime.now()));
+      final result = await Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => MilestoneReflectionView(
+                  habit: habit,
+                )),
+      );
+      if (result) {
+        _navigationService.pop();
+      }
+    } catch (e) {
+      print('Result = ${e.message}');
+    }
   }
 }

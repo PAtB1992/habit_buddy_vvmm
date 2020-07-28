@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:habitbuddyvvmm/models/stats.dart';
 import 'package:habitbuddyvvmm/services/firestore_service.dart';
 import 'package:habitbuddyvvmm/services/authentication_service.dart';
 import 'package:habitbuddyvvmm/services/dialog_service.dart';
@@ -17,4 +18,5 @@ void setupLocator() {
   locator.registerLazySingleton(() => PushNotificationService());
   locator.registerLazySingleton(() => HabitList());
   locator.registerLazySingleton(() => HabitBuddy());
+  locator.registerLazySingleton(() => Statistics());
 }

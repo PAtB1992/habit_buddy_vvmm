@@ -113,7 +113,7 @@ class ProfileSubViewModel extends BaseModel {
                     'Meilensteine absolviert. Vielleicht kannst Du ihn motivieren.',
                 style: TextStyle(
                   fontSize: 16,
-                  color: accentColor,
+                  color: Colors.white,
                 )),
           ],
         ),
@@ -226,18 +226,26 @@ class ProfileSubViewModel extends BaseModel {
   }
 
   Future reduceBuddyLevel(Message firstMessage) async {
+    print('hallo?');
     setBusy(true);
     if (habitBuddy.myHabitBuddy.buddyLevel > 0 &&
         habitBuddy.myHabitBuddy.timestampReduced == null) {
+      print('hallo??');
       var firstMessageTimestamp = firstMessage.timestamp.millisecondsSinceEpoch;
+      print(
+          'First Message ${DateTime.fromMillisecondsSinceEpoch(firstMessageTimestamp)}');
       var thresholdDay =
-          DateTime.now().subtract(Duration(days: 1)).millisecondsSinceEpoch;
+          new DateTime.now().subtract(Duration(days: 1)).millisecondsSinceEpoch;
+      print(
+          'Threshold Timestamp: ${DateTime.fromMillisecondsSinceEpoch(thresholdDay)}');
+      print('1.zweiter if: ${thresholdDay > firstMessageTimestamp}');
       if (thresholdDay > firstMessageTimestamp) {
         habitBuddy.myHabitBuddy.timestampReduced = DateTime.now();
         habitBuddy.myHabitBuddy.buddyLevel -= 1;
+        print(habitBuddy.myHabitBuddy.buddyLevel);
+        notifyListeners();
         await _firestoreService.updateBuddyTimestamp(
             habitBuddy.myHabitBuddy, currentUser.id);
-        notifyListeners();
       }
     }
     if (habitBuddy.myHabitBuddy.buddyLevel > 0 &&
@@ -249,9 +257,10 @@ class ProfileSubViewModel extends BaseModel {
       if (thresholdDay > reduceDate) {
         habitBuddy.myHabitBuddy.timestampReduced = DateTime.now();
         habitBuddy.myHabitBuddy.buddyLevel -= 1;
+        print(habitBuddy.myHabitBuddy.buddyLevel);
+        notifyListeners();
         await _firestoreService.updateBuddyTimestamp(
             habitBuddy.myHabitBuddy, currentUser.id);
-        notifyListeners();
       }
     }
     setBusy(false);
