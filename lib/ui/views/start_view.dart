@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:habitbuddyvvmm/constants/app_colors.dart';
 import 'package:habitbuddyvvmm/constants/route_names.dart';
@@ -39,12 +40,15 @@ class StartView extends StatelessWidget {
                   SizedBox(
                     width: 10,
                   ),
-                  Text(
-                    'Habit Buddy',
-                    style: TextStyle(
-                      color: primaryText,
-                      fontSize: 50.0,
-                      fontWeight: FontWeight.bold,
+                  Expanded(
+                    child: AutoSizeText(
+                      'Habit Buddy',
+                      style: TextStyle(
+                        color: primaryText,
+                        fontSize: 80.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      maxLines: 1,
                     ),
                   ),
                 ],

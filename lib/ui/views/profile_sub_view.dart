@@ -169,6 +169,7 @@ class _ProfileSubViewState extends State<ProfileSubView> {
                             color2: primaryBlue,
                             cardChild: Text(
                               'Gut gemacht!',
+                              textAlign: TextAlign.center,
                               style: TextStyle(color: Colors.white),
                             ),
                             onPress: () {

@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:habitbuddyvvmm/constants/app_colors.dart';
 
@@ -10,6 +11,7 @@ class HabitTile extends StatelessWidget {
   final IconData habitIcon;
   final String description;
   final String buddyEvaluation;
+  final bool hasHabitBuddy;
 
   HabitTile(
       {this.customName,
@@ -19,7 +21,8 @@ class HabitTile extends StatelessWidget {
       this.habitIcon,
       this.description,
       this.onLongPress,
-      this.buddyEvaluation});
+      this.buddyEvaluation,
+      this.hasHabitBuddy});
 
   @override
   Widget build(BuildContext context) {
@@ -30,16 +33,21 @@ class HabitTile extends StatelessWidget {
         height: 170,
         padding: EdgeInsets.all(10.0),
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Column(
+              mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                Text(
-                  customName,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 25.0,
+                Flexible(
+                  child: AutoSizeText(
+                    customName,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 25.0,
+                    ),
+                    maxLines: 1,
                   ),
                 ),
                 Row(
@@ -68,70 +76,135 @@ class HabitTile extends StatelessWidget {
                 ),
               ],
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Flexible(
-                  child: Column(
-                    children: <Widget>[
-                      Text('Ziel: ',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold)),
-                      SizedBox(
-                        height: 3,
-                      ),
-                      Text('$description',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(color: Colors.white, fontSize: 14)),
-                    ],
-                    mainAxisAlignment: MainAxisAlignment.start,
-                  ),
-                ),
-                SizedBox(
-                  width: 30,
-                ),
-                Flexible(
-                  child: Column(
+            hasHabitBuddy
+                ? Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
-                      Text(
-                        '$repetitions',
-                        style: TextStyle(color: Colors.white, fontSize: 45),
+                      Expanded(
+                        child: Column(
+                          children: <Widget>[
+                            Text('Ziel: ',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold)),
+                            SizedBox(
+                              height: 3,
+                            ),
+                            Flexible(
+                              child: AutoSizeText(
+                                '$description',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 14),
+                                maxLines: 3,
+                              ),
+                            ),
+                          ],
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                        ),
                       ),
-                      Text('Wiederholungen',
-                          style: TextStyle(color: Colors.white)),
+                      Expanded(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Text(
+                              '$repetitions',
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 45),
+                            ),
+                            Flexible(
+                              child: AutoSizeText(
+                                'Wiederholungen',
+                                style: TextStyle(color: Colors.white),
+                                maxLines: 1,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        child: Column(
+                          children: <Widget>[
+                            Text('BuddyInfo: ',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold)),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            Flexible(
+                              child: AutoSizeText(
+                                buddyEvaluation ??
+                                    'Dein Buddy hat noch keinen Meilenstein absolviert.',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(color: Colors.white),
+                                maxLines: 3,
+                              ),
+                            ),
+                          ],
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        ),
+                      ),
                     ],
-                  ),
-                ),
-                SizedBox(
-                  width: 30,
-                ),
-                Flexible(
-                  child: Column(
-                    children: <Widget>[
-                      Text('BuddyInfo: ',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold)),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Text(
-                        buddyEvaluation ??
-                            'Dein Buddy hat noch keinen Meilenstein absolviert.',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ],
+                  )
+                : Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  ),
-                ),
-              ],
-            ),
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Expanded(
+                        child: Column(
+                          children: <Widget>[
+                            Text('Ziel: ',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold)),
+                            SizedBox(
+                              height: 3,
+                            ),
+                            Flexible(
+                              child: AutoSizeText(
+                                '$description',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 14),
+                                maxLines: 3,
+                              ),
+                            ),
+                          ],
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                        ),
+                      ),
+                      Expanded(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Text(
+                              '$repetitions',
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 45),
+                            ),
+                            Flexible(
+                              child: AutoSizeText(
+                                'Wiederholungen',
+                                style: TextStyle(color: Colors.white),
+                                maxLines: 1,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  )
           ],
         ),
         margin: EdgeInsets.all(5.0),
