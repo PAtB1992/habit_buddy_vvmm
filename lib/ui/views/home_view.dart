@@ -31,165 +31,169 @@ class HomeView extends StatelessWidget {
           },
           child: Icon(Icons.add),
         ),
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-//          Header
-            Container(
-              decoration: BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                      color: Colors.grey, blurRadius: 6, offset: Offset(0, 2.5))
-                ],
-                color: primaryBlue,
-              ),
-              padding: EdgeInsets.only(top: 60.0, bottom: 30.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  CircleAvatar(
-                    child: Icon(
-                      Icons.child_care,
-                      size: 30.0,
-                      color: accentColor,
-                    ),
-                    backgroundColor: Colors.white,
-                    radius: 30.0,
-                  ),
-                  SizedBox(
-                    width: 10.0,
-                  ),
-                  Text(
-                    'Habit Buddy',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 30.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Container(
+        body: Container(
+          color: primaryBlue,
+          child: SafeArea(
+            child: Container(
               color: Colors.white,
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
-                    child: SizedBox(
-                      height: 40,
-                      child: RaisedButton(
-                        color: accentColor,
-                        elevation: 3,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        onPressed: hasHabitBuddy
-                            ? () {
-                                model.averageBuddyFeeling();
-                                _navigationService.navigateTo(BuddyViewRoute,
-                                    arguments: model.habitBuddy.myHabitBuddy);
-                              }
-                            : () {},
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: <Widget>[
-                            hasHabitBuddy
-                                ? Text(
-                                    'Schaue hier, was Dein Habit Buddy macht!',
-                                    style: TextStyle(color: Colors.white),
-                                  )
-                                : Flexible(
-                                    child: AutoSizeText(
-                                      'Hallo, ich bin dein Habit Buddy, lass uns loslegen!',
-                                      style: TextStyle(color: Colors.white),
-                                      maxLines: 1,
-                                    ),
-                                  ),
-                            Hero(
-                              tag: 'icon',
-                              child: Icon(
-                                Icons.child_care,
-                                color: Colors.white,
-                              ),
+                  Material(
+                    elevation: 14,
+                    child: Container(
+                      color: primaryBlue,
+                      padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          CircleAvatar(
+                            child: Icon(
+                              Icons.child_care,
+                              size: 30.0,
+                              color: accentColor,
                             ),
-                          ],
-                        ),
+                            backgroundColor: Colors.white,
+                            radius: 30.0,
+                          ),
+                          SizedBox(
+                            width: 10.0,
+                          ),
+                          Text(
+                            'Habit Buddy',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 30.0,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
-                  SizedBox(
-                    height: 25,
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: Column(
+                        children: <Widget>[
+                          Column(
+                            children: <Widget>[
+                              SizedBox(
+                                height: 10,
+                              ),
+                              RaisedButton(
+                                color: accentColor,
+                                elevation: 3,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                                onPressed: hasHabitBuddy
+                                    ? () {
+                                        model.averageBuddyFeeling();
+                                        _navigationService.navigateTo(
+                                            BuddyViewRoute,
+                                            arguments:
+                                                model.habitBuddy.myHabitBuddy);
+                                      }
+                                    : () {},
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: <Widget>[
+                                    hasHabitBuddy
+                                        ? Text(
+                                            'Schaue hier, was Dein Habit Buddy macht!',
+                                            style:
+                                                TextStyle(color: Colors.white),
+                                          )
+                                        : Flexible(
+                                            child: AutoSizeText(
+                                              'Hallo, ich bin dein Habit Buddy, lass uns loslegen!',
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                              maxLines: 1,
+                                            ),
+                                          ),
+                                    Hero(
+                                      tag: 'icon',
+                                      child: Icon(
+                                        Icons.child_care,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              model.habitList.habitCount == 0
+                                  ? AutoSizeText(
+                                      'Füge auf dem Plusbutton eine Habit hinzu und starte durch!',
+                                      style: TextStyle(color: primaryText),
+                                      maxLines: 1,
+                                    )
+                                  : AutoSizeText(
+                                      'Derzeit verfolgst Du ${model.habitList.habitCount} Ziele, bleib dran und wachse an Dir!',
+                                      style: TextStyle(color: primaryText),
+                                      maxLines: 1,
+                                    ),
+                            ],
+                          ),
+                          Expanded(
+                            //      flex: 4,
+                            child: MediaQuery.removePadding(
+                                context: context,
+                                removeTop: true,
+                                child: ListView.builder(
+                                  itemBuilder: (context, index) {
+                                    final habit =
+                                        model.habitList.habitList[index];
+                                    return HabitTile(
+                                      customName: habit.customName,
+                                      name: dynamicCategory(habit.name),
+                                      repetitions: habit.repetitions,
+                                      description: habit.customDescription,
+                                      habitIcon: habitIcon(habit.name),
+                                      hasHabitBuddy: hasHabitBuddy,
+                                      buddyEvaluation: hasHabitBuddy
+                                          ? model.buddyEvaluation(
+                                                  model.milestones,
+                                                  habit.name) ??
+                                              'Dein Habit Buddy hat diese Rubrik nicht.'
+                                          : '',
+                                      onLongPress: () {
+                                        model.deleteHabit(habit);
+                                      },
+                                      onPress: () async {
+                                        await _navigationService.navigateTo(
+                                          HabitDetailViewRoute,
+                                          arguments: Habit(
+                                            habitID: habit.habitID,
+                                            name: habit.name,
+                                            customDescription:
+                                                habit.customDescription,
+                                            customName: habit.customName,
+                                            listIndex: index,
+                                            repetitions: habit.repetitions,
+                                            habitIcon: habitIcon(habit.name),
+                                          ),
+                                        );
+                                        model.setBusy(false);
+                                      },
+                                    );
+                                  },
+                                  itemCount: model.habitList.habitCount,
+                                )),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ],
               ),
             ),
-
-            Container(
-              padding: EdgeInsets.only(left: 15, right: 15, bottom: 10),
-              color: Colors.white,
-              child: model.habitList.habitCount == 0
-                  ? Text(
-                      'Füge auf dem Plusbutton eine Habit hinzu und starte durch!',
-                      style: TextStyle(color: primaryText),
-                    )
-                  : Flexible(
-                      child: AutoSizeText(
-                        'Derzeit verfolgst Du ${model.habitList.habitCount} Ziele, bleib dran und wachse an Dir!',
-                        style: TextStyle(color: primaryText),
-                        maxLines: 1,
-                      ),
-                    ),
-            ),
-            Flexible(
-              child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 15),
-                color: Colors.white,
-                child: Center(
-                    child: MediaQuery.removePadding(
-                        context: context,
-                        removeTop: true,
-                        child: ListView.builder(
-                          itemBuilder: (context, index) {
-                            final habit = model.habitList.habitList[index];
-                            return HabitTile(
-                              customName: habit.customName,
-                              name: dynamicCategory(habit.name),
-                              repetitions: habit.repetitions,
-                              description: habit.customDescription,
-                              habitIcon: habitIcon(habit.name),
-                              hasHabitBuddy: hasHabitBuddy,
-                              buddyEvaluation: hasHabitBuddy
-                                  ? model.buddyEvaluation(
-                                          model.milestones, habit.name) ??
-                                      'Dein Habit Buddy hat diese Rubrik nicht.'
-                                  : '',
-                              onLongPress: () {
-                                model.deleteHabit(habit);
-                              },
-                              onPress: () async {
-                                await _navigationService.navigateTo(
-                                  HabitDetailViewRoute,
-                                  arguments: Habit(
-                                    habitID: habit.habitID,
-                                    name: habit.name,
-                                    customDescription: habit.customDescription,
-                                    customName: habit.customName,
-                                    listIndex: index,
-                                    repetitions: habit.repetitions,
-                                    habitIcon: habitIcon(habit.name),
-                                  ),
-                                );
-                                model.setBusy(false);
-                              },
-                            );
-                          },
-                          itemCount: model.habitList.habitCount,
-                        ))),
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );

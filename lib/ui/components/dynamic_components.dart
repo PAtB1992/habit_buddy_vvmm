@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -8,8 +9,8 @@ import 'package:habitbuddyvvmm/constants/texts.dart';
 AppBar appBarStyle(String habitName) {
   if (habitName == 'gesünder-ernähren') {
     return AppBar(
-      title: RichText(
-        text: TextSpan(
+      title: AutoSizeText.rich(
+        TextSpan(
           text: 'Gesünder ',
           style: TextStyle(
               fontSize: 30, color: Colors.white, fontWeight: FontWeight.bold),
@@ -20,14 +21,15 @@ AppBar appBarStyle(String habitName) {
 //            ),
           ],
         ),
+        maxLines: 1,
       ),
       backgroundColor: primaryBlue,
     );
   }
   if (habitName == 'weniger-fleisch-essen') {
     return AppBar(
-      title: RichText(
-        text: TextSpan(
+      title: AutoSizeText.rich(
+        TextSpan(
           text: 'Weniger ',
           style: TextStyle(
               fontSize: 30, color: Colors.white, fontWeight: FontWeight.bold),
@@ -38,14 +40,15 @@ AppBar appBarStyle(String habitName) {
             ),
           ],
         ),
+        maxLines: 1,
       ),
       backgroundColor: primaryBlue,
     );
   }
   if (habitName == 'fähigkeiten-lernen') {
     return AppBar(
-      title: RichText(
-        text: TextSpan(
+      title: AutoSizeText.rich(
+        TextSpan(
           text: 'Fähigkeit ',
           style: TextStyle(
               fontSize: 30, color: Colors.white, fontWeight: FontWeight.bold),
@@ -56,14 +59,15 @@ AppBar appBarStyle(String habitName) {
 //            ),
           ],
         ),
+        maxLines: 1,
       ),
       backgroundColor: primaryBlue,
     );
   }
   if (habitName == 'sich-mehr-bewegen') {
     return AppBar(
-      title: RichText(
-        text: TextSpan(
+      title: AutoSizeText.rich(
+        TextSpan(
           text: 'Mehr ',
           style: TextStyle(
               fontSize: 30, color: Colors.white, fontWeight: FontWeight.bold),
@@ -74,14 +78,15 @@ AppBar appBarStyle(String habitName) {
 //            ),
           ],
         ),
+        maxLines: 1,
       ),
       backgroundColor: primaryBlue,
     );
   }
   if (habitName == 'mehr-wasser-trinken') {
     return AppBar(
-      title: RichText(
-        text: TextSpan(
+      title: AutoSizeText.rich(
+        TextSpan(
           text: 'Mehr ',
           style: TextStyle(
               fontSize: 30, color: Colors.white, fontWeight: FontWeight.bold),
@@ -92,13 +97,14 @@ AppBar appBarStyle(String habitName) {
             ),
           ],
         ),
+        maxLines: 1,
       ),
       backgroundColor: primaryBlue,
     );
   } else {
     return AppBar(
-      title: RichText(
-        text: TextSpan(
+      title: AutoSizeText.rich(
+        TextSpan(
           text: 'Weniger ',
           style: TextStyle(
               fontSize: 28, color: Colors.white, fontWeight: FontWeight.bold),
@@ -109,6 +115,7 @@ AppBar appBarStyle(String habitName) {
             ),
           ],
         ),
+        maxLines: 1,
       ),
       backgroundColor: primaryBlue,
     );
@@ -175,31 +182,31 @@ Widget dynamicImage(String habitName) {
 // AddHabit Descriptions
 Widget dynamicDescription(String habitName) {
   if (habitName == 'gesünder-ernähren') {
-    return Text(gesuenderErnaehren,
+    return AutoSizeText(gesuenderErnaehren,
         textAlign: TextAlign.justify,
         style: TextStyle(color: Colors.white, fontSize: 17));
   }
   if (habitName == 'weniger-fleisch-essen') {
-    return Text(wenigerFleischEssen,
+    return AutoSizeText(wenigerFleischEssen,
         textAlign: TextAlign.justify,
         style: TextStyle(color: Colors.white, fontSize: 17));
   }
   if (habitName == 'fähigkeiten-lernen') {
-    return Text(faehigkeitVerbessern,
+    return AutoSizeText(faehigkeitVerbessern,
         textAlign: TextAlign.justify,
         style: TextStyle(color: Colors.white, fontSize: 17));
   }
   if (habitName == 'sich-mehr-bewegen') {
-    return Text(mehrBewegen,
+    return AutoSizeText(mehrBewegen,
         textAlign: TextAlign.justify,
         style: TextStyle(color: Colors.white, fontSize: 17));
   }
   if (habitName == 'mehr-wasser-trinken') {
-    return Text(mehrWasserTrinken,
+    return AutoSizeText(mehrWasserTrinken,
         textAlign: TextAlign.justify,
         style: TextStyle(color: Colors.white, fontSize: 17));
   } else {
-    return Text(konzentrationSteigern,
+    return AutoSizeText(konzentrationSteigern,
         textAlign: TextAlign.justify,
         style: TextStyle(color: Colors.white, fontSize: 17));
   }

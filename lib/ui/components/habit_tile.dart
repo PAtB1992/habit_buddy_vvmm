@@ -78,7 +78,6 @@ class HabitTile extends StatelessWidget {
             ),
             hasHabitBuddy
                 ? Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
