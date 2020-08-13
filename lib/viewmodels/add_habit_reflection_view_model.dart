@@ -1,4 +1,5 @@
 import 'package:habitbuddyvvmm/services/dialog_service.dart';
+import 'package:habitbuddyvvmm/services/push_notification_service.dart';
 import 'package:habitbuddyvvmm/ui/components/dynamic_components.dart';
 import 'package:habitbuddyvvmm/viewmodels/base_model.dart';
 import 'package:habitbuddyvvmm/locator.dart';
@@ -10,6 +11,8 @@ class AddHabitReflectionViewModel extends BaseModel {
   final FirestoreService _firestoreService = locator<FirestoreService>();
   final DialogService _dialogService = locator<DialogService>();
   final HabitList _habitList = locator<HabitList>();
+  final PushNotificationService _pushNotificationService =
+      locator<PushNotificationService>();
   bool addedHabit = false;
 
   Future addHabit({
@@ -46,5 +49,9 @@ class AddHabitReflectionViewModel extends BaseModel {
 
       setBusy(false);
     }
+  }
+
+  void showNotification() async {
+    await _pushNotificationService.demoNotification();
   }
 }

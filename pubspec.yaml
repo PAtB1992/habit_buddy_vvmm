@@ -31,7 +31,7 @@ dependencies:
   firebase_messaging: ^6.0.13
   cloud_firestore: ^0.13.4+2
 
-  flutter_local_notifications: ^1.4.3
+  flutter_local_notifications: ^1.4.4+2
 
   get_it: ^4.0.1
   modal_progress_hud: ^0.1.3

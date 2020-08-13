@@ -83,11 +83,12 @@ class AddHabitReflectionView extends StatelessWidget {
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         onPressed: () async {
-                          await model.addHabit(
-                              habitName: habitName,
-                              customDescription: descriptionController.text,
-                              customName: nameController.text);
-                          Navigator.pop(context, model.addedHabit);
+                          model.showNotification();
+//                          await model.addHabit(
+//                              habitName: habitName,
+//                              customDescription: descriptionController.text,
+//                              customName: nameController.text);
+//                          Navigator.pop(context, model.addedHabit);
                         },
                         child: Text('Loslegen!',
                             style:
