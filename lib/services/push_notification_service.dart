@@ -70,7 +70,9 @@ class PushNotificationService {
 
   Future onDidReceiveLocalNotification(
       int id, String title, String body, String payload) async {
-    return print('Notification payload: $payload');
+    if (payload != null) {
+      print('Notification payload: $payload');
+    }
   }
 
   saveDeviceToken({String uid}) async {
