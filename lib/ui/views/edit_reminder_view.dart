@@ -1,41 +1,66 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:habitbuddyvvmm/constants/texts.dart';
+import 'package:habitbuddyvvmm/models/habit.dart';
 import 'package:habitbuddyvvmm/ui/components/reusable_card.dart';
 import 'package:habitbuddyvvmm/ui/views/daily_reminder_view.dart';
 import 'package:habitbuddyvvmm/ui/views/reminder_view.dart';
 import 'package:habitbuddyvvmm/ui/views/weekly_reminder_view.dart';
 import 'package:habitbuddyvvmm/viewmodels/add_habit_reflection_view_model.dart';
+import 'package:habitbuddyvvmm/viewmodels/edit_reminder_view_model.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:stacked/_viewmodel_builder.dart';
 import 'package:habitbuddyvvmm/constants/app_colors.dart';
 import 'package:habitbuddyvvmm/ui/components/dynamic_components.dart';
+import 'package:habitbuddyvvmm/constants/texts.dart';
 import 'package:habitbuddyvvmm/ui/components/input_field.dart';
 
-class AddHabitReflectionView extends StatefulWidget {
-  final String habitName;
+import 'delete_reminder_view.dart';
+import 'edit_daily_reminder_view.dart';
+import 'edit_weekly_reminder_view.dart';
+
+class EditReminderView extends StatefulWidget {
+  final Habit habit;
   final IconData habitIcon;
   List<bool> isSelected = [false, true, false];
 
-  AddHabitReflectionView({Key key, this.habitName, this.habitIcon})
-      : super(key: key);
+  EditReminderView({Key key, this.habit, this.habitIcon}) : super(key: key);
 
   @override
-  _AddHabitReflectionViewState createState() => _AddHabitReflectionViewState();
+  _EditReminderViewState createState() => _EditReminderViewState();
 }
 
-class _AddHabitReflectionViewState extends State<AddHabitReflectionView> {
+class _EditReminderViewState extends State<EditReminderView> {
   final descriptionController = TextEditingController();
   final nameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<AddHabitReflectionViewModel>.reactive(
-      viewModelBuilder: () => AddHabitReflectionViewModel(),
+    return ViewModelBuilder<EditReminderViewModel>.reactive(
+      viewModelBuilder: () => EditReminderViewModel(),
       builder: (context, model, child) => KeyboardDismisser(
         child: Scaffold(
-          appBar: appBarStyle(widget.habitName),
+          appBar: AppBar(
+            title: AutoSizeText.rich(
+              TextSpan(
+                text: 'Erinnerung ',
+                style: TextStyle(
+                    fontSize: 30,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold),
+                children: <TextSpan>[
+                  TextSpan(
+                      text: 'editieren ', style: TextStyle(color: accentColor)),
+//            TextSpan(
+//              text: 'Leben',
+//            ),
+                ],
+              ),
+              maxLines: 1,
+            ),
+            backgroundColor: primaryBlue,
+          ),
           body: SafeArea(
             child: MediaQuery.removePadding(
               context: context,
@@ -48,7 +73,7 @@ class _AddHabitReflectionViewState extends State<AddHabitReflectionView> {
                   ),
                   Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: dynamicImage(widget.habitName)),
+                      child: dynamicImage(widget.habit.name)),
                   ReusableCard(
                     center: true,
                     color1: primaryBlue,
@@ -56,29 +81,14 @@ class _AddHabitReflectionViewState extends State<AddHabitReflectionView> {
                     cardChild: Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 8.0, vertical: 16),
-                      child: dynamicDescription(widget.habitName),
-                    ),
-                  ),
-//                  SizedBox(
-//                    height: 10,
-//                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: InputField(
-                      formatter: LengthLimitingTextInputFormatter(25),
-                      smallVersion: true,
-                      placeholder: 'Schreibe hier den Namen Deiner Habit.',
-                      controller: nameController,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: InputField(
-                      formatter: LengthLimitingTextInputFormatter(50),
-                      smallVersion: false,
-                      placeholder:
-                          'Beschreibe hier, wann Dein Meilenstein erfüllt ist.',
-                      controller: descriptionController,
+                      child: AutoSizeText(
+                        reminder,
+                        style: TextStyle(
+                          fontSize: 17,
+                          color: Colors.white,
+                        ),
+                        textAlign: TextAlign.justify,
+                      ),
                     ),
                   ),
 //                  SizedBox(
@@ -160,13 +170,13 @@ class _AddHabitReflectionViewState extends State<AddHabitReflectionView> {
                       physics: NeverScrollableScrollPhysics(),
                       controller: model.pageViewController,
                       children: <Widget>[
-                        DailyReminderView(
+                        EditDailyReminderView(
                           pageControllerFunction: model.pageControllerFunction,
                         ),
-                        ReminderView(
+                        DeleteReminderView(
                           pageControllerFunction: model.pageControllerFunction,
                         ),
-                        WeeklyReminderView(
+                        EditWeeklyReminderView(
                           pageControllerFunction: model.pageControllerFunction,
                         ),
                       ],
@@ -185,16 +195,10 @@ class _AddHabitReflectionViewState extends State<AddHabitReflectionView> {
                         ),
                         onPressed: () async {
                           model.setReminder(
-                              model.getHabitReminderID(widget.habitName));
-                          await model.addHabit(
-                              reminderID:
-                                  model.getHabitReminderID(widget.habitName),
-                              habitName: widget.habitName,
-                              customDescription: descriptionController.text,
-                              customName: nameController.text);
-                          Navigator.pop(context, model.addedHabit);
+                              widget.habit.reminderID, widget.habit.customName);
+                          model.popScreen();
                         },
-                        child: Text('Loslegen!',
+                        child: Text('Speichern',
                             style:
                                 TextStyle(color: Colors.white, fontSize: 20)),
                       ),

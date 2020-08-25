@@ -8,6 +8,7 @@ class Habit {
   final String customName;
   final int listIndex;
   final String habitID;
+  final int reminderID;
   bool isDeleted;
   IconData habitIcon;
   int repetitions;
@@ -18,6 +19,7 @@ class Habit {
     @required this.customName,
     this.habitID,
     this.listIndex,
+    this.reminderID,
     this.isDeleted = false,
     this.repetitions,
     this.habitIcon,
@@ -30,6 +32,7 @@ class Habit {
       'customName': customName,
       'repetitions': repetitions,
       'isDeleted': isDeleted,
+      'reminderID': reminderID,
 //      'habitIcon': habitIcon,
     };
   }
@@ -41,6 +44,7 @@ class Habit {
         listIndex = data['listIndex'],
         repetitions = data['repetitions'],
         habitIcon = data['iconIcon'],
+        reminderID = data['reminderID'],
         habitID = data['habitID'];
 
   static Habit fromMap(Map<String, dynamic> map, String documentID) {
@@ -53,6 +57,7 @@ class Habit {
       repetitions: map['repetitions'],
       habitIcon: map['habitIcon'],
       habitID: documentID,
+      reminderID: map['reminderID'],
     );
   }
 }

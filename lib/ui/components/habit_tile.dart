@@ -12,6 +12,7 @@ class HabitTile extends StatelessWidget {
   final String description;
   final String buddyEvaluation;
   final bool hasHabitBuddy;
+  final int reminderID;
 
   HabitTile(
       {this.customName,
@@ -22,7 +23,8 @@ class HabitTile extends StatelessWidget {
       this.description,
       this.onLongPress,
       this.buddyEvaluation,
-      this.hasHabitBuddy});
+      this.hasHabitBuddy,
+      this.reminderID});
 
   @override
   Widget build(BuildContext context) {
@@ -111,6 +113,11 @@ class HabitTile extends StatelessWidget {
                           mainAxisSize: MainAxisSize.min,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
+//                            Icon(
+//                              Icons.check,
+//                              color: accentColor,
+//                              size: 60,
+//                            ),
                             Text(
                               '$repetitions',
                               style:

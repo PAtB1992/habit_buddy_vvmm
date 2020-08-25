@@ -7,6 +7,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 
 import 'firestore_service.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:rxdart/rxdart.dart';
 
 class PushNotificationService {
   final FirebaseMessaging _fcm = FirebaseMessaging();
@@ -14,6 +15,13 @@ class PushNotificationService {
   final FirestoreService _firestoreService = locator<FirestoreService>();
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
+
+  final BehaviorSubject<ReminderNotification>
+      didReceiveLocalNotificationSubject =
+      BehaviorSubject<ReminderNotification>();
+
+  final BehaviorSubject<String> selectNotificationSubject =
+      BehaviorSubject<String>();
 
   Future initialise() async {
     if (Platform.isIOS) {
@@ -42,6 +50,9 @@ class PushNotificationService {
     var initializationSettingsAndroid =
         AndroidInitializationSettings('app_icon');
     var initializationSettingsIOS = IOSInitializationSettings(
+        requestAlertPermission: false,
+        requestBadgePermission: false,
+        requestSoundPermission: false,
         onDidReceiveLocalNotification: onDidReceiveLocalNotification);
     var initializationSettings = InitializationSettings(
         initializationSettingsAndroid, initializationSettingsIOS);
@@ -62,9 +73,51 @@ class PushNotificationService {
         payload: 'item x');
   }
 
+  Future<void> scheduleNotification() async {
+    var scheduledNotificationDateTime =
+        DateTime.now().add(Duration(seconds: 10));
+    var androidPlatformChannelSpecifics = AndroidNotificationDetails(
+        'your other channel id',
+        'your other channel name',
+        'your other channel description');
+    var iOSPlatformChannelSpecifics = IOSNotificationDetails();
+    NotificationDetails platformChannelSpecifics = NotificationDetails(
+        androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
+    await flutterLocalNotificationsPlugin.schedule(0, 'Erinnerung', 'body',
+        scheduledNotificationDateTime, platformChannelSpecifics);
+  }
+
+  Future<void> showDailyNotification(
+      int id, String body, Time dailyTime) async {
+//    var time = Time(13, 30, 0);
+    var androidPlatformChannelSpecifics = AndroidNotificationDetails(
+        'repeatDailyAtTime channel id',
+        'repeatDailyAtTime channel name',
+        'repeatDailyAtTime description');
+    var iOSPlatformChannelSpecifics = IOSNotificationDetails();
+    var platformChannelSpecifics = NotificationDetails(
+        androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
+    await flutterLocalNotificationsPlugin.showDailyAtTime(
+        id, 'Erinnerung', body, dailyTime, platformChannelSpecifics);
+  }
+
+  Future<void> showWeeklyNotification(
+      int id, String body, Time dailyTime, Day day) async {
+    var androidPlatformChannelSpecifics = AndroidNotificationDetails(
+        'show weekly channel id',
+        'show weekly channel name',
+        'show weekly description');
+    var iOSPlatformChannelSpecifics = IOSNotificationDetails();
+    var platformChannelSpecifics = NotificationDetails(
+        androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
+    await flutterLocalNotificationsPlugin.showWeeklyAtDayAndTime(
+        id, 'Erinnerung', body, day, dailyTime, platformChannelSpecifics);
+  }
+
   Future onSelectNotification(String payload) async {
     if (payload != null) {
       print('Notification payload: $payload');
+      selectNotificationSubject.add(payload);
     }
   }
 
@@ -72,7 +125,13 @@ class PushNotificationService {
       int id, String title, String body, String payload) async {
     if (payload != null) {
       print('Notification payload: $payload');
+      didReceiveLocalNotificationSubject.add(ReminderNotification(
+          id: id, title: title, body: body, payload: payload));
     }
+  }
+
+  Future<void> turnOffNotificationById(int id) async {
+    await flutterLocalNotificationsPlugin.cancel(id);
   }
 
   saveDeviceToken({String uid}) async {
@@ -123,4 +182,24 @@ class PushNotificationService {
       platformChannelSpecifics,
     );
   }
+
+  void requestIOSPermissions() {
+    flutterLocalNotificationsPlugin
+        .resolvePlatformSpecificImplementation<
+            IOSFlutterLocalNotificationsPlugin>()
+        ?.requestPermissions(
+          alert: true,
+          badge: true,
+          sound: true,
+        );
+  }
+}
+
+class ReminderNotification {
+  int id;
+  String title;
+  String body;
+  String payload;
+
+  ReminderNotification({this.id, this.title, this.body, this.payload});
 }

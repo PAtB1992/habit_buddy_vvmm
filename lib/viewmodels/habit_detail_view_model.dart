@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:habitbuddyvvmm/constants/route_names.dart';
 import 'package:habitbuddyvvmm/locator.dart';
 import 'package:habitbuddyvvmm/models/chart_data.dart';
 import 'package:habitbuddyvvmm/models/habit.dart';
 import 'package:habitbuddyvvmm/models/stats.dart';
 import 'package:habitbuddyvvmm/services/firestore_service.dart';
 import 'package:habitbuddyvvmm/services/navigation_service.dart';
+import 'package:habitbuddyvvmm/ui/views/edit_reminder_view.dart';
 import 'package:habitbuddyvvmm/ui/views/milestone_reflection_view.dart';
 import 'package:habitbuddyvvmm/viewmodels/base_model.dart';
 
@@ -58,5 +60,9 @@ class HabitDetailViewModel extends BaseModel {
     } catch (e) {
       print('Result = ${e.message}');
     }
+  }
+
+  navigateToEditReminderView(Habit habit) {
+    _navigationService.navigateTo(EditReminderViewRoute, arguments: habit);
   }
 }

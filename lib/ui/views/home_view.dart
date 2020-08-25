@@ -60,7 +60,7 @@ class HomeView extends StatelessWidget {
                             width: 10.0,
                           ),
                           Text(
-                            'Habit Buddy',
+                            'Hallo ${model.currentUser.username}!',
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 30.0,
@@ -162,6 +162,7 @@ class HomeView extends StatelessWidget {
                                                   habit.name) ??
                                               'Dein Habit Buddy hat diese Rubrik nicht.'
                                           : '',
+                                      reminderID: habit.reminderID,
                                       onLongPress: () {
                                         model.deleteHabit(habit);
                                       },
@@ -177,6 +178,7 @@ class HomeView extends StatelessWidget {
                                             listIndex: index,
                                             repetitions: habit.repetitions,
                                             habitIcon: habitIcon(habit.name),
+                                            reminderID: habit.reminderID,
                                           ),
                                         );
                                         model.setBusy(false);

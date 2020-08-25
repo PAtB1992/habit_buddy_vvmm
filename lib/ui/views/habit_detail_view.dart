@@ -158,8 +158,28 @@ class HabitDetailView extends StatelessWidget {
                       ),
                       Padding(
                           padding: const EdgeInsets.only(
-                              left: 5.0, right: 5.0, bottom: 20.0),
-                          child: UserChart(chartItems: model.chartItems))
+                              left: 8.0, right: 8.0, bottom: 10),
+                          child: UserChart(chartItems: model.chartItems)),
+                      ReusableCard(
+                        center: true,
+                        height: 60,
+                        color1: accentColor,
+                        color2: accentColorGradient,
+                        cardChild: Text(
+                          'Erinnerungen editieren',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        onPress: () {
+                          print(habit.reminderID);
+                          model.navigateToEditReminderView(habit);
+                        },
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
                     ],
                   ),
                 ),

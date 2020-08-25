@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:habitbuddyvvmm/constants/route_names.dart';
 import 'package:habitbuddyvvmm/ui/views/add_habit_view.dart';
+import 'package:habitbuddyvvmm/ui/views/edit_reminder_view.dart';
 import 'package:habitbuddyvvmm/ui/views/home_view.dart';
 import 'package:habitbuddyvvmm/ui/views/login_view.dart';
 import 'package:habitbuddyvvmm/ui/views/milestone_reflection_view.dart';
@@ -77,6 +78,14 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(
         routeName: settings.name,
         viewToShow: PictureCreditsView(),
+      );
+    case EditReminderViewRoute:
+      var habit = settings.arguments;
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: EditReminderView(
+          habit: habit,
+        ),
       );
     default:
       return MaterialPageRoute(

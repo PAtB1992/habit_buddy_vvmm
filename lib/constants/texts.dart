@@ -36,3 +36,6 @@ const String minimumMilestones =
 
 const String chartDescription =
     'Hier siehst Du, wie oft Du in den letzten sieben Tagen täglich deinen Meilenstein erfüllt hast.';
+
+const String reminder =
+    'Timer und Reminder können zwar nerven, aber sind dennoch sehr wichtig, um Gewohnheiten aufzubauen. Aus diesem Grund kannst Du Deinen Reminder ganz auf Deine Bedürfnisse anpassen.';
