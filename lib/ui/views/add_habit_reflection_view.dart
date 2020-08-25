@@ -185,7 +185,8 @@ class _AddHabitReflectionViewState extends State<AddHabitReflectionView> {
                         ),
                         onPressed: () async {
                           model.setReminder(
-                              model.getHabitReminderID(widget.habitName));
+                              model.getHabitReminderID(widget.habitName),
+                              nameController.text);
                           await model.addHabit(
                               reminderID:
                                   model.getHabitReminderID(widget.habitName),

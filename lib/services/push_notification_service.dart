@@ -117,7 +117,8 @@ class PushNotificationService {
   Future onSelectNotification(String payload) async {
     if (payload != null) {
       print('Notification payload: $payload');
-      selectNotificationSubject.add(payload);
+//      _navigationService.navigateTo(StartViewRoute);
+//      selectNotificationSubject.add(payload);
     }
   }
 
@@ -125,8 +126,9 @@ class PushNotificationService {
       int id, String title, String body, String payload) async {
     if (payload != null) {
       print('Notification payload: $payload');
-      didReceiveLocalNotificationSubject.add(ReminderNotification(
-          id: id, title: title, body: body, payload: payload));
+//      _navigationService.navigateTo(StartViewRoute);
+//      didReceiveLocalNotificationSubject.add(ReminderNotification(
+//          id: id, title: title, body: body, payload: payload));
     }
   }
 
@@ -159,7 +161,7 @@ class PushNotificationService {
 
     if (view != null) {
       if (view == 'buddy_view') {
-        _navigationService.navigateTo(BuddyViewRoute);
+        _navigationService.navigateTo(StartViewRoute);
       }
     }
   }

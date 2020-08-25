@@ -70,64 +70,64 @@ class AddHabitReflectionViewModel extends BaseModel {
     );
   }
 
-  void setReminder(int reminderID) async {
-    print(reminderID);
+  void setReminder(int reminderID, String body) async {
     if (pageViewController.page == 0) {
-      await _pushNotificationService.showDailyNotification(
-          reminderID,
-          'Denk daran, Dich gesünder zu ernähren.Daily',
+      await _pushNotificationService.showDailyNotification(reminderID, body,
           Time(pickedDailyDate.hour, pickedDailyDate.minute, 0));
+      print('daily');
     }
     if (pageViewController.page == 1) {
-      print('No Reminder');
+      await _pushNotificationService.turnOffNotificationById(reminderID);
+      print('deleted');
     }
     if (pageViewController.page == 2) {
+      print('weekly');
       if (pickedWeeklyDate.weekday == 1) {
         await _pushNotificationService.showWeeklyNotification(
             reminderID,
-            'Denk daran, Dich gesünder zu ernähren.Weekly',
+            body,
             Time(pickedWeeklyDate.hour, pickedWeeklyDate.minute, 0),
             Day.Monday);
       }
       if (pickedWeeklyDate.weekday == 2) {
         await _pushNotificationService.showWeeklyNotification(
             reminderID,
-            'Denk daran, Dich gesünder zu ernähren.Weekly',
+            body,
             Time(pickedWeeklyDate.hour, pickedWeeklyDate.minute, 0),
             Day.Tuesday);
       }
       if (pickedWeeklyDate.weekday == 3) {
         await _pushNotificationService.showWeeklyNotification(
             reminderID,
-            'Denk daran, Dich gesünder zu ernähren.Weekly',
+            body,
             Time(pickedWeeklyDate.hour, pickedWeeklyDate.minute, 0),
             Day.Wednesday);
       }
       if (pickedWeeklyDate.weekday == 4) {
         await _pushNotificationService.showWeeklyNotification(
             reminderID,
-            'Denk daran, Dich gesünder zu ernähren.Weekly',
+            body,
             Time(pickedWeeklyDate.hour, pickedWeeklyDate.minute, 0),
             Day.Thursday);
       }
       if (pickedWeeklyDate.weekday == 5) {
         await _pushNotificationService.showWeeklyNotification(
             reminderID,
-            'Denk daran, Dich gesünder zu ernähren.Weekly',
+            body,
             Time(pickedWeeklyDate.hour, pickedWeeklyDate.minute, 0),
             Day.Friday);
       }
       if (pickedWeeklyDate.weekday == 6) {
         await _pushNotificationService.showWeeklyNotification(
             reminderID,
-            'Denk daran, Dich gesünder zu ernähren.Weekly',
+            body,
             Time(pickedWeeklyDate.hour, pickedWeeklyDate.minute, 0),
             Day.Saturday);
       }
       if (pickedWeeklyDate.weekday == 7) {
         await _pushNotificationService.showWeeklyNotification(
             reminderID,
-            'Denk daran, Dich gesünder zu ernähren.Weekly',
+            body,
             Time(pickedWeeklyDate.hour, pickedWeeklyDate.minute, 0),
             Day.Sunday);
       }
