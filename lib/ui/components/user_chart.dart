@@ -1,10 +1,15 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:habitbuddyvvmm/constants/app_colors.dart';
+import 'package:habitbuddyvvmm/models/chart_data.dart';
+import 'package:habitbuddyvvmm/models/milestone.dart';
 
 // ignore: must_be_immutable
 class UserChart extends StatelessWidget {
   List chartItems;
+  var sumEvaluationMap = Map();
+  var sumDayCountMap = Map();
+
   UserChart({Key key, @required this.chartItems}) : super(key: key);
   List<Color> gradientColors = [
     const Color(0xFFC5CAE9),
@@ -31,34 +36,28 @@ class UserChart extends StatelessWidget {
                   ),
                   color: primaryBlue),
               padding: showChart
-                  ? EdgeInsets.only(right: 25.0, top: 24, bottom: 30)
+                  ? EdgeInsets.only(left: 10, right: 25.0, top: 24, bottom: 30)
                   : EdgeInsets.all(0),
               child: LineChart(
                 mainData(),
               )),
         ),
         Padding(
-            padding: const EdgeInsets.fromLTRB(40, 8, 8, 8),
-            child: Text('Deine letzten sieben Tage.',
+            padding: const EdgeInsets.fromLTRB(49, 8, 8, 8),
+            child: Text('Deine Gewohnheitsstärke der letzten 7 Tage.',
                 style: TextStyle(color: Colors.white))),
       ],
     );
   }
 
   LineChartData mainData() {
+    prepareData();
     List convertIntoFLSpots() {
       List<FlSpot> chartSpots = [];
-      var map = Map();
-      chartItems.forEach((item) {
-        if (!map.containsKey(item.timestamp.toDate().day)) {
-          map[item.timestamp.toDate().day] = 1;
-        } else {
-          map[item.timestamp.toDate().day] += 1;
-        }
-      });
-      List tempList = map.values.toList();
+      print(sumEvaluationMap);
+      List tempList = sumEvaluationMap.values.toList();
       for (var i = 0; i < tempList.length; i++) {
-        chartSpots.add(FlSpot(i.toDouble() + 1, tempList[i].toDouble()));
+        chartSpots.add(FlSpot(i.toDouble() + 1, tempList[i].toDouble() * 10));
       }
       if (chartSpots.length == 0) {
         chartSpots.add(FlSpot(0, 0));
@@ -70,6 +69,7 @@ class UserChart extends StatelessWidget {
 
     return LineChartData(
       gridData: FlGridData(
+        horizontalInterval: 10,
         show: true,
         drawVerticalLine: true,
         getDrawingHorizontalLine: (value) {
@@ -111,7 +111,7 @@ class UserChart extends StatelessWidget {
               case 7:
                 return 'So';
             }
-            return 'Deine Meilensteine die letzten 7 Tage.';
+            return 'Deine Gewohnheits-Stärke der letzten 7 Tage.';
           },
           margin: 8,
         ),
@@ -120,26 +120,16 @@ class UserChart extends StatelessWidget {
           textStyle: const TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.bold,
-            fontSize: 15,
+            fontSize: 10,
           ),
           getTitles: (value) {
             switch (value.toInt()) {
-              case 1:
-                return '1';
-              case 2:
-                return '2';
-              case 3:
-                return '3';
-              case 4:
-                return '4';
-              case 5:
-                return '5';
-              case 6:
-                return '6';
-              case 7:
-                return '7';
-              case 8:
-                return '8';
+              case 0:
+                return '0%';
+              case 50:
+                return '50%';
+              case 100:
+                return '100%';
             }
             return '';
           },
@@ -152,7 +142,7 @@ class UserChart extends StatelessWidget {
       minX: 1,
       maxX: 7,
       minY: 0,
-      maxY: 8,
+      maxY: 100,
       lineBarsData: [
         LineChartBarData(
           spots: convertIntoFLSpots(),
@@ -172,5 +162,22 @@ class UserChart extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  prepareData() {
+    chartItems.forEach((item) {
+      if (!sumEvaluationMap.containsKey(item.timestamp.toDate().day)) {
+        sumEvaluationMap[item.timestamp.toDate().day] =
+            ((item.evaluation + item.evaluation2) / 2);
+        sumDayCountMap[item.timestamp.toDate().day] = 1;
+      } else {
+        sumEvaluationMap[item.timestamp.toDate().day] +=
+            ((item.evaluation + item.evaluation2) / 2);
+        sumDayCountMap[item.timestamp.toDate().day] += 1;
+      }
+    });
+    sumEvaluationMap.forEach((key, value) {
+      sumEvaluationMap[key] = value / sumDayCountMap[key];
+    });
   }
 }

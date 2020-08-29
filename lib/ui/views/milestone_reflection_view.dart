@@ -17,11 +17,13 @@ class MilestoneReflectionView extends StatefulWidget {
 
 class _MilestoneReflectionViewState extends State<MilestoneReflectionView> {
   int _value = 5;
+  int _value2 = 5;
 
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<MilestoneReflectionViewModel>.reactive(
       viewModelBuilder: () => MilestoneReflectionViewModel(),
+      onModelReady: (model) => model.getRandomSrhiItem(),
       builder: (context, model, child) => Container(
         color: primaryBlue,
         child: SafeArea(
@@ -71,18 +73,20 @@ class _MilestoneReflectionViewState extends State<MilestoneReflectionView> {
               ),
             ),
             backgroundColor: Colors.white,
-            body: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            body: ListView(
               children: <Widget>[
+                SizedBox(
+                  height: 30,
+                ),
                 ReusableCard(
                   center: true,
                   height: 80,
                   color1: primaryBlue,
                   color2: secondaryBlue,
-                  cardChild: Text(
-                    milestoneFrage,
+                  cardChild: AutoSizeText(
+                    model.questionOne,
                     textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.white, fontSize: 20),
+                    style: TextStyle(color: Colors.white, fontSize: 17),
                   ),
                 ),
                 SizedBox(
@@ -91,17 +95,18 @@ class _MilestoneReflectionViewState extends State<MilestoneReflectionView> {
                 Text(
                   _value.toString(),
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 90, color: primaryBlue),
+                  style: TextStyle(fontSize: 60, color: primaryBlue),
                 ),
                 Column(
                   children: <Widget>[
                     Container(
+                      width: 340,
                       child: SliderTheme(
                         data: SliderTheme.of(context).copyWith(
                           activeTrackColor: primaryBlue,
                           inactiveTrackColor: secondaryBlue,
                           trackShape: RoundedRectSliderTrackShape(),
-                          trackHeight: 4.0,
+                          trackHeight: 2.0,
                           thumbShape:
                               RoundSliderThumbShape(enabledThumbRadius: 12.0),
                           thumbColor: accentColor,
@@ -136,12 +141,88 @@ class _MilestoneReflectionViewState extends State<MilestoneReflectionView> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          Text('Sehr schwierig'),
-                          Text('Sehr einfach')
+                          Text('Stimme nicht zu'),
+                          Text('Stimme zu')
                         ],
                       ),
                     ),
                   ],
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                ReusableCard(
+                  center: true,
+                  height: 80,
+                  color1: primaryBlue,
+                  color2: secondaryBlue,
+                  cardChild: AutoSizeText(
+                    model.questionTwo,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: Colors.white, fontSize: 17),
+                  ),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                Text(
+                  _value2.toString(),
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 60, color: primaryBlue),
+                ),
+                Column(
+                  children: <Widget>[
+                    Container(
+                      width: 340,
+                      child: SliderTheme(
+                        data: SliderTheme.of(context).copyWith(
+                          activeTrackColor: primaryBlue,
+                          inactiveTrackColor: secondaryBlue,
+                          trackShape: RoundedRectSliderTrackShape(),
+                          trackHeight: 2.0,
+                          thumbShape:
+                              RoundSliderThumbShape(enabledThumbRadius: 12.0),
+                          thumbColor: accentColor,
+                          tickMarkShape: RoundSliderTickMarkShape(),
+                          activeTickMarkColor: primaryBlue,
+                          inactiveTickMarkColor: secondaryBlue,
+                          overlayColor: accentColor.withAlpha(32),
+                          overlayShape:
+                              RoundSliderOverlayShape(overlayRadius: 28.0),
+                          valueIndicatorTextStyle: TextStyle(
+                            color: Colors.white,
+                          ),
+                        ),
+                        child: Slider(
+                          value: _value2.toDouble(),
+                          min: 0,
+                          max: 10,
+                          divisions: 10,
+//                        label: '${_value.toInt()}',
+                          onChanged: (double value2) {
+                            setState(
+                              () {
+                                _value2 = value2.toInt();
+                              },
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Text('Stimme nicht zu'),
+                          Text('Stimme zu')
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 30,
                 ),
                 ReusableCard(
                   center: true,
@@ -157,7 +238,8 @@ class _MilestoneReflectionViewState extends State<MilestoneReflectionView> {
                   ),
                   onPress: () async {
                     await model.completeMilestone(widget.habit);
-                    await model.saveMilestoneToStore(widget.habit, _value);
+                    await model.saveMilestoneToStore(
+                        widget.habit, _value, _value2);
                     Navigator.pop(context, model.completedMilestone);
                   },
                 ),

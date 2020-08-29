@@ -39,3 +39,19 @@ const String chartDescription =
 
 const String reminder =
     'Timer und Reminder können zwar nerven, aber sind dennoch sehr wichtig, um Gewohnheiten aufzubauen. Aus diesem Grund kannst Du Deinen Reminder ganz auf Deine Bedürfnisse anpassen.';
+
+const String srhiItem1 = 'Diese Gewohnheit ist etwas ';
+
+const String srhiItem2 = 'Diese Gewohnheit ist etwas ';
+
+const String srhiItem3 = 'Diese Gewohnheit ist etwas ';
+
+const String srhiItem4 = 'Diese Gewohnheit ist etwas ';
+
+const String srhiItem5 = 'Diese Gewohnheit ist etwas ';
+
+const String srhiItem6 = 'Diese Gewohnheit ist etwas ';
+
+const String srhiItem7 = 'Diese Gewohnheit ist etwas ';
+
+const String srhiItem8 = 'Diese Gewohnheit ist etwas ';

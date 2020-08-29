@@ -69,10 +69,13 @@ class HomeViewModel extends BaseModel {
               habitName: 'keine Milestones',
               repetitions: 0,
               evaluation: 11,
+              evaluation2: 11,
               timestamp: DateTime.now(),
               userId: 'Bot'));
-      int value = tempMilestone.evaluation;
-      switch (value) {
+      int value1 = tempMilestone.evaluation;
+      int value2 = tempMilestone.evaluation2;
+      int average = ((value1 + value2) / 2).round();
+      switch (average) {
         case 0:
           return 'Dein Habit Buddy ist kurz vorm Aufgeben!';
         case 1:
@@ -148,10 +151,11 @@ class HomeViewModel extends BaseModel {
         tempList.add(milestoneSix);
       }
 
-      int counter = tempList.length;
+      int counter = tempList.length * 2;
 
       for (Milestone item in tempList) {
-        sumFeeling = sumFeeling + item.evaluation;
+        int evaSum = item.evaluation + item.evaluation2;
+        sumFeeling = sumFeeling + evaSum;
       }
 
       habitBuddy.myHabitBuddy.evaluationData = [sumFeeling, counter];

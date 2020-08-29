@@ -23,6 +23,7 @@ class StartViewModel extends BaseModel {
     if (hasLoggedInUser) {
       bool hasHabitBuddy = currentUser.hasHabitBuddy;
       if (hasHabitBuddy) {
+        //TODO: Eventuell in Homescreen packen und dann ladeindikator
         HabitBuddy temp = await _firestoreService.addHabitBuddy(currentUser);
         habitBuddy.saveHabitBuddy(temp);
       }
