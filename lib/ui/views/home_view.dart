@@ -179,6 +179,7 @@ class HomeView extends StatelessWidget {
                                             repetitions: habit.repetitions,
                                             habitIcon: habitIcon(habit.name),
                                             reminderID: habit.reminderID,
+                                            reminderType: habit.reminderType,
                                           ),
                                         );
                                         model.setBusy(false);

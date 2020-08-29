@@ -44,7 +44,8 @@ class AddHabitReflectionViewModel extends BaseModel {
           customName: customName,
           repetitions: 0,
           habitIcon: habitIcon(habitName),
-          reminderID: reminderID);
+          reminderID: reminderID,
+          reminderType: getHabitReminderType(pageViewController.page));
 
       if (_habitList.checkListForDupes(habit.name)) {
         _dialogService.showDialog(
@@ -152,32 +153,38 @@ class AddHabitReflectionViewModel extends BaseModel {
     setBusy(false);
   }
 
-  switchNumberToDay() {
-    var dayNumber = pickedWeeklyDate.weekday;
-    switch (dayNumber) {
-      case 1:
-        return Day.Monday;
-      case 2:
-        return Day.Tuesday;
-      case 3:
-        return Day.Wednesday;
-      case 4:
-        return Day.Thursday;
-      case 5:
-        return Day.Friday;
-      case 6:
-        return Day.Saturday;
-      case 7:
-        return Day.Sunday;
-    }
-  }
+//  switchNumberToDay() {
+//    var dayNumber = pickedWeeklyDate.weekday;
+//    switch (dayNumber) {
+//      case 1:
+//        return Day.Monday;
+//      case 2:
+//        return Day.Tuesday;
+//      case 3:
+//        return Day.Wednesday;
+//      case 4:
+//        return Day.Thursday;
+//      case 5:
+//        return Day.Friday;
+//      case 6:
+//        return Day.Saturday;
+//      case 7:
+//        return Day.Sunday;
+//    }
+//  }
 
-  int getHabitReminderID(String habitName) {
+  getHabitReminderID(String habitName) {
     if (habitName == 'gesünder-ernähren') return 1;
     if (habitName == 'weniger-fleisch-essen') return 2;
     if (habitName == 'fähigkeiten-lernen') return 3;
     if (habitName == 'sich-mehr-bewegen') return 4;
     if (habitName == 'mehr-wasser-trinken') return 5;
     if (habitName == 'konzentration-steigern') return 6;
+  }
+
+  getHabitReminderType(double pageViewNumber) {
+    if (pageViewNumber == 0) return 'daily';
+    if (pageViewNumber == 1) return 'no reminder';
+    if (pageViewNumber == 2) return 'weekly';
   }
 }

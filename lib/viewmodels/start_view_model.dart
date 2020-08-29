@@ -21,7 +21,7 @@ class StartViewModel extends BaseModel {
     var hasLoggedInUser = await _authenticationService.isUserLoggedIn();
 
     if (hasLoggedInUser) {
-      bool hasHabitBuddy = await _firestoreService.hasHabitBuddy(currentUser);
+      bool hasHabitBuddy = currentUser.hasHabitBuddy;
       if (hasHabitBuddy) {
         HabitBuddy temp = await _firestoreService.addHabitBuddy(currentUser);
         habitBuddy.saveHabitBuddy(temp);

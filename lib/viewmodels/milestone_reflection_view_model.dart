@@ -12,16 +12,16 @@ class MilestoneReflectionViewModel extends BaseModel {
     setBusy(true);
 
     print(habitList.habitList[habit.listIndex].repetitions);
-    var result = await _firestoreService.updateHabit(
+    await _firestoreService.updateHabit(
         Habit(
             habitID: habit.habitID,
             name: habit.name,
             customName: habit.customName,
             customDescription: habit.customDescription,
             repetitions: habit.repetitions + 1,
-            isDeleted: false),
+            isDeleted: false,
+            reminderID: habit.reminderID),
         currentUser);
-    print('Update result: $result');
     notifyListeners();
     habitList.incrementRepetitions(habit.listIndex);
     setBusy(false);
@@ -38,7 +38,8 @@ class MilestoneReflectionViewModel extends BaseModel {
           evaluation: value,
           userId: currentUser.id,
           habitId: habit.habitID,
-          customName: habit.customName),
+          customName: habit.customName,
+          srhiQuestion: 'test'),
     );
     completedMilestone = true;
     setBusy(false);

@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:habitbuddyvvmm/constants/app_colors.dart';
 
@@ -13,6 +14,7 @@ class HabitTile extends StatelessWidget {
   final String buddyEvaluation;
   final bool hasHabitBuddy;
   final int reminderID;
+  String reminderType;
 
   HabitTile(
       {this.customName,
@@ -24,7 +26,8 @@ class HabitTile extends StatelessWidget {
       this.onLongPress,
       this.buddyEvaluation,
       this.hasHabitBuddy,
-      this.reminderID});
+      this.reminderID,
+      this.reminderType});
 
   @override
   Widget build(BuildContext context) {
@@ -108,31 +111,34 @@ class HabitTile extends StatelessWidget {
                           mainAxisSize: MainAxisSize.min,
                         ),
                       ),
+                      SizedBox(width: 3),
                       Expanded(
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
-//                            Icon(
-//                              Icons.check,
-//                              color: accentColor,
-//                              size: 60,
-//                            ),
-                            Text(
-                              '$repetitions',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 45),
+                            Icon(
+                              CupertinoIcons.circle_filled,
+                              color: test1,
+                              size: 53,
                             ),
+//                            Text(
+//                              '$repetitions',
+//                              style:
+//                                  TextStyle(color: Colors.white, fontSize: 45),
+//                            ),
                             Flexible(
                               child: AutoSizeText(
-                                'Wiederholungen',
+                                'heute 2x erledigt',
                                 style: TextStyle(color: Colors.white),
+                                maxFontSize: 12,
                                 maxLines: 1,
                               ),
                             ),
                           ],
                         ),
                       ),
+                      SizedBox(width: 3),
                       Expanded(
                         child: Column(
                           children: <Widget>[

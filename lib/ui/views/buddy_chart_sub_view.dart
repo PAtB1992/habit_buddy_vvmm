@@ -17,6 +17,7 @@ class BuddyChartSubView extends StatelessWidget {
     lightPrimaryBlue,
   ];
   int repetitions = 0;
+  int maxNum = 0;
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<BuddyChartSubViewModel>.reactive(
@@ -112,6 +113,9 @@ class BuddyChartSubView extends StatelessWidget {
       });
       List tempList = map.values.toList();
       for (var i = 0; i < tempList.length; i++) {
+        if (maxNum <= tempList[i]) {
+          maxNum = tempList[i];
+        }
         chartSpots.add(FlSpot(i.toDouble() + 1, tempList[i].toDouble()));
       }
       return chartSpots;
@@ -165,47 +169,22 @@ class BuddyChartSubView extends StatelessWidget {
           margin: 8,
         ),
         leftTitles: SideTitles(
-          showTitles: true,
-          textStyle: const TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-            fontSize: 15,
-          ),
-          getTitles: (value) {
-            switch (value.toInt()) {
-              case 1:
-                return '1';
-              case 2:
-                return '2';
-              case 3:
-                return '3';
-              case 4:
-                return '4';
-              case 5:
-                return '5';
-              case 6:
-                return '6';
-              case 7:
-                return '7';
-              case 8:
-                return '8';
-              case 9:
-                return '9';
-              case 10:
-                return '10';
-            }
-            return '';
-          },
-          reservedSize: 28,
-          margin: 12,
-        ),
+            showTitles: true,
+            textStyle: const TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 15,
+            ),
+            reservedSize: 28,
+            margin: 12,
+            interval: returnInterval(maxNum)),
       ),
       borderData: FlBorderData(
           show: true, border: Border.all(color: secondaryGrey, width: 1)),
       minX: 1,
       maxX: 7,
       minY: 0,
-      maxY: 10,
+      maxY: null,
       lineBarsData: [
         LineChartBarData(
           spots: convertIntoFLSpots(),
@@ -225,5 +204,17 @@ class BuddyChartSubView extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  returnInterval(int maxNum) {
+    if (maxNum >= 20) {
+      return 3.0;
+    }
+    if (maxNum > 10) {
+      return 2.0;
+    }
+    if (maxNum <= 10) {
+      return 1.0;
+    }
   }
 }

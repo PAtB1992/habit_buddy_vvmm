@@ -293,7 +293,6 @@ class BuddyViewModel extends BaseModel {
   }
 
   onPageChanged(int page) {
-    print(page.toString());
     if (page == 1) {
       _firestoreService.addStats(Statistics(
           userID: BaseModel().currentUser.id,

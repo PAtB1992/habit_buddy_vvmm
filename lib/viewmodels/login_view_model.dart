@@ -32,7 +32,7 @@ class LoginViewModel extends BaseModel {
 
     if (result is bool) {
       if (result) {
-        bool hasHabitBuddy = await _firestoreService.hasHabitBuddy(currentUser);
+        bool hasHabitBuddy = currentUser.hasHabitBuddy;
 
         if (hasHabitBuddy) {
           HabitBuddy temp = await _firestoreService.addHabitBuddy(currentUser);

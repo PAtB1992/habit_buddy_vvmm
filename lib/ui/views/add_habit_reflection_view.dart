@@ -188,11 +188,12 @@ class _AddHabitReflectionViewState extends State<AddHabitReflectionView> {
                               model.getHabitReminderID(widget.habitName),
                               nameController.text);
                           await model.addHabit(
-                              reminderID:
-                                  model.getHabitReminderID(widget.habitName),
-                              habitName: widget.habitName,
-                              customDescription: descriptionController.text,
-                              customName: nameController.text);
+                            reminderID:
+                                model.getHabitReminderID(widget.habitName),
+                            habitName: widget.habitName,
+                            customDescription: descriptionController.text,
+                            customName: nameController.text,
+                          );
                           Navigator.pop(context, model.addedHabit);
                         },
                         child: Text('Loslegen!',

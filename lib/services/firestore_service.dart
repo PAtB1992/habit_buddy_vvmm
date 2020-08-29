@@ -226,10 +226,10 @@ class FirestoreService {
     }
   }
 
-  Future hasHabitBuddy(User user) async {
-    var hasBuddy = await _usersCollectionReference.document(user.id).get();
-    return User.fromData(hasBuddy.data).hasHabitBuddy;
-  }
+//  Future hasHabitBuddy(User user) async {
+//    var hasBuddy = await _usersCollectionReference.document(user.id).get();
+//    return User.fromData(hasBuddy.data).hasHabitBuddy;
+//  }
 
   Future addHabitBuddy(User user) async {
     var tempData = await _usersCollectionReference
