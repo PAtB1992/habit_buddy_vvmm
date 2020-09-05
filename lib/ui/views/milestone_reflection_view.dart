@@ -18,6 +18,7 @@ class MilestoneReflectionView extends StatefulWidget {
 class _MilestoneReflectionViewState extends State<MilestoneReflectionView> {
   int _value = 5;
   int _value2 = 5;
+  int _value3 = 3;
 
   @override
   Widget build(BuildContext context) {
@@ -226,6 +227,76 @@ class _MilestoneReflectionViewState extends State<MilestoneReflectionView> {
                 ),
                 ReusableCard(
                   center: true,
+                  height: 80,
+                  color1: primaryBlue,
+                  color2: secondaryBlue,
+                  cardChild: AutoSizeText(
+                    milestoneFrage,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: Colors.white, fontSize: 17),
+                  ),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                Text(
+                  _value3.toString(),
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 60, color: primaryBlue),
+                ),
+                Column(
+                  children: <Widget>[
+                    Container(
+                      width: 340,
+                      child: SliderTheme(
+                        data: SliderTheme.of(context).copyWith(
+                          activeTrackColor: primaryBlue,
+                          inactiveTrackColor: secondaryBlue,
+                          trackShape: RoundedRectSliderTrackShape(),
+                          trackHeight: 2.0,
+                          thumbShape:
+                              RoundSliderThumbShape(enabledThumbRadius: 12.0),
+                          thumbColor: accentColor,
+                          tickMarkShape: RoundSliderTickMarkShape(),
+                          activeTickMarkColor: primaryBlue,
+                          inactiveTickMarkColor: secondaryBlue,
+                          overlayColor: accentColor.withAlpha(32),
+                          overlayShape:
+                              RoundSliderOverlayShape(overlayRadius: 28.0),
+                          valueIndicatorTextStyle: TextStyle(
+                            color: Colors.white,
+                          ),
+                        ),
+                        child: Slider(
+                          value: _value3.toDouble(),
+                          min: 1,
+                          max: 5,
+                          divisions: 5,
+//                        label: '${_value.toInt()}',
+                          onChanged: (double value3) {
+                            setState(
+                              () {
+                                _value3 = value3.toInt();
+                              },
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[Text('Gar nicht'), Text('sehr')],
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                ReusableCard(
+                  center: true,
                   height: 50,
                   color1: accentColor,
                   color2: accentColorGradient,
@@ -238,8 +309,8 @@ class _MilestoneReflectionViewState extends State<MilestoneReflectionView> {
                   ),
                   onPress: () async {
                     await model.completeMilestone(widget.habit);
-                    await model.saveMilestoneToStore(
-                        widget.habit, _value, _value2);
+                    await model.saveMilestoneToStore(widget.habit, _value,
+                        _value2, model.questionOne, model.questionTwo, _value3);
                     Navigator.pop(context, model.completedMilestone);
                   },
                 ),

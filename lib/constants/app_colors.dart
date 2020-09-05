@@ -15,3 +15,5 @@ const Color test3 = Color(0xFFCEEC97);
 const Color test2 = Color(0xFFACC3A6);
 const Color test1 = Color(0xFFB9E6FF);
 const Color test = Color(0xFF30C5FF);
+const Color testaccentColor = Color(0xFFFE6847);
+const Color testAppbar = Color(0xFFB66D0D);

@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:habitbuddyvvmm/constants/app_colors.dart';
+import 'package:habitbuddyvvmm/models/chart_data.dart';
+import 'package:habitbuddyvvmm/models/habit_buddy.dart';
 import 'package:habitbuddyvvmm/models/message.dart';
 import 'package:habitbuddyvvmm/models/stats.dart';
 import 'package:habitbuddyvvmm/services/dialog_service.dart';
@@ -9,13 +11,24 @@ import 'package:habitbuddyvvmm/locator.dart';
 import 'package:habitbuddyvvmm/services/firestore_service.dart';
 
 class BuddyViewModel extends BaseModel {
+  final pageViewController = PageController(
+    initialPage: 0,
+  );
   final FirestoreService _firestoreService = locator<FirestoreService>();
   final DialogService _dialogService = locator<DialogService>();
 
-  List chartItems = [];
   List<Message> _messages = [];
   List<Message> get messages => _messages;
   Message firstMessage;
+  Message firstMessageTimestamp;
+
+  List _chartItems = [];
+  List get chartItems => _chartItems;
+  int repetitions;
+  List<Color> gradientColors = [
+    const Color(0xFFC5CAE9),
+    const Color(0xFFC5CAE9),
+  ];
 
   void listenToMessages() {
     setBusy(true);
@@ -25,19 +38,11 @@ class BuddyViewModel extends BaseModel {
       List<Message> updatedMessages = messagesData;
       if (updatedMessages != null && updatedMessages.length > 0) {
         _messages = updatedMessages;
-        giveFirstMessage();
-        notifyListeners();
-        reduceBuddyLevel(firstMessage);
+        firstMessage = _messages.last;
         notifyListeners();
       }
       setBusy(false);
     });
-  }
-
-  giveFirstMessage() {
-    if (messages.length > 0) {
-      firstMessage = messages.last;
-    }
   }
 
   bool isMe({int index}) {
@@ -234,6 +239,7 @@ class BuddyViewModel extends BaseModel {
     }
     if (habitBuddy.myHabitBuddy.buddyLevel < 3 &&
         habitBuddy.myHabitBuddy.timestampIncreased == null) {
+      print('level kleiner 3 und increased null');
       habitBuddy.myHabitBuddy.timestampIncreased = DateTime.now();
       habitBuddy.myHabitBuddy.buddyLevel += 1;
 
@@ -243,12 +249,16 @@ class BuddyViewModel extends BaseModel {
     }
     if (habitBuddy.myHabitBuddy.buddyLevel < 3 &&
         habitBuddy.myHabitBuddy.timestampIncreased != null) {
+      print('level kleiner 3 und increased ungleich null');
       var increaseDate =
-          habitBuddy.myHabitBuddy.timestampIncreased.millisecondsSinceEpoch;
-      var thresholdDay =
-          DateTime.now().subtract(Duration(days: 1)).millisecondsSinceEpoch;
+          habitBuddy.myHabitBuddy.timestampIncreased.toDate().day;
+      print(increaseDate);
+      var thresholdDay = DateTime.now().subtract(Duration(days: 1)).day;
+      print(thresholdDay);
 
       if (thresholdDay > increaseDate) {
+        print(
+            'level kleiner 3 und increased ungleich null und threshold > increasedate');
         habitBuddy.myHabitBuddy.buddyLevel += 1;
         habitBuddy.myHabitBuddy.timestampIncreased = DateTime.now();
         await _firestoreService.updateBuddyTimestamp(
@@ -258,14 +268,19 @@ class BuddyViewModel extends BaseModel {
     setBusy(false);
   }
 
-  Future reduceBuddyLevel(Message firstMessage) async {
+  Future reduceBuddyLevel() async {
     setBusy(true);
     if (habitBuddy.myHabitBuddy.buddyLevel > 0 &&
         habitBuddy.myHabitBuddy.timestampReduced == null) {
-      var firstMessageTimestamp = firstMessage.timestamp.millisecondsSinceEpoch;
-      var thresholdDay =
-          new DateTime.now().subtract(Duration(days: 1)).millisecondsSinceEpoch;
-      if (thresholdDay > firstMessageTimestamp) {
+      print('hallo?');
+
+//        var firstMessageDay = firstMessage.timestamp.day;
+//        print(firstMessageDay);
+      var lastIncrease =
+          habitBuddy.myHabitBuddy.timestampIncreased.toDate().day;
+      var thresholdDay = new DateTime.now().day;
+      if (thresholdDay > lastIncrease + 1) {
+        print('hallo?2');
         habitBuddy.myHabitBuddy.timestampReduced = DateTime.now();
         habitBuddy.myHabitBuddy.buddyLevel -= 1;
         print(habitBuddy.myHabitBuddy.buddyLevel);
@@ -276,14 +291,11 @@ class BuddyViewModel extends BaseModel {
     }
     if (habitBuddy.myHabitBuddy.buddyLevel > 0 &&
         habitBuddy.myHabitBuddy.timestampReduced != null) {
-      var reduceDate =
-          habitBuddy.myHabitBuddy.timestampReduced.millisecondsSinceEpoch;
-      var thresholdDay =
-          DateTime.now().subtract(Duration(days: 1)).millisecondsSinceEpoch;
-      if (thresholdDay > reduceDate) {
+      var reduceDate = habitBuddy.myHabitBuddy.timestampReduced.toDate().day;
+      var thresholdDay = DateTime.now().day;
+      if (thresholdDay > reduceDate + 1) {
         habitBuddy.myHabitBuddy.timestampReduced = DateTime.now();
         habitBuddy.myHabitBuddy.buddyLevel -= 1;
-        print(habitBuddy.myHabitBuddy.buddyLevel);
         notifyListeners();
         await _firestoreService.updateBuddyTimestamp(
             habitBuddy.myHabitBuddy, currentUser.id);

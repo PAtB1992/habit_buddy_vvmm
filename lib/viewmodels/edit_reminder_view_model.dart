@@ -35,64 +35,109 @@ class EditReminderViewModel extends BaseModel {
     );
   }
 
-  void setReminder(int reminderID, String body) async {
+  void setReminder(Habit habit) async {
     if (pageViewController.page == 0) {
-      await _pushNotificationService.showDailyNotification(reminderID, body,
+      _firestoreService.updateHabit(
+          Habit(
+            name: habit.name,
+            customDescription: habit.customDescription,
+            customName: habit.customName,
+            habitID: habit.habitID,
+            isDeleted: habit.isDeleted,
+            reminderID: habit.reminderID,
+            reminderType: 'daily',
+            repetitions: habit.repetitions,
+            wasDone: habit.wasDone,
+          ),
+          currentUser);
+      await _pushNotificationService.showDailyNotification(
+          habit.reminderID,
+          habit.customName,
           Time(pickedDailyDate.hour, pickedDailyDate.minute, 0));
+      habitList.setReminderType(habit.listIndex, 'daily');
       print('daily');
     }
     if (pageViewController.page == 1) {
-      await _pushNotificationService.turnOffNotificationById(reminderID);
+      _firestoreService.updateHabit(
+          Habit(
+            name: habit.name,
+            customDescription: habit.customDescription,
+            customName: habit.customName,
+            habitID: habit.habitID,
+            isDeleted: habit.isDeleted,
+            reminderID: habit.reminderID,
+            reminderType: 'no reminder',
+            repetitions: habit.repetitions,
+            wasDone: habit.wasDone,
+          ),
+          currentUser);
+
+      await _pushNotificationService.turnOffNotificationById(habit.reminderID);
+      habitList.setReminderType(habit.listIndex, 'no reminder');
       print('deleted');
     }
     if (pageViewController.page == 2) {
+      _firestoreService.updateHabit(
+          Habit(
+            name: habit.name,
+            customDescription: habit.customDescription,
+            customName: habit.customName,
+            habitID: habit.habitID,
+            isDeleted: habit.isDeleted,
+            reminderID: habit.reminderID,
+            reminderType: 'weekly',
+            repetitions: habit.repetitions,
+            wasDone: habit.wasDone,
+          ),
+          currentUser);
+      habitList.setReminderType(habit.listIndex, 'weekly');
       print('weekly');
       if (pickedWeeklyDate.weekday == 1) {
         await _pushNotificationService.showWeeklyNotification(
-            reminderID,
-            body,
+            habit.reminderID,
+            habit.customName,
             Time(pickedWeeklyDate.hour, pickedWeeklyDate.minute, 0),
             Day.Monday);
       }
       if (pickedWeeklyDate.weekday == 2) {
         await _pushNotificationService.showWeeklyNotification(
-            reminderID,
-            body,
+            habit.reminderID,
+            habit.customName,
             Time(pickedWeeklyDate.hour, pickedWeeklyDate.minute, 0),
             Day.Tuesday);
       }
       if (pickedWeeklyDate.weekday == 3) {
         await _pushNotificationService.showWeeklyNotification(
-            reminderID,
-            body,
+            habit.reminderID,
+            habit.customName,
             Time(pickedWeeklyDate.hour, pickedWeeklyDate.minute, 0),
             Day.Wednesday);
       }
       if (pickedWeeklyDate.weekday == 4) {
         await _pushNotificationService.showWeeklyNotification(
-            reminderID,
-            body,
+            habit.reminderID,
+            habit.customName,
             Time(pickedWeeklyDate.hour, pickedWeeklyDate.minute, 0),
             Day.Thursday);
       }
       if (pickedWeeklyDate.weekday == 5) {
         await _pushNotificationService.showWeeklyNotification(
-            reminderID,
-            body,
+            habit.reminderID,
+            habit.customName,
             Time(pickedWeeklyDate.hour, pickedWeeklyDate.minute, 0),
             Day.Friday);
       }
       if (pickedWeeklyDate.weekday == 6) {
         await _pushNotificationService.showWeeklyNotification(
-            reminderID,
-            body,
+            habit.reminderID,
+            habit.customName,
             Time(pickedWeeklyDate.hour, pickedWeeklyDate.minute, 0),
             Day.Saturday);
       }
       if (pickedWeeklyDate.weekday == 7) {
         await _pushNotificationService.showWeeklyNotification(
-            reminderID,
-            body,
+            habit.reminderID,
+            habit.customName,
             Time(pickedWeeklyDate.hour, pickedWeeklyDate.minute, 0),
             Day.Sunday);
       }

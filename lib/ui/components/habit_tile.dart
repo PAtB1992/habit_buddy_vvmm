@@ -3,6 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:habitbuddyvvmm/constants/app_colors.dart';
 
+import 'dynamic_components.dart';
+
 class HabitTile extends StatelessWidget {
   final String customName;
   final String name;
@@ -11,10 +13,11 @@ class HabitTile extends StatelessWidget {
   final int repetitions;
   final IconData habitIcon;
   final String description;
-  final String buddyEvaluation;
+  final Widget buddyEvaluation;
   final bool hasHabitBuddy;
   final int reminderID;
-  String reminderType;
+  final bool wasDone;
+  final String reminderType;
 
   HabitTile(
       {this.customName,
@@ -27,7 +30,8 @@ class HabitTile extends StatelessWidget {
       this.buddyEvaluation,
       this.hasHabitBuddy,
       this.reminderID,
-      this.reminderType});
+      this.reminderType,
+      this.wasDone});
 
   @override
   Widget build(BuildContext context) {
@@ -89,23 +93,27 @@ class HabitTile extends StatelessWidget {
                       Expanded(
                         child: Column(
                           children: <Widget>[
-                            Text('Ziel: ',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.bold)),
+//                            Icon(
+//                              Icons.my_location,
+//                              color: Colors.white,
+//                            ),
+                            Icon(
+                              reminderIcon(reminderType),
+                              color: Colors.white,
+                              size: 50,
+                            ),
                             SizedBox(
                               height: 3,
                             ),
-                            Flexible(
-                              child: AutoSizeText(
-                                '$description',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 14),
-                                maxLines: 3,
-                              ),
-                            ),
+//                            Flexible(
+//                              child: AutoSizeText(
+//                                '$description',
+//                                textAlign: TextAlign.center,
+//                                style: TextStyle(
+//                                    color: Colors.white, fontSize: 14),
+//                                maxLines: 3,
+//                              ),
+//                            ),
                           ],
                           mainAxisAlignment: MainAxisAlignment.start,
                           mainAxisSize: MainAxisSize.min,
@@ -117,52 +125,43 @@ class HabitTile extends StatelessWidget {
                           mainAxisSize: MainAxisSize.min,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
-                            Icon(
-                              CupertinoIcons.circle_filled,
-                              color: test1,
-                              size: 53,
-                            ),
+                            wasDone
+                                ? Icon(
+                                    CupertinoIcons.circle_filled,
+                                    color: test1,
+                                    size: 53,
+                                  )
+                                : Icon(
+                                    CupertinoIcons.circle,
+                                    color: accentColor,
+                                    size: 53,
+                                  ),
 //                            Text(
 //                              '$repetitions',
 //                              style:
 //                                  TextStyle(color: Colors.white, fontSize: 45),
 //                            ),
                             Flexible(
-                              child: AutoSizeText(
-                                'heute 2x erledigt',
-                                style: TextStyle(color: Colors.white),
-                                maxFontSize: 12,
-                                maxLines: 1,
-                              ),
+                              child: wasDone
+                                  ? AutoSizeText(
+                                      'Einmal erledigt',
+                                      style: TextStyle(color: Colors.white),
+                                      maxFontSize: 12,
+                                      maxLines: 1,
+                                    )
+                                  : AutoSizeText(
+                                      'Nicht erledigt',
+                                      style: TextStyle(color: Colors.white),
+                                      maxFontSize: 12,
+                                      maxLines: 1,
+                                    ),
                             ),
                           ],
                         ),
                       ),
                       SizedBox(width: 3),
                       Expanded(
-                        child: Column(
-                          children: <Widget>[
-                            Text('BuddyInfo: ',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.bold)),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Flexible(
-                              child: AutoSizeText(
-                                buddyEvaluation ??
-                                    'Dein Buddy hat noch keinen Meilenstein absolviert.',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(color: Colors.white),
-                                maxLines: 3,
-                              ),
-                            ),
-                          ],
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        ),
+                        child: buddyEvaluation,
                       ),
                     ],
                   )
@@ -173,23 +172,20 @@ class HabitTile extends StatelessWidget {
                       Expanded(
                         child: Column(
                           children: <Widget>[
-                            Text('Ziel: ',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.bold)),
+                            Icon(reminderIcon(reminderType),
+                                color: Colors.white),
                             SizedBox(
                               height: 3,
                             ),
-                            Flexible(
-                              child: AutoSizeText(
-                                '$description',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 14),
-                                maxLines: 3,
-                              ),
-                            ),
+//                            Flexible(
+//                              child: AutoSizeText(
+//                                '$description',
+//                                textAlign: TextAlign.center,
+//                                style: TextStyle(
+//                                    color: Colors.white, fontSize: 14),
+//                                maxLines: 3,
+//                              ),
+//                            ),
                           ],
                           mainAxisAlignment: MainAxisAlignment.start,
                           mainAxisSize: MainAxisSize.min,
@@ -200,17 +196,36 @@ class HabitTile extends StatelessWidget {
                           mainAxisSize: MainAxisSize.min,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
-                            Text(
-                              '$repetitions',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 45),
-                            ),
+                            wasDone
+                                ? Icon(
+                                    CupertinoIcons.circle_filled,
+                                    color: test1,
+                                    size: 53,
+                                  )
+                                : Icon(
+                                    CupertinoIcons.circle,
+                                    color: accentColor,
+                                    size: 53,
+                                  ),
+//                            Text(
+//                              '$repetitions',
+//                              style:
+//                                  TextStyle(color: Colors.white, fontSize: 45),
+//                            ),
                             Flexible(
-                              child: AutoSizeText(
-                                'Wiederholungen',
-                                style: TextStyle(color: Colors.white),
-                                maxLines: 1,
-                              ),
+                              child: wasDone
+                                  ? AutoSizeText(
+                                      'Einmal erledigt',
+                                      style: TextStyle(color: Colors.white),
+                                      maxFontSize: 12,
+                                      maxLines: 1,
+                                    )
+                                  : AutoSizeText(
+                                      'Nicht erledigt',
+                                      style: TextStyle(color: Colors.white),
+                                      maxFontSize: 12,
+                                      maxLines: 1,
+                                    ),
                             ),
                           ],
                         ),
@@ -225,7 +240,7 @@ class HabitTile extends StatelessWidget {
             BoxShadow(color: Colors.grey, blurRadius: 3, offset: Offset(0, 2))
           ],
           gradient: LinearGradient(
-              colors: [Color(0xFF303f9f), Color(0xFF3f51b5)],
+              colors: [primaryBlue, secondaryBlue],
               begin: Alignment.bottomCenter,
               end: Alignment.topCenter),
           borderRadius: BorderRadius.circular(10.0),

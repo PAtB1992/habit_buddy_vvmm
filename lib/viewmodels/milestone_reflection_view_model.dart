@@ -23,14 +23,18 @@ class MilestoneReflectionViewModel extends BaseModel {
             customDescription: habit.customDescription,
             repetitions: habit.repetitions + 1,
             isDeleted: false,
-            reminderID: habit.reminderID),
+            reminderID: habit.reminderID,
+            reminderType: habit.reminderType,
+            wasDone: DateTime.now()),
         currentUser);
     notifyListeners();
     habitList.incrementRepetitions(habit.listIndex);
+    habitList.setWasDoneDate(habit.listIndex);
     setBusy(false);
   }
 
-  Future saveMilestoneToStore(Habit habit, int value, int value2) async {
+  Future saveMilestoneToStore(Habit habit, int value, int value2,
+      String question1, String question2, int buddyMood) async {
     setBusy(true);
     await _firestoreService.saveMilestone(
       currentUser,
@@ -43,8 +47,9 @@ class MilestoneReflectionViewModel extends BaseModel {
           userId: currentUser.id,
           habitId: habit.habitID,
           customName: habit.customName,
-          srhiQuestion: 'test',
-          srhiQuestion2: 'test2'),
+          srhiQuestion: question1,
+          srhiQuestion2: question2,
+          buddyMood: buddyMood),
     );
     completedMilestone = true;
     setBusy(false);
@@ -65,7 +70,5 @@ class MilestoneReflectionViewModel extends BaseModel {
     srhiItemList.shuffle();
     questionOne = srhiItemList.first;
     questionTwo = srhiItemList.last;
-    print(questionOne);
-    print(questionTwo);
   }
 }

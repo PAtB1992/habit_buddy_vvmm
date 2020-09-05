@@ -4,6 +4,7 @@ import 'package:habitbuddyvvmm/constants/app_colors.dart';
 import 'package:habitbuddyvvmm/models/habit_buddy.dart';
 import 'package:habitbuddyvvmm/ui/components/reusable_card.dart';
 import 'package:habitbuddyvvmm/viewmodels/buddy_chart_sub_view_model.dart';
+import 'package:habitbuddyvvmm/viewmodels/buddy_view_model.dart';
 import 'package:stacked/stacked.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:habitbuddyvvmm/constants/texts.dart';
@@ -11,7 +12,10 @@ import 'package:habitbuddyvvmm/constants/texts.dart';
 // ignore: must_be_immutable
 class BuddyChartSubView extends StatelessWidget {
   HabitBuddy habitBuddy;
-  BuddyChartSubView({Key key, @required this.habitBuddy}) : super(key: key);
+  BuddyChartSubView({
+    Key key,
+    @required this.habitBuddy,
+  }) : super(key: key);
   List<Color> gradientColors = [
     lightPrimaryBlue,
     lightPrimaryBlue,

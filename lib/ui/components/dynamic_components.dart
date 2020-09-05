@@ -26,18 +26,16 @@ AppBar appBarStyle(String habitName) {
       backgroundColor: primaryBlue,
     );
   }
-  if (habitName == 'weniger-fleisch-essen') {
+  if (habitName == 'besser-organisieren') {
     return AppBar(
       title: AutoSizeText.rich(
         TextSpan(
-          text: 'Weniger ',
+          text: 'Besser ',
           style: TextStyle(
               fontSize: 30, color: Colors.white, fontWeight: FontWeight.bold),
           children: <TextSpan>[
-            TextSpan(text: 'Fleisch ', style: TextStyle(color: accentColor)),
             TextSpan(
-              text: 'Essen',
-            ),
+                text: 'Organisieren ', style: TextStyle(color: accentColor)),
           ],
         ),
         maxLines: 1,
@@ -54,9 +52,6 @@ AppBar appBarStyle(String habitName) {
               fontSize: 30, color: Colors.white, fontWeight: FontWeight.bold),
           children: <TextSpan>[
             TextSpan(text: 'Verbessern ', style: TextStyle(color: accentColor)),
-//            TextSpan(
-//              text: 'Verbessern',
-//            ),
           ],
         ),
         maxLines: 1,
@@ -105,13 +100,13 @@ AppBar appBarStyle(String habitName) {
     return AppBar(
       title: AutoSizeText.rich(
         TextSpan(
-          text: 'Weniger ',
+          text: 'Am ',
           style: TextStyle(
               fontSize: 28, color: Colors.white, fontWeight: FontWeight.bold),
           children: <TextSpan>[
-            TextSpan(text: 'Abgelenkt ', style: TextStyle(color: accentColor)),
+            TextSpan(text: 'Charakter ', style: TextStyle(color: accentColor)),
             TextSpan(
-              text: 'Sein',
+              text: 'arbeiten',
             ),
           ],
         ),
@@ -133,11 +128,11 @@ Widget dynamicImage(String habitName) {
       ),
     );
   }
-  if (habitName == 'weniger-fleisch-essen') {
+  if (habitName == 'besser-organisieren') {
     return ClipRRect(
       borderRadius: BorderRadius.circular(8),
       child: Image.asset(
-        'images/envio-55.jpg',
+        'images/orgaa.jpg',
         fit: BoxFit.fitWidth,
       ),
     );
@@ -186,8 +181,8 @@ Widget dynamicDescription(String habitName) {
         textAlign: TextAlign.justify,
         style: TextStyle(color: Colors.white, fontSize: 17));
   }
-  if (habitName == 'weniger-fleisch-essen') {
-    return AutoSizeText(wenigerFleischEssen,
+  if (habitName == 'besser-organisieren') {
+    return AutoSizeText(besserOrganisieren,
         textAlign: TextAlign.justify,
         style: TextStyle(color: Colors.white, fontSize: 17));
   }
@@ -206,7 +201,7 @@ Widget dynamicDescription(String habitName) {
         textAlign: TextAlign.justify,
         style: TextStyle(color: Colors.white, fontSize: 17));
   } else {
-    return AutoSizeText(konzentrationSteigern,
+    return AutoSizeText(amCharakterArbeiten,
         textAlign: TextAlign.justify,
         style: TextStyle(color: Colors.white, fontSize: 17));
   }
@@ -216,8 +211,8 @@ IconData habitIcon(String habitName) {
   if (habitName == 'gesünder-ernähren') {
     return Icons.fastfood;
   }
-  if (habitName == 'weniger-fleisch-essen') {
-    return Icons.local_dining;
+  if (habitName == 'besser-organisieren') {
+    return Icons.access_time;
   }
   if (habitName == 'fähigkeiten-lernen') {
     return Icons.palette;
@@ -226,9 +221,9 @@ IconData habitIcon(String habitName) {
     return Icons.directions_run;
   }
   if (habitName == 'mehr-wasser-trinken') {
-    return Icons.invert_colors;
+    return Icons.local_drink;
   } else {
-    return Icons.school;
+    return CupertinoIcons.profile_circled;
   }
 }
 
@@ -236,8 +231,8 @@ String dynamicCategory(String habitName) {
   if (habitName == 'gesünder-ernähren') {
     return 'Gesünder ernähren';
   }
-  if (habitName == 'weniger-fleisch-essen') {
-    return 'Weniger Fleisch essen';
+  if (habitName == 'besser-organisieren') {
+    return 'Besser organisieren';
   }
   if (habitName == 'fähigkeiten-lernen') {
     return 'Fähigkeit verbessern';
@@ -248,6 +243,17 @@ String dynamicCategory(String habitName) {
   if (habitName == 'mehr-wasser-trinken') {
     return 'Mehr wasser trinken';
   } else {
-    return 'Konzentration steigern';
+    return 'Am Charakter arbeiten';
+  }
+}
+
+IconData reminderIcon(String reminderType) {
+  if (reminderType == 'no reminder') {
+    return Icons.alarm_off;
+  }
+  if (reminderType == 'daily' || reminderType == 'weekly') {
+    return Icons.alarm_on;
+  } else {
+    return Icons.alarm_off;
   }
 }

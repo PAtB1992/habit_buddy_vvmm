@@ -41,7 +41,7 @@ class HabitDetailView extends StatelessWidget {
                         CircleAvatar(
                           child: Icon(
                             habit.habitIcon,
-                            size: 25.0,
+                            size: 35.0,
                             color: accentColor,
                           ),
                           backgroundColor: Colors.white,
@@ -77,21 +77,15 @@ class HabitDetailView extends StatelessWidget {
                   child: ListView(
                     children: <Widget>[
                       ReusableCard(
+                        boxShadow: false,
                         center: true,
-                        height: 150,
+                        height: 100,
                         color1: primaryBlue,
                         color2: secondaryBlue,
                         cardChild: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            Text('Deine Meilenstein Beschreibung: ',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 15)),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Text(
+                            AutoSizeText(
                               '${habit.customDescription}',
                               textAlign: TextAlign.center,
                               style:
@@ -122,6 +116,7 @@ class HabitDetailView extends StatelessWidget {
                         },
                       ),
                       ReusableCard(
+                        boxShadow: false,
                         height: 200,
                         color1: primaryBlue,
                         color2: secondaryBlue,
@@ -145,17 +140,6 @@ class HabitDetailView extends StatelessWidget {
                           ],
                         ),
                       ),
-                      ReusableCard(
-                        center: true,
-                        height: 150,
-                        color1: primaryBlue,
-                        color2: secondaryBlue,
-                        cardChild: Text(
-                          chartDescription,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(color: Colors.white, fontSize: 20),
-                        ),
-                      ),
                       Padding(
                           padding: const EdgeInsets.only(
                               left: 8.0, right: 8.0, bottom: 10),
@@ -165,15 +149,27 @@ class HabitDetailView extends StatelessWidget {
                         height: 60,
                         color1: accentColor,
                         color2: accentColorGradient,
-                        cardChild: Text(
-                          'Erinnerungen editieren',
-                          style: TextStyle(
+                        cardChild: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Text(
+                              'Erinnerungen editieren',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(
+                              width: 3,
+                            ),
+                            Icon(
+                              Icons.alarm,
                               color: Colors.white,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold),
+                            )
+                          ],
                         ),
                         onPress: () {
-                          print(habit.reminderID);
+                          print(habit.wasDone);
                           model.navigateToEditReminderView(habit);
                         },
                       ),

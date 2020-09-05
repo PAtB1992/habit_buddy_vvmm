@@ -38,14 +38,16 @@ class AddHabitReflectionViewModel extends BaseModel {
       addedHabit = false;
     } else {
       Habit habit = Habit(
-          habitID: customName,
-          name: habitName,
-          customDescription: customDescription,
-          customName: customName,
-          repetitions: 0,
-          habitIcon: habitIcon(habitName),
-          reminderID: reminderID,
-          reminderType: getHabitReminderType(pageViewController.page));
+        habitID: customName,
+        name: habitName,
+        customDescription: customDescription,
+        customName: customName,
+        repetitions: 0,
+        habitIcon: habitIcon(habitName),
+        reminderID: reminderID,
+        reminderType: getHabitReminderType(pageViewController.page),
+        wasDone: DateTime.now().subtract(Duration(days: 10)),
+      );
 
       if (_habitList.checkListForDupes(habit.name)) {
         _dialogService.showDialog(
@@ -175,11 +177,11 @@ class AddHabitReflectionViewModel extends BaseModel {
 
   getHabitReminderID(String habitName) {
     if (habitName == 'gesünder-ernähren') return 1;
-    if (habitName == 'weniger-fleisch-essen') return 2;
+    if (habitName == 'besser-organisieren') return 2;
     if (habitName == 'fähigkeiten-lernen') return 3;
     if (habitName == 'sich-mehr-bewegen') return 4;
     if (habitName == 'mehr-wasser-trinken') return 5;
-    if (habitName == 'konzentration-steigern') return 6;
+    if (habitName == 'am-charakter-arbeiten') return 6;
   }
 
   getHabitReminderType(double pageViewNumber) {

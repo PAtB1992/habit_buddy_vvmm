@@ -23,7 +23,7 @@ class PictureCreditsView extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             Text(
-              'https://www.vecteezy.com/vector-art/375247-healthy-eating-balanced-diet-concept',
+              'https://www.vecteezy.com/vector-art/464825-cute-businessman-running-in-rush-hours-and-clocks-time-management-concept',
               textAlign: TextAlign.center,
             ),
             Text(

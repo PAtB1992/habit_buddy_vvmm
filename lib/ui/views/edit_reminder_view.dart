@@ -194,8 +194,7 @@ class _EditReminderViewState extends State<EditReminderView> {
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         onPressed: () async {
-                          model.setReminder(
-                              widget.habit.reminderID, widget.habit.customName);
+                          model.setReminder(widget.habit);
                           model.popScreen();
                         },
                         child: Text('Speichern',

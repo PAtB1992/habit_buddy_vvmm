@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:habitbuddyvvmm/constants/route_names.dart';
 import 'package:habitbuddyvvmm/ui/components/habit_selection_card.dart';
@@ -80,10 +81,10 @@ class AddHabitView extends StatelessWidget {
                         color: primaryBlue,
                         onPress: () {
                           model.navigateToReflectionViewAndWaitForPop(
-                              context, 'weniger-fleisch-essen');
+                              context, 'besser-organisieren');
                         },
-                        habitIcon: Icons.local_dining,
-                        cardText: 'Ich möchte weniger Fleisch essen.',
+                        habitIcon: Icons.access_time,
+                        cardText: 'Ich möchte mich besser organisieren.',
                       ),
                       HabitSelectionCard(
                         color: thirdrateBlue,
@@ -110,18 +111,17 @@ class AddHabitView extends StatelessWidget {
                           model.navigateToReflectionViewAndWaitForPop(
                               context, "mehr-wasser-trinken");
                         },
-                        habitIcon: Icons.invert_colors,
+                        habitIcon: Icons.local_drink,
                         cardText: 'Ich möchte mehr Wasser trinken.',
                       ),
                       HabitSelectionCard(
                         color: fourthrateBlue,
                         onPress: () {
                           model.navigateToReflectionViewAndWaitForPop(
-                              context, "konzentration-steigern");
+                              context, "am-charakter-arbeiten");
                         },
-                        habitIcon: Icons.school,
-                        cardText:
-                            'Ich möchte beim Lernen weniger abgelenkt werden.',
+                        habitIcon: CupertinoIcons.profile_circled,
+                        cardText: 'Ich möchte an meinem Charakter arbeiten.',
                       ),
                     ],
                   ),

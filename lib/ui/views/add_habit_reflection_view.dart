@@ -74,7 +74,7 @@ class _AddHabitReflectionViewState extends State<AddHabitReflectionView> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: InputField(
-                      formatter: LengthLimitingTextInputFormatter(50),
+                      formatter: LengthLimitingTextInputFormatter(100),
                       smallVersion: false,
                       placeholder:
                           'Beschreibe hier, wann Dein Meilenstein erfüllt ist.',

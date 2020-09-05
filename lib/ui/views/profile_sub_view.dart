@@ -10,9 +10,11 @@ import 'package:stacked/_viewmodel_builder.dart';
 // ignore: must_be_immutable
 class ProfileSubView extends StatefulWidget {
   HabitBuddy habitBuddy;
-  Message firstMessage;
-  ProfileSubView({Key key, this.habitBuddy, this.firstMessage})
-      : super(key: key);
+
+  ProfileSubView({
+    Key key,
+    this.habitBuddy,
+  }) : super(key: key);
 
   @override
   _ProfileSubViewState createState() => _ProfileSubViewState();
@@ -23,8 +25,8 @@ class _ProfileSubViewState extends State<ProfileSubView> {
   Widget build(BuildContext context) {
     return ViewModelBuilder<BuddyViewModel>.reactive(
       viewModelBuilder: () => BuddyViewModel(),
-      onModelReady: (model) => model.reduceBuddyLevel(widget.firstMessage),
-      disposeViewModel: true,
+      onModelReady: (model) => model.reduceBuddyLevel(),
+      disposeViewModel: false,
       builder: (context, model, child) => Container(
         child: Stack(
           children: <Widget>[

@@ -1,6 +1,11 @@
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:habitbuddyvvmm/constants/app_colors.dart';
 import 'package:habitbuddyvvmm/models/milestone.dart';
 import 'package:habitbuddyvvmm/services/dialog_service.dart';
 import 'package:habitbuddyvvmm/services/firestore_service.dart';
+import 'package:habitbuddyvvmm/services/push_notification_service.dart';
 import 'package:habitbuddyvvmm/viewmodels/base_model.dart';
 import 'package:habitbuddyvvmm/services/navigation_service.dart';
 import 'package:habitbuddyvvmm/locator.dart';
@@ -11,6 +16,9 @@ class HomeViewModel extends BaseModel {
   final NavigationService _navigationService = locator<NavigationService>();
   final DialogService _dialogService = locator<DialogService>();
   final FirestoreService _firestoreService = locator<FirestoreService>();
+  final PushNotificationService _pushNotificationService =
+      locator<PushNotificationService>();
+  static bool habitDone;
 
   List<Milestone> _milestones;
   List<Milestone> get milestones => _milestones;
@@ -39,6 +47,7 @@ class HomeViewModel extends BaseModel {
           currentUser);
       print('update Result: $result');
       habitList.deleteHabit(habit);
+      _pushNotificationService.turnOffNotificationById(habit.reminderID);
     } else {
       print('User has cancelled the dialog');
     }
@@ -72,34 +81,147 @@ class HomeViewModel extends BaseModel {
               evaluation2: 11,
               timestamp: DateTime.now(),
               userId: 'Bot'));
-      int value1 = tempMilestone.evaluation;
-      int value2 = tempMilestone.evaluation2;
-      int average = ((value1 + value2) / 2).round();
-      switch (average) {
-        case 0:
-          return 'Dein Habit Buddy ist kurz vorm Aufgeben!';
+      int value = tempMilestone.buddyMood;
+
+      switch (value) {
         case 1:
-          return 'Dein Habit Buddy ist super unmotiviert!';
+          return Column(
+            children: <Widget>[
+              Icon(
+                Icons.sentiment_very_dissatisfied,
+                color: accentColor,
+                size: 30,
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              Flexible(
+                child: AutoSizeText(
+                  'Dein Buddy ist sehr unmotiviert!',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.white),
+                  maxLines: 2,
+                ),
+              ),
+            ],
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          );
         case 2:
-          return 'Der Wille deines Habit Buddy bröckelt!';
+          return Column(
+            children: <Widget>[
+              Icon(
+                Icons.sentiment_dissatisfied,
+                color: accentColorGradient,
+                size: 30,
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              Flexible(
+                child: AutoSizeText(
+                  'Dein Buddy ist unmotiviert',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.white),
+                  maxLines: 2,
+                ),
+              ),
+            ],
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          );
         case 3:
-          return 'Dein Habit Buddy will nicht mehr, aber hält durch.';
+          return Column(
+            children: <Widget>[
+              Icon(
+                Icons.sentiment_neutral,
+                color: Colors.white,
+                size: 30,
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              Flexible(
+                child: AutoSizeText(
+                  'Deinem Buddy geht es ok',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.white),
+                  maxLines: 2,
+                ),
+              ),
+            ],
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          );
         case 4:
-          return 'Dein Habit Buddy hat nicht so viel Lust, bleibt aber dran.';
+          return Column(
+            children: <Widget>[
+              Icon(
+                Icons.sentiment_satisfied,
+                color: test1,
+                size: 30,
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              Flexible(
+                child: AutoSizeText(
+                  'Dein Buddy ist motiviert',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.white),
+                  maxLines: 2,
+                ),
+              ),
+            ],
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          );
         case 5:
-          return 'Dein Habit Buddy bleibt dran.';
-        case 6:
-          return 'Dein Habit Buddy ist stehts diszipliniert.';
-        case 7:
-          return 'Die Habit bereitet deinem Buddy Freude.';
-        case 8:
-          return 'Bei deinem Habit Buddy läuft es richtig gut.';
-        case 9:
-          return 'Deinem Habit Buddy geht es sehr gut.';
-        case 10:
-          return 'Dein Habit Buddy ist motivierter denn je!';
+          return Column(
+            children: <Widget>[
+              Icon(
+                Icons.sentiment_very_satisfied,
+                color: test1,
+                size: 30,
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              Flexible(
+                child: AutoSizeText(
+                  'Dein Buddy ist sehr motiviert!',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.white),
+                  maxLines: 2,
+                ),
+              ),
+            ],
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          );
       }
-      return 'Dein Habit Buddy hat diese Rubrik nicht.';
+      return Column(
+        children: <Widget>[
+          Icon(
+            Icons.sentiment_neutral,
+            color: Colors.white,
+            size: 30,
+          ),
+          SizedBox(
+            height: 5,
+          ),
+          Flexible(
+            child: AutoSizeText(
+              'Dein Buddy hat diese Rubrik nicht.',
+              textAlign: TextAlign.center,
+              style: TextStyle(color: Colors.white),
+              maxLines: 2,
+            ),
+          ),
+        ],
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      );
     }
   }
 
@@ -166,12 +288,28 @@ class HomeViewModel extends BaseModel {
     setBusy(true);
     var habitResults = await _firestoreService.getHabits(currentUser);
     setBusy(false);
-
     if (habitResults is List<Habit>) {
       for (Habit habit in habitResults) {
+        if (habit.wasDone != null) {
+          habit.wasDone = habit.wasDone.toDate();
+        }
         habitList.addHabit(habit);
       }
       notifyListeners();
     }
+  }
+
+  bool getHabitDone(wasDone) {
+    if (wasDone != null) {
+      if (wasDone.day == DateTime.now().day) {
+        habitDone = true;
+      } else {
+        habitDone = false;
+      }
+    } else {
+      habitDone = false;
+    }
+
+    return habitDone;
   }
 }

@@ -50,8 +50,8 @@ class HomeView extends StatelessWidget {
                           CircleAvatar(
                             child: Icon(
                               Icons.child_care,
-                              size: 30.0,
-                              color: accentColor,
+                              size: 45.0,
+                              color: testaccentColor,
                             ),
                             backgroundColor: Colors.white,
                             radius: 30.0,
@@ -133,11 +133,14 @@ class HomeView extends StatelessWidget {
                                       style: TextStyle(color: primaryText),
                                       maxLines: 1,
                                     )
-                                  : AutoSizeText(
-                                      'Derzeit verfolgst Du ${model.habitList.habitCount} Ziele, bleib dran und wachse an Dir!',
-                                      style: TextStyle(color: primaryText),
-                                      maxLines: 1,
-                                    ),
+                                  : SizedBox(
+                                      height: 1,
+                                    )
+//                                  : AutoSizeText(
+//                                      'Derzeit verfolgst Du ${model.habitList.habitCount} Ziele, bleib dran und wachse an Dir!',
+//                                      style: TextStyle(color: primaryText),
+//                                      maxLines: 1,
+//                                    ),
                             ],
                           ),
                           Expanded(
@@ -162,8 +165,13 @@ class HomeView extends StatelessWidget {
                                                       model.milestones,
                                                       habit.name) ??
                                                   'Dein Habit Buddy hat diese Rubrik nicht.'
-                                              : '',
+                                              : SizedBox(
+                                                  width: 1,
+                                                ),
                                           reminderID: habit.reminderID,
+                                          reminderType: habit.reminderType,
+                                          wasDone:
+                                              model.getHabitDone(habit.wasDone),
                                           onLongPress: () {
                                             model.deleteHabit(habit);
                                           },
@@ -171,19 +179,20 @@ class HomeView extends StatelessWidget {
                                             await _navigationService.navigateTo(
                                               HabitDetailViewRoute,
                                               arguments: Habit(
-                                                habitID: habit.habitID,
-                                                name: habit.name,
-                                                customDescription:
-                                                    habit.customDescription,
-                                                customName: habit.customName,
-                                                listIndex: index,
-                                                repetitions: habit.repetitions,
-                                                habitIcon:
-                                                    habitIcon(habit.name),
-                                                reminderID: habit.reminderID,
-                                                reminderType:
-                                                    habit.reminderType,
-                                              ),
+                                                  habitID: habit.habitID,
+                                                  name: habit.name,
+                                                  customDescription:
+                                                      habit.customDescription,
+                                                  customName: habit.customName,
+                                                  listIndex: index,
+                                                  repetitions:
+                                                      habit.repetitions,
+                                                  habitIcon:
+                                                      habitIcon(habit.name),
+                                                  reminderID: habit.reminderID,
+                                                  reminderType:
+                                                      habit.reminderType,
+                                                  wasDone: habit.wasDone),
                                             );
                                             model.setBusy(false);
                                           },

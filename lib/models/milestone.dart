@@ -12,19 +12,20 @@ class Milestone {
   final String customName;
   final String srhiQuestion;
   final String srhiQuestion2;
+  final int buddyMood;
 
-  Milestone({
-    @required this.repetitions,
-    @required this.habitName,
-    @required this.timestamp,
-    @required this.evaluation,
-    @required this.evaluation2,
-    @required this.userId,
-    @required this.habitId,
-    @required this.customName,
-    @required this.srhiQuestion,
-    @required this.srhiQuestion2,
-  });
+  Milestone(
+      {@required this.repetitions,
+      @required this.habitName,
+      @required this.timestamp,
+      @required this.evaluation,
+      @required this.evaluation2,
+      @required this.userId,
+      @required this.habitId,
+      @required this.customName,
+      @required this.srhiQuestion,
+      @required this.srhiQuestion2,
+      @required this.buddyMood});
 
   Map<String, dynamic> toMap() {
     return {
@@ -38,6 +39,7 @@ class Milestone {
       'evaluation2': evaluation2,
       'srhiQuestion': srhiQuestion,
       'srhiQuestion2': srhiQuestion2,
+      'buddyMood': buddyMood,
     };
   }
 
@@ -58,6 +60,7 @@ class Milestone {
       evaluation2: map['evaluation2'],
       srhiQuestion: map['srhiQuestion'],
       srhiQuestion2: map['srhiQuestion2'],
+      buddyMood: map['buddyMood'],
     );
   }
 }

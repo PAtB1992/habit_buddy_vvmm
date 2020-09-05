@@ -9,9 +9,6 @@ import 'package:habitbuddyvvmm/constants/app_colors.dart';
 import 'package:habitbuddyvvmm/models/message.dart';
 
 class BuddyView extends StatelessWidget {
-  final controller = PageController(
-    initialPage: 0,
-  );
   final HabitBuddy habitBuddy;
   BuddyView({Key key, this.habitBuddy}) : super(key: key);
 
@@ -68,12 +65,11 @@ class BuddyView extends StatelessWidget {
                 height: 350,
                 child: PageView(
                   onPageChanged: model.onPageChanged,
-                  controller: controller,
+                  controller: model.pageViewController,
                   children: <Widget>[
                     ProfileSubView(
-                        habitBuddy: habitBuddy,
-                        firstMessage: model.firstMessage ??
-                            Message(timestamp: DateTime.now())),
+                      habitBuddy: habitBuddy,
+                    ),
                     BuddyChartSubView(
                       habitBuddy: model.habitBuddy,
                     ),
