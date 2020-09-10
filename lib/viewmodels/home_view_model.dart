@@ -276,6 +276,7 @@ class HomeViewModel extends BaseModel {
       int counter = tempList.length * 2;
 
       for (Milestone item in tempList) {
+        //TODO evaluation anpassen
         int evaSum = item.evaluation + item.evaluation2;
         sumFeeling = sumFeeling + evaSum;
       }

@@ -128,7 +128,6 @@ class HabitDetailView extends StatelessWidget {
                               style:
                                   TextStyle(color: Colors.white, fontSize: 20),
                               textAlign: TextAlign.center,
-                              //TODO beim Tap Kalender anzeigen (optional!)
                             ),
                             Text(
                               model.repetitions.toString() == null

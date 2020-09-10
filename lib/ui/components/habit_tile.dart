@@ -45,46 +45,55 @@ class HabitTile extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Flexible(
-                  child: AutoSizeText(
-                    customName,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 25.0,
-                    ),
-                    maxLines: 1,
-                  ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Text('Rubrik: $name',
+            Stack(children: [
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Flexible(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                      child: AutoSizeText(
+                        customName,
+                        textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Colors.white,
-                        )),
-                    SizedBox(
-                      width: 3,
+                          fontSize: 25.0,
+                        ),
+                        maxLines: 1,
+                      ),
                     ),
-                    Icon(
-                      habitIcon,
-                      size: 14,
-                      color: Colors.white,
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  width: 200,
-                  child: Divider(
-                    thickness: 0.8,
-                    color: accentColor,
                   ),
-                ),
-              ],
-            ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text('Rubrik: $name',
+                          style: TextStyle(
+                            color: Colors.white,
+                          )),
+                      SizedBox(
+                        width: 3,
+                      ),
+                      Icon(
+                        habitIcon,
+                        size: 14,
+                        color: Colors.white,
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    width: 200,
+                    child: Divider(
+                      thickness: 0.8,
+                      color: accentColor,
+                    ),
+                  ),
+                ],
+              ),
+              Icon(
+                reminderIcon(reminderType),
+                color: Colors.white,
+              ),
+            ]),
             hasHabitBuddy
                 ? Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -97,23 +106,30 @@ class HabitTile extends StatelessWidget {
 //                              Icons.my_location,
 //                              color: Colors.white,
 //                            ),
-                            Icon(
-                              reminderIcon(reminderType),
-                              color: Colors.white,
-                              size: 50,
-                            ),
+
                             SizedBox(
                               height: 3,
                             ),
-//                            Flexible(
-//                              child: AutoSizeText(
-//                                '$description',
-//                                textAlign: TextAlign.center,
-//                                style: TextStyle(
-//                                    color: Colors.white, fontSize: 14),
-//                                maxLines: 3,
-//                              ),
-//                            ),
+                            Flexible(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.fitness_center,
+                                    color: Colors.white,
+                                    size: 40,
+                                  ),
+                                  //TODO Automaticity
+                                  AutoSizeText(
+                                    '50%',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 20),
+                                    maxLines: 1,
+                                  ),
+                                ],
+                              ),
+                            ),
                           ],
                           mainAxisAlignment: MainAxisAlignment.start,
                           mainAxisSize: MainAxisSize.min,
