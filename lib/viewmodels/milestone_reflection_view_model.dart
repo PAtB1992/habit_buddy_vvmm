@@ -10,11 +10,13 @@ class MilestoneReflectionViewModel extends BaseModel {
   bool completedMilestone = false;
   String questionOne;
   String questionTwo;
+  double currentAutomaticity;
 
-  Future completeMilestone(Habit habit) async {
+  Future completeMilestone(
+      Habit habit, int value, int value2, int motivation) async {
     setBusy(true);
+    currentAutomaticity = (value + value2) / 2;
 
-    print(habitList.habitList[habit.listIndex].repetitions);
     await _firestoreService.updateHabit(
         Habit(
             habitID: habit.habitID,
@@ -25,11 +27,12 @@ class MilestoneReflectionViewModel extends BaseModel {
             isDeleted: false,
             reminderID: habit.reminderID,
             reminderType: habit.reminderType,
-            wasDone: DateTime.now()),
+            wasDone: DateTime.now(),
+            automaticity: currentAutomaticity,
+            motivation: motivation),
         currentUser);
+    habitList.updateListHabit(habit.listIndex, currentAutomaticity, motivation);
     notifyListeners();
-    habitList.incrementRepetitions(habit.listIndex);
-    habitList.setWasDoneDate(habit.listIndex);
     setBusy(false);
   }
 

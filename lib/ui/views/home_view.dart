@@ -165,13 +165,13 @@ class HomeView extends StatelessWidget {
                                                       model.milestones,
                                                       habit.name) ??
                                                   'Dein Habit Buddy hat diese Rubrik nicht.'
-                                              : SizedBox(
-                                                  width: 1,
-                                                ),
+                                              : model.userMotivation(
+                                                  habit.motivation),
                                           reminderID: habit.reminderID,
                                           reminderType: habit.reminderType,
                                           wasDone:
                                               model.getHabitDone(habit.wasDone),
+                                          automaticity: habit.automaticity,
                                           onLongPress: () {
                                             model.deleteHabit(habit);
                                           },

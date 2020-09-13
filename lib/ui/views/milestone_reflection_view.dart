@@ -308,7 +308,8 @@ class _MilestoneReflectionViewState extends State<MilestoneReflectionView> {
                         fontWeight: FontWeight.bold),
                   ),
                   onPress: () async {
-                    await model.completeMilestone(widget.habit);
+                    await model.completeMilestone(
+                        widget.habit, _value, _value2, _value3);
                     await model.saveMilestoneToStore(widget.habit, _value,
                         _value2, model.questionOne, model.questionTwo, _value3);
                     Navigator.pop(context, model.completedMilestone);

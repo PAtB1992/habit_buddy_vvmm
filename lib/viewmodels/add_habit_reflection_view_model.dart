@@ -155,26 +155,6 @@ class AddHabitReflectionViewModel extends BaseModel {
     setBusy(false);
   }
 
-//  switchNumberToDay() {
-//    var dayNumber = pickedWeeklyDate.weekday;
-//    switch (dayNumber) {
-//      case 1:
-//        return Day.Monday;
-//      case 2:
-//        return Day.Tuesday;
-//      case 3:
-//        return Day.Wednesday;
-//      case 4:
-//        return Day.Thursday;
-//      case 5:
-//        return Day.Friday;
-//      case 6:
-//        return Day.Saturday;
-//      case 7:
-//        return Day.Sunday;
-//    }
-//  }
-
   getHabitReminderID(String habitName) {
     if (habitName == 'gesünder-ernähren') return 1;
     if (habitName == 'besser-organisieren') return 2;

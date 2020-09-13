@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:habitbuddyvvmm/constants/app_colors.dart';
 
 import 'dynamic_components.dart';
@@ -18,20 +19,23 @@ class HabitTile extends StatelessWidget {
   final int reminderID;
   final bool wasDone;
   final String reminderType;
+  final double automaticity;
 
-  HabitTile(
-      {this.customName,
-      this.name,
-      this.onPress,
-      this.repetitions,
-      this.habitIcon,
-      this.description,
-      this.onLongPress,
-      this.buddyEvaluation,
-      this.hasHabitBuddy,
-      this.reminderID,
-      this.reminderType,
-      this.wasDone});
+  HabitTile({
+    this.customName,
+    this.name,
+    this.onPress,
+    this.repetitions,
+    this.habitIcon,
+    this.description,
+    this.onLongPress,
+    this.buddyEvaluation,
+    this.hasHabitBuddy,
+    this.reminderID,
+    this.reminderType,
+    this.wasDone,
+    this.automaticity,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -94,160 +98,81 @@ class HabitTile extends StatelessWidget {
                 color: Colors.white,
               ),
             ]),
-            hasHabitBuddy
-                ? Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Expanded(
+                  child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
-                      Expanded(
+                      Flexible(
                         child: Column(
-                          children: <Widget>[
-//                            Icon(
-//                              Icons.my_location,
-//                              color: Colors.white,
-//                            ),
-
-                            SizedBox(
-                              height: 3,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.fitness_center,
+                              color: Colors.white,
+                              size: 40,
                             ),
-                            Flexible(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Icons.fitness_center,
-                                    color: Colors.white,
-                                    size: 40,
-                                  ),
-                                  //TODO Automaticity
-                                  AutoSizeText(
-                                    '50%',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 20),
-                                    maxLines: 1,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          mainAxisSize: MainAxisSize.min,
-                        ),
-                      ),
-                      SizedBox(width: 3),
-                      Expanded(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            wasDone
-                                ? Icon(
-                                    CupertinoIcons.circle_filled,
-                                    color: test1,
-                                    size: 53,
-                                  )
-                                : Icon(
-                                    CupertinoIcons.circle,
-                                    color: accentColor,
-                                    size: 53,
-                                  ),
-//                            Text(
-//                              '$repetitions',
-//                              style:
-//                                  TextStyle(color: Colors.white, fontSize: 45),
-//                            ),
-                            Flexible(
-                              child: wasDone
-                                  ? AutoSizeText(
-                                      'Einmal erledigt',
-                                      style: TextStyle(color: Colors.white),
-                                      maxFontSize: 12,
-                                      maxLines: 1,
-                                    )
-                                  : AutoSizeText(
-                                      'Nicht erledigt',
-                                      style: TextStyle(color: Colors.white),
-                                      maxFontSize: 12,
-                                      maxLines: 1,
-                                    ),
+                            AutoSizeText(
+                              '${(automaticity * 10).toInt()}%',
+                              textAlign: TextAlign.center,
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 20),
+                              maxLines: 1,
                             ),
                           ],
                         ),
-                      ),
-                      SizedBox(width: 3),
-                      Expanded(
-                        child: buddyEvaluation,
                       ),
                     ],
-                  )
-                : Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  ),
+                ),
+                SizedBox(width: 3),
+                Expanded(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
-                      Expanded(
-                        child: Column(
-                          children: <Widget>[
-                            Icon(reminderIcon(reminderType),
-                                color: Colors.white),
-                            SizedBox(
-                              height: 3,
+                      wasDone
+                          ? Icon(
+                              CupertinoIcons.circle_filled,
+                              color: test1,
+                              size: 53,
+                            )
+                          : Icon(
+                              CupertinoIcons.circle,
+                              color: accentColor,
+                              size: 53,
                             ),
-//                            Flexible(
-//                              child: AutoSizeText(
-//                                '$description',
-//                                textAlign: TextAlign.center,
-//                                style: TextStyle(
-//                                    color: Colors.white, fontSize: 14),
-//                                maxLines: 3,
-//                              ),
-//                            ),
-                          ],
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          mainAxisSize: MainAxisSize.min,
-                        ),
-                      ),
-                      Expanded(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            wasDone
-                                ? Icon(
-                                    CupertinoIcons.circle_filled,
-                                    color: test1,
-                                    size: 53,
-                                  )
-                                : Icon(
-                                    CupertinoIcons.circle,
-                                    color: accentColor,
-                                    size: 53,
-                                  ),
 //                            Text(
 //                              '$repetitions',
 //                              style:
 //                                  TextStyle(color: Colors.white, fontSize: 45),
 //                            ),
-                            Flexible(
-                              child: wasDone
-                                  ? AutoSizeText(
-                                      'Einmal erledigt',
-                                      style: TextStyle(color: Colors.white),
-                                      maxFontSize: 12,
-                                      maxLines: 1,
-                                    )
-                                  : AutoSizeText(
-                                      'Nicht erledigt',
-                                      style: TextStyle(color: Colors.white),
-                                      maxFontSize: 12,
-                                      maxLines: 1,
-                                    ),
-                            ),
-                          ],
-                        ),
+                      Flexible(
+                        child: wasDone
+                            ? AutoSizeText(
+                                'Einmal erledigt',
+                                style: TextStyle(color: Colors.white),
+                                maxFontSize: 12,
+                                maxLines: 1,
+                              )
+                            : AutoSizeText(
+                                'Nicht erledigt',
+                                style: TextStyle(color: Colors.white),
+                                maxFontSize: 12,
+                                maxLines: 1,
+                              ),
                       ),
                     ],
-                  )
+                  ),
+                ),
+                SizedBox(width: 3),
+                Expanded(
+                  child: buddyEvaluation,
+                ),
+              ],
+            )
           ],
         ),
         margin: EdgeInsets.all(5.0),

@@ -13,11 +13,11 @@ class ProfileSubViewModel extends BaseModel {
 
   Widget showHabitBuddyMood() {
     double normalizedMood;
-    if (habitBuddy.myHabitBuddy.evaluationData.length == 0) {
+    if (habitBuddy.myHabitBuddy.motivationData.length == 0) {
       normalizedMood = 99;
     } else {
-      normalizedMood = habitBuddy.myHabitBuddy.evaluationData[0] /
-          habitBuddy.myHabitBuddy.evaluationData[1];
+      normalizedMood = habitBuddy.myHabitBuddy.motivationData[0] /
+          habitBuddy.myHabitBuddy.motivationData[1];
     }
 
     if (normalizedMood < 4) {

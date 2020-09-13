@@ -43,6 +43,11 @@ class HomeViewModel extends BaseModel {
               customName: habit.customName,
               customDescription: habit.customDescription,
               repetitions: habit.repetitions,
+              automaticity: habit.automaticity,
+              wasDone: habit.wasDone,
+              reminderType: habit.reminderType,
+              reminderID: habit.reminderID,
+              motivation: habit.motivation,
               isDeleted: true),
           currentUser);
       print('update Result: $result');
@@ -225,11 +230,153 @@ class HomeViewModel extends BaseModel {
     }
   }
 
+  userMotivation(int value) {
+    //TODO wording anpassen
+    switch (value) {
+      case 1:
+        return Column(
+          children: <Widget>[
+            Icon(
+              Icons.sentiment_very_dissatisfied,
+              color: accentColor,
+              size: 30,
+            ),
+            SizedBox(
+              height: 5,
+            ),
+            Flexible(
+              child: AutoSizeText(
+                'Jetzt nicht aufgeben!',
+                textAlign: TextAlign.center,
+                style: TextStyle(color: Colors.white),
+                maxLines: 2,
+              ),
+            ),
+          ],
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        );
+      case 2:
+        return Column(
+          children: <Widget>[
+            Icon(
+              Icons.sentiment_dissatisfied,
+              color: accentColorGradient,
+              size: 30,
+            ),
+            SizedBox(
+              height: 5,
+            ),
+            Flexible(
+              child: AutoSizeText(
+                'Dein Buddy ist unmotiviert',
+                textAlign: TextAlign.center,
+                style: TextStyle(color: Colors.white),
+                maxLines: 2,
+              ),
+            ),
+          ],
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        );
+      case 3:
+        return Column(
+          children: <Widget>[
+            Icon(
+              Icons.sentiment_neutral,
+              color: Colors.white,
+              size: 30,
+            ),
+            SizedBox(
+              height: 5,
+            ),
+            Flexible(
+              child: AutoSizeText(
+                'Deinem Buddy geht es ok',
+                textAlign: TextAlign.center,
+                style: TextStyle(color: Colors.white),
+                maxLines: 2,
+              ),
+            ),
+          ],
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        );
+      case 4:
+        return Column(
+          children: <Widget>[
+            Icon(
+              Icons.sentiment_satisfied,
+              color: test1,
+              size: 30,
+            ),
+            SizedBox(
+              height: 5,
+            ),
+            Flexible(
+              child: AutoSizeText(
+                'Dein Buddy ist motiviert',
+                textAlign: TextAlign.center,
+                style: TextStyle(color: Colors.white),
+                maxLines: 2,
+              ),
+            ),
+          ],
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        );
+      case 5:
+        return Column(
+          children: <Widget>[
+            Icon(
+              Icons.sentiment_very_satisfied,
+              color: test1,
+              size: 30,
+            ),
+            SizedBox(
+              height: 5,
+            ),
+            Flexible(
+              child: AutoSizeText(
+                'Dein Buddy ist sehr motiviert!',
+                textAlign: TextAlign.center,
+                style: TextStyle(color: Colors.white),
+                maxLines: 2,
+              ),
+            ),
+          ],
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        );
+    }
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        Icon(
+          Icons.sentiment_neutral,
+          color: Colors.white,
+          size: 30,
+        ),
+        SizedBox(
+          height: 1,
+        ),
+        Flexible(
+          child: AutoSizeText(
+            'Irgendwas hier rein',
+            textAlign: TextAlign.center,
+            style: TextStyle(color: Colors.white),
+            maxLines: 2,
+          ),
+        ),
+      ],
+    );
+  }
+
   void averageBuddyFeeling() {
     int sumFeeling = 0;
     List<Milestone> tempList = [];
     if (milestones == null) {
-      habitBuddy.myHabitBuddy.evaluationData = [];
+      habitBuddy.myHabitBuddy.motivationData = [];
     } else {
       Milestone milestoneOne = milestones.firstWhere(
           (element) => element.habitName == 'fähigkeiten-lernen',
@@ -246,7 +393,7 @@ class HomeViewModel extends BaseModel {
       }
 
       Milestone milestoneThree = milestones.firstWhere(
-          (element) => element.habitName == 'konzentration-steigern',
+          (element) => element.habitName == 'am-charakter-arbeiten',
           orElse: () => null);
       if (milestoneThree != null) {
         tempList.add(milestoneThree);
@@ -267,21 +414,20 @@ class HomeViewModel extends BaseModel {
       }
 
       Milestone milestoneSix = milestones.firstWhere(
-          (element) => element.habitName == 'weniger-fleisch-essen',
+          (element) => element.habitName == 'besser-organisieren',
           orElse: () => null);
       if (milestoneSix != null) {
         tempList.add(milestoneSix);
       }
 
-      int counter = tempList.length * 2;
+      int counter = tempList.length;
 
       for (Milestone item in tempList) {
-        //TODO evaluation anpassen
-        int evaSum = item.evaluation + item.evaluation2;
-        sumFeeling = sumFeeling + evaSum;
+        int tempSum = item.buddyMood;
+        sumFeeling = sumFeeling + tempSum;
       }
 
-      habitBuddy.myHabitBuddy.evaluationData = [sumFeeling, counter];
+      habitBuddy.myHabitBuddy.motivationData = [sumFeeling, counter];
     }
   }
 

@@ -14,20 +14,23 @@ class Habit {
   IconData habitIcon;
   int repetitions;
   var wasDone;
+  double automaticity;
+  int motivation;
 
-  Habit({
-    @required this.name,
-    @required this.customDescription,
-    @required this.customName,
-    this.habitID,
-    this.listIndex,
-    this.reminderID,
-    this.reminderType,
-    this.isDeleted = false,
-    this.repetitions,
-    this.habitIcon,
-    this.wasDone,
-  });
+  Habit(
+      {@required this.name,
+      @required this.customDescription,
+      @required this.customName,
+      this.habitID,
+      this.listIndex,
+      this.reminderID,
+      this.reminderType,
+      this.isDeleted = false,
+      this.repetitions,
+      this.habitIcon,
+      this.wasDone,
+      this.automaticity,
+      this.motivation});
 
   Map<String, dynamic> toMap() {
     return {
@@ -39,6 +42,8 @@ class Habit {
       'reminderID': reminderID,
       'reminderType': reminderType,
       'wasDone': wasDone,
+      'automaticity': automaticity,
+      'motivation': motivation,
 //      'habitIcon': habitIcon,
     };
   }
@@ -53,7 +58,9 @@ class Habit {
         reminderID = data['reminderID'],
         reminderType = data['reminderType'],
         habitID = data['habitID'],
-        wasDone = data['wasDone'];
+        wasDone = data['wasDone'],
+        automaticity = data['automaticity'],
+        motivation = data['motivation'];
 
   static Habit fromMap(Map<String, dynamic> map, String documentID) {
     if (map == null) return null;
@@ -68,6 +75,8 @@ class Habit {
       reminderID: map['reminderID'],
       reminderType: map['reminderType'],
       wasDone: map['wasDone'],
+      automaticity: map['automaticity'],
+      motivation: map['motiviation'],
     );
   }
 }
@@ -114,42 +123,13 @@ class HabitList {
     return _habitList[index].repetitions;
   }
 
-  void setWasDoneDate(int index) {
+  void updateListHabit(int index, double automaticity, int motivation) {
     _habitList[index].wasDone = DateTime.now();
+    _habitList[index].automaticity = automaticity;
+    _habitList[index].motivation = motivation;
   }
 
   void setReminderType(int index, String reminderType) {
     _habitList[index].reminderType = reminderType;
   }
-
-//  ListView listBuilder() {
-//    return ListView.builder(
-//      itemBuilder: (context, index) {
-//        final habit = habitList[index];
-//        return HabitTile(
-//          name: habit.name,
-//          repetitions: habit.repetitions,
-//          description: habit.customDescription,
-//          habitIcon: Icon(
-//            habit.habitIcon,
-//            color: Colors.white,
-//          ),
-//          onPress: () {
-//            _navigationService.navigateTo(
-//              HabitDetailViewRoute,
-//              arguments: Habit(
-//                name: habit.name,
-//                repetitions: habit.repetitions,
-//                description: habit.description,
-//                listIndex: index,
-//                customDescription: habit.customDescription,
-//                habitIcon: habit.habitIcon,
-//              ),
-//            );
-//          },
-//        );
-//      },
-//      itemCount: habitCount,
-//    );
-//  }
 }

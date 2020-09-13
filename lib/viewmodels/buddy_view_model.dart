@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:habitbuddyvvmm/constants/app_colors.dart';
 import 'package:habitbuddyvvmm/models/chart_data.dart';
 import 'package:habitbuddyvvmm/models/habit_buddy.dart';
@@ -20,7 +23,6 @@ class BuddyViewModel extends BaseModel {
   List<Message> _messages = [];
   List<Message> get messages => _messages;
   Message firstMessage;
-  Message firstMessageTimestamp;
 
   List _chartItems = [];
   List get chartItems => _chartItems;
@@ -51,48 +53,48 @@ class BuddyViewModel extends BaseModel {
 
   Widget showHabitBuddyMood() {
     double normalizedMood;
-    if (habitBuddy.myHabitBuddy.evaluationData.length == 0) {
+    if (habitBuddy.myHabitBuddy.motivationData.length == 0) {
       normalizedMood = 99;
     } else {
-      normalizedMood = habitBuddy.myHabitBuddy.evaluationData[0] /
-          habitBuddy.myHabitBuddy.evaluationData[1];
+      normalizedMood = habitBuddy.myHabitBuddy.motivationData[0] /
+          habitBuddy.myHabitBuddy.motivationData[1];
     }
 
-    if (normalizedMood < 4) {
+    if (normalizedMood <= 1) {
       return RichText(
         text: TextSpan(
           text:
-              'Dein Habit Buddy ${habitBuddy.myHabitBuddy.username} fühlt sich wohl derzeit insgesamt etwas ',
+              'Dein Habit Buddy ${habitBuddy.myHabitBuddy.username} fühlt sich derzeit insgesamt ',
           style: TextStyle(
             fontSize: 16,
             color: Color(0xFFFFFFFF),
           ),
           children: <TextSpan>[
             TextSpan(
-              text: 'unmotiviert',
+              text: 'sehr unmotiviert',
               style: TextStyle(
                 color: accentColor,
               ),
             ),
             TextSpan(
-              text: ', vielleicht kannst Du ihm helfen!',
+              text: ', Du solltest versuchen ihn zu motivieren!',
             ),
           ],
         ),
       );
     }
-    if (4 < normalizedMood && normalizedMood < 7) {
+    if (normalizedMood <= 2) {
       return RichText(
         text: TextSpan(
           text:
-              'Deinem Habit Buddy ${habitBuddy.myHabitBuddy.username} geht es derzeit insgesamt ganz ',
+              'Dein Habit Buddy ${habitBuddy.myHabitBuddy.username} fühlt sich derzeit insgesamt ',
           style: TextStyle(
             fontSize: 16,
             color: Color(0xFFFFFFFF),
           ),
           children: <TextSpan>[
             TextSpan(
-              text: 'gut',
+              text: 'etwas unmotiviert',
               style: TextStyle(
                 fontSize: 16,
                 color: accentColor,
@@ -100,24 +102,48 @@ class BuddyViewModel extends BaseModel {
             ),
             TextSpan(
               text:
-                  ', es könnte aber bestimmt besser laufen. Vielleicht kannst Du ihn etwas motivieren!',
+                  ', es könnte aber bestimmt besser laufen. Vielleicht kannst Du ihn motivieren!',
             ),
           ],
         ),
       );
     }
-    if (normalizedMood > 6 && normalizedMood < 11) {
+    if (normalizedMood <= 3) {
       return RichText(
         text: TextSpan(
           text:
-              'Dein Habit Buddy ${habitBuddy.myHabitBuddy.username} ist insgesamt sehr  ',
+              'Dein Habit Buddy ${habitBuddy.myHabitBuddy.username} ist insgesamt ',
           style: TextStyle(
             fontSize: 16,
             color: Color(0xFFFFFFFF),
           ),
           children: <TextSpan>[
             TextSpan(
-              text: 'motiviert',
+              text: 'relativ motiviert',
+              style: TextStyle(
+                fontSize: 16,
+                color: accentColor,
+              ),
+            ),
+            TextSpan(
+              text: '. Vielleicht könnt Ihr Euch mehr unterstützen.',
+            ),
+          ],
+        ),
+      );
+    }
+    if (normalizedMood <= 4) {
+      return RichText(
+        text: TextSpan(
+          text:
+              'Dein Habit Buddy ${habitBuddy.myHabitBuddy.username} ist insgesamt ',
+          style: TextStyle(
+            fontSize: 16,
+            color: Color(0xFFFFFFFF),
+          ),
+          children: <TextSpan>[
+            TextSpan(
+              text: 'sehr motiviert',
               style: TextStyle(
                 fontSize: 16,
                 color: accentColor,
@@ -125,6 +151,30 @@ class BuddyViewModel extends BaseModel {
             ),
             TextSpan(
               text: '. Ihr seid ein klasse Team!',
+            ),
+          ],
+        ),
+      );
+    }
+    if (normalizedMood > 4) {
+      return RichText(
+        text: TextSpan(
+          text:
+              'Dein Habit Buddy ${habitBuddy.myHabitBuddy.username} ist insgesamt ',
+          style: TextStyle(
+            fontSize: 16,
+            color: Color(0xFFFFFFFF),
+          ),
+          children: <TextSpan>[
+            TextSpan(
+              text: 'super motiviert',
+              style: TextStyle(
+                fontSize: 16,
+                color: accentColor,
+              ),
+            ),
+            TextSpan(
+              text: '. Ihr seid ein starkes Team!',
             ),
           ],
         ),
@@ -249,21 +299,20 @@ class BuddyViewModel extends BaseModel {
     }
     if (habitBuddy.myHabitBuddy.buddyLevel < 3 &&
         habitBuddy.myHabitBuddy.timestampIncreased != null) {
-      print('level kleiner 3 und increased ungleich null');
-      var increaseDate =
-          habitBuddy.myHabitBuddy.timestampIncreased.toDate().day;
-      print(increaseDate);
-      var thresholdDay = DateTime.now().subtract(Duration(days: 1)).day;
-      print(thresholdDay);
+      var increaseDate = habitBuddy.myHabitBuddy.timestampIncreased.toDate();
+      var thresholdDay = DateTime.now().subtract(Duration(days: 1));
 
-      if (thresholdDay > increaseDate) {
-        print(
-            'level kleiner 3 und increased ungleich null und threshold > increasedate');
+      if (increaseDate.isBefore(thresholdDay)) {
         habitBuddy.myHabitBuddy.buddyLevel += 1;
         habitBuddy.myHabitBuddy.timestampIncreased = DateTime.now();
         await _firestoreService.updateBuddyTimestamp(
             habitBuddy.myHabitBuddy, currentUser.id);
       }
+    } else {
+      habitBuddy.myHabitBuddy.timestampIncreased = DateTime.now();
+      await _firestoreService.updateBuddyTimestamp(
+          habitBuddy.myHabitBuddy, currentUser.id);
+      notifyListeners();
     }
     setBusy(false);
   }
@@ -272,18 +321,13 @@ class BuddyViewModel extends BaseModel {
     setBusy(true);
     if (habitBuddy.myHabitBuddy.buddyLevel > 0 &&
         habitBuddy.myHabitBuddy.timestampReduced == null) {
-      print('hallo?');
-
-//        var firstMessageDay = firstMessage.timestamp.day;
-//        print(firstMessageDay);
-      var lastIncrease =
-          habitBuddy.myHabitBuddy.timestampIncreased.toDate().day;
-      var thresholdDay = new DateTime.now().day;
-      if (thresholdDay > lastIncrease + 1) {
-        print('hallo?2');
+      var lastIncrease = habitBuddy.myHabitBuddy.timestampIncreased
+          .toDate()
+          .add(Duration(days: 1));
+      var thresholdDay = new DateTime.now();
+      if (lastIncrease.isBefore(thresholdDay)) {
         habitBuddy.myHabitBuddy.timestampReduced = DateTime.now();
         habitBuddy.myHabitBuddy.buddyLevel -= 1;
-        print(habitBuddy.myHabitBuddy.buddyLevel);
         notifyListeners();
         await _firestoreService.updateBuddyTimestamp(
             habitBuddy.myHabitBuddy, currentUser.id);
@@ -291,9 +335,15 @@ class BuddyViewModel extends BaseModel {
     }
     if (habitBuddy.myHabitBuddy.buddyLevel > 0 &&
         habitBuddy.myHabitBuddy.timestampReduced != null) {
-      var reduceDate = habitBuddy.myHabitBuddy.timestampReduced.toDate().day;
-      var thresholdDay = DateTime.now().day;
-      if (thresholdDay > reduceDate + 1) {
+      var reduceDate = habitBuddy.myHabitBuddy.timestampReduced
+          .toDate()
+          .add(Duration(days: 1));
+      var increaseDate = habitBuddy.myHabitBuddy.timestampIncreased
+          .toDate()
+          .add(Duration(days: 1));
+      var thresholdDay = DateTime.now();
+      if (reduceDate.isBefore(thresholdDay) &&
+          increaseDate.isBefore(thresholdDay)) {
         habitBuddy.myHabitBuddy.timestampReduced = DateTime.now();
         habitBuddy.myHabitBuddy.buddyLevel -= 1;
         notifyListeners();

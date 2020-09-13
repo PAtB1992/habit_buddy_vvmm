@@ -5,13 +5,13 @@ class HabitBuddy {
   var timestampIncreased;
   HabitBuddy myHabitBuddy;
   int buddyLevel;
-  List evaluationData;
+  List motivationData;
 
   HabitBuddy(
       {this.username,
       this.id,
       this.buddyLevel,
-      this.evaluationData,
+      this.motivationData,
       this.timestampReduced,
       this.timestampIncreased});
 
@@ -21,7 +21,7 @@ class HabitBuddy {
         buddyLevel = data['buddyLevel'],
         timestampReduced = data['timestampReduced'],
         timestampIncreased = data['timestampIncreased'],
-        evaluationData = data['evaluationData'];
+        motivationData = data['motivationData'];
 
   saveHabitBuddy(HabitBuddy habitBuddy) {
     myHabitBuddy = habitBuddy;
