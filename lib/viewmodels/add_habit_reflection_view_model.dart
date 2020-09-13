@@ -38,16 +38,19 @@ class AddHabitReflectionViewModel extends BaseModel {
       addedHabit = false;
     } else {
       Habit habit = Habit(
-        habitID: customName,
-        name: habitName,
-        customDescription: customDescription,
-        customName: customName,
-        repetitions: 0,
-        habitIcon: habitIcon(habitName),
-        reminderID: reminderID,
-        reminderType: getHabitReminderType(pageViewController.page),
-        wasDone: DateTime.now().subtract(Duration(days: 10)),
-      );
+          habitID: customName,
+          name: habitName,
+          customDescription: customDescription,
+          customName: customName,
+          repetitions: 0,
+          habitIcon: habitIcon(habitName),
+          reminderID: reminderID,
+          reminderType: getHabitReminderType(pageViewController.page),
+          wasDone: DateTime.now().subtract(
+            Duration(days: 10),
+          ),
+          automaticity: 0,
+          motivation: 3);
 
       if (_habitList.checkListForDupes(habit.name)) {
         _dialogService.showDialog(

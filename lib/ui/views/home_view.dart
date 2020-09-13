@@ -146,67 +146,74 @@ class HomeView extends StatelessWidget {
                           Expanded(
                             //      flex: 4,
                             child: MediaQuery.removePadding(
-                              context: context,
-                              removeTop: true,
-                              child: model.habitList.habitList.length != 0
-                                  ? ListView.builder(
-                                      itemBuilder: (context, index) {
-                                        final habit =
-                                            model.habitList.habitList[index];
-                                        return HabitTile(
-                                          customName: habit.customName,
-                                          name: dynamicCategory(habit.name),
-                                          repetitions: habit.repetitions,
-                                          description: habit.customDescription,
-                                          habitIcon: habitIcon(habit.name),
-                                          hasHabitBuddy: hasHabitBuddy,
-                                          buddyEvaluation: hasHabitBuddy
-                                              ? model.buddyEvaluation(
-                                                      model.milestones,
-                                                      habit.name) ??
-                                                  'Dein Habit Buddy hat diese Rubrik nicht.'
-                                              : model.userMotivation(
-                                                  habit.motivation),
-                                          reminderID: habit.reminderID,
-                                          reminderType: habit.reminderType,
-                                          wasDone:
-                                              model.getHabitDone(habit.wasDone),
-                                          automaticity: habit.automaticity,
-                                          onLongPress: () {
-                                            model.deleteHabit(habit);
-                                          },
-                                          onPress: () async {
-                                            await _navigationService.navigateTo(
-                                              HabitDetailViewRoute,
-                                              arguments: Habit(
-                                                  habitID: habit.habitID,
-                                                  name: habit.name,
-                                                  customDescription:
-                                                      habit.customDescription,
-                                                  customName: habit.customName,
-                                                  listIndex: index,
-                                                  repetitions:
-                                                      habit.repetitions,
-                                                  habitIcon:
-                                                      habitIcon(habit.name),
-                                                  reminderID: habit.reminderID,
-                                                  reminderType:
-                                                      habit.reminderType,
-                                                  wasDone: habit.wasDone),
-                                            );
-                                            model.setBusy(false);
-                                          },
-                                        );
-                                      },
-                                      itemCount: model.habitList.habitCount,
-                                    )
-                                  : Center(
-                                      child: CircularProgressIndicator(
-                                        valueColor: AlwaysStoppedAnimation(
-                                            Theme.of(context).primaryColor),
-                                      ),
-                                    ),
-                            ),
+                                context: context,
+                                removeTop: true,
+                                child: model.habitList.habitList.length != 0
+                                    ? ListView.builder(
+                                        itemBuilder: (context, index) {
+                                          final habit =
+                                              model.habitList.habitList[index];
+                                          return HabitTile(
+                                            customName: habit.customName,
+                                            name: dynamicCategory(habit.name),
+                                            repetitions: habit.repetitions,
+                                            description:
+                                                habit.customDescription,
+                                            habitIcon: habitIcon(habit.name),
+                                            hasHabitBuddy: hasHabitBuddy,
+                                            buddyEvaluation: hasHabitBuddy
+                                                ? model.buddyEvaluation(
+                                                        model.milestones,
+                                                        habit.name) ??
+                                                    'Dein Habit Buddy hat diese Rubrik nicht.'
+                                                : model.userMotivation(
+                                                    habit.motivation),
+                                            reminderID: habit.reminderID,
+                                            reminderType: habit.reminderType,
+                                            wasDone: model
+                                                .getHabitDone(habit.wasDone),
+                                            automaticity: habit.automaticity,
+                                            onLongPress: () {
+                                              model.deleteHabit(habit);
+                                            },
+                                            onPress: () async {
+                                              await _navigationService
+                                                  .navigateTo(
+                                                HabitDetailViewRoute,
+                                                arguments: Habit(
+                                                    habitID: habit.habitID,
+                                                    name: habit.name,
+                                                    customDescription:
+                                                        habit.customDescription,
+                                                    customName:
+                                                        habit.customName,
+                                                    listIndex: index,
+                                                    repetitions:
+                                                        habit.repetitions,
+                                                    habitIcon:
+                                                        habitIcon(habit.name),
+                                                    reminderID:
+                                                        habit.reminderID,
+                                                    reminderType:
+                                                        habit.reminderType,
+                                                    wasDone: habit.wasDone),
+                                              );
+                                              model.setBusy(false);
+                                            },
+                                          );
+                                        },
+                                        itemCount: model.habitList.habitCount,
+                                      )
+                                    : SizedBox(
+                                        height: 1,
+                                      )
+//                                  Center(
+//                                      child: CircularProgressIndicator(
+//                                        valueColor: AlwaysStoppedAnimation(
+//                                            Theme.of(context).primaryColor),
+//                                      ),
+//                                    ),
+                                ),
                           ),
                         ],
                       ),
