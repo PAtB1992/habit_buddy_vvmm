@@ -32,7 +32,7 @@ class RegistrationViewModel extends BaseModel {
     );
     setBusy(false);
     //Generates token for device
-    await _pushNotificationService.saveDeviceToken(uid: currentUser.id);
+//    await _pushNotificationService.saveDeviceToken(uid: currentUser.id);
     await _firestoreService.createBuddyTemplate(currentUser);
 
     if (result is bool) {

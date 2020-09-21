@@ -3,6 +3,7 @@ class HabitBuddy {
   final String id;
   var timestampReduced;
   var timestampIncreased;
+  var lastSet;
   HabitBuddy myHabitBuddy;
   int buddyLevel;
   List motivationData;
@@ -13,7 +14,8 @@ class HabitBuddy {
       this.buddyLevel,
       this.motivationData,
       this.timestampReduced,
-      this.timestampIncreased});
+      this.timestampIncreased,
+      this.lastSet});
 
   HabitBuddy.fromData(Map<String, dynamic> data)
       : id = data['id'],
@@ -21,6 +23,7 @@ class HabitBuddy {
         buddyLevel = data['buddyLevel'],
         timestampReduced = data['timestampReduced'],
         timestampIncreased = data['timestampIncreased'],
+        lastSet = data['lastSet'],
         motivationData = data['motivationData'];
 
   saveHabitBuddy(HabitBuddy habitBuddy) {
@@ -32,6 +35,7 @@ class HabitBuddy {
       'timestampReduced': timestampReduced,
       'timestampIncreased': timestampIncreased,
       'buddyLevel': buddyLevel,
+      'lastSet': lastSet,
     };
   }
 }

@@ -288,9 +288,9 @@ class BuddyViewModel extends BaseModel {
       );
     }
     if (habitBuddy.myHabitBuddy.buddyLevel < 3 &&
-        habitBuddy.myHabitBuddy.timestampIncreased == null) {
-      print('level kleiner 3 und increased null');
+        habitBuddy.myHabitBuddy.lastSet == null) {
       habitBuddy.myHabitBuddy.timestampIncreased = DateTime.now();
+      habitBuddy.myHabitBuddy.lastSet = DateTime.now();
       habitBuddy.myHabitBuddy.buddyLevel += 1;
 
       await _firestoreService.updateBuddyTimestamp(
@@ -299,12 +299,13 @@ class BuddyViewModel extends BaseModel {
     }
     if (habitBuddy.myHabitBuddy.buddyLevel < 3 &&
         habitBuddy.myHabitBuddy.timestampIncreased != null) {
-      var increaseDate = habitBuddy.myHabitBuddy.timestampIncreased.toDate();
+      var lastSet = habitBuddy.myHabitBuddy.lastSet.toDate();
       var thresholdDay = DateTime.now().subtract(Duration(days: 1));
 
-      if (increaseDate.isBefore(thresholdDay)) {
+      if (lastSet.isBefore(thresholdDay)) {
         habitBuddy.myHabitBuddy.buddyLevel += 1;
         habitBuddy.myHabitBuddy.timestampIncreased = DateTime.now();
+        habitBuddy.myHabitBuddy.lastSet = DateTime.now();
         await _firestoreService.updateBuddyTimestamp(
             habitBuddy.myHabitBuddy, currentUser.id);
       }

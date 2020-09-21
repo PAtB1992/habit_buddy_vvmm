@@ -148,7 +148,7 @@ class HomeViewModel extends BaseModel {
               ),
               Flexible(
                 child: AutoSizeText(
-                  'Deinem Buddy geht es ok',
+                  'Deinem Buddy geht es gut',
                   textAlign: TextAlign.center,
                   style: TextStyle(color: Colors.white),
                   maxLines: 2,
@@ -236,10 +236,25 @@ class HomeViewModel extends BaseModel {
       case 1:
         return Column(
           children: <Widget>[
-            Icon(
-              Icons.sentiment_very_dissatisfied,
-              color: accentColor,
-              size: 30,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Icon(
+                  Icons.star,
+                  color: Colors.white,
+                  size: 30,
+                ),
+                Icon(
+                  Icons.star_border,
+                  color: Colors.white,
+                  size: 30,
+                ),
+                Icon(
+                  Icons.star_border,
+                  color: Colors.white,
+                  size: 30,
+                ),
+              ],
             ),
             SizedBox(
               height: 5,
@@ -259,17 +274,32 @@ class HomeViewModel extends BaseModel {
       case 2:
         return Column(
           children: <Widget>[
-            Icon(
-              Icons.sentiment_dissatisfied,
-              color: accentColorGradient,
-              size: 30,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Icon(
+                  Icons.star,
+                  color: Colors.white,
+                  size: 30,
+                ),
+                Icon(
+                  Icons.star_half,
+                  color: Colors.white,
+                  size: 30,
+                ),
+                Icon(
+                  Icons.star_border,
+                  color: Colors.white,
+                  size: 30,
+                ),
+              ],
             ),
             SizedBox(
               height: 5,
             ),
             Flexible(
               child: AutoSizeText(
-                'Dein Buddy ist unmotiviert',
+                'Du bist auf einem guten Weg',
                 textAlign: TextAlign.center,
                 style: TextStyle(color: Colors.white),
                 maxLines: 2,
@@ -282,17 +312,32 @@ class HomeViewModel extends BaseModel {
       case 3:
         return Column(
           children: <Widget>[
-            Icon(
-              Icons.sentiment_neutral,
-              color: Colors.white,
-              size: 30,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Icon(
+                  Icons.star,
+                  color: Colors.white,
+                  size: 30,
+                ),
+                Icon(
+                  Icons.star,
+                  color: Colors.white,
+                  size: 30,
+                ),
+                Icon(
+                  Icons.star_border,
+                  color: Colors.white,
+                  size: 30,
+                ),
+              ],
             ),
             SizedBox(
               height: 5,
             ),
             Flexible(
               child: AutoSizeText(
-                'Deinem Buddy geht es ok',
+                'Stark, weiter so!',
                 textAlign: TextAlign.center,
                 style: TextStyle(color: Colors.white),
                 maxLines: 2,
@@ -305,10 +350,25 @@ class HomeViewModel extends BaseModel {
       case 4:
         return Column(
           children: <Widget>[
-            Icon(
-              Icons.sentiment_satisfied,
-              color: test1,
-              size: 30,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Icon(
+                  Icons.star,
+                  color: Colors.white,
+                  size: 30,
+                ),
+                Icon(
+                  Icons.star,
+                  color: Colors.white,
+                  size: 30,
+                ),
+                Icon(
+                  Icons.star_half,
+                  color: Colors.white,
+                  size: 30,
+                ),
+              ],
             ),
             SizedBox(
               height: 5,
@@ -328,17 +388,32 @@ class HomeViewModel extends BaseModel {
       case 5:
         return Column(
           children: <Widget>[
-            Icon(
-              Icons.sentiment_very_satisfied,
-              color: test1,
-              size: 30,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Icon(
+                  Icons.star,
+                  color: Colors.white,
+                  size: 30,
+                ),
+                Icon(
+                  Icons.star,
+                  color: Colors.white,
+                  size: 30,
+                ),
+                Icon(
+                  Icons.star,
+                  color: Colors.white,
+                  size: 30,
+                ),
+              ],
             ),
             SizedBox(
               height: 5,
             ),
             Flexible(
               child: AutoSizeText(
-                'Dein Buddy ist sehr motiviert!',
+                'Du bist der Beste!',
                 textAlign: TextAlign.center,
                 style: TextStyle(color: Colors.white),
                 maxLines: 2,
@@ -352,17 +427,32 @@ class HomeViewModel extends BaseModel {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        Icon(
-          Icons.sentiment_neutral,
-          color: Colors.white,
-          size: 30,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Icon(
+              Icons.star_border,
+              color: Colors.white,
+              size: 30,
+            ),
+            Icon(
+              Icons.star_border,
+              color: Colors.white,
+              size: 30,
+            ),
+            Icon(
+              Icons.star_border,
+              color: Colors.white,
+              size: 30,
+            ),
+          ],
         ),
         SizedBox(
           height: 1,
         ),
         Flexible(
           child: AutoSizeText(
-            'Irgendwas hier rein',
+            'Dein Motivationslevel',
             textAlign: TextAlign.center,
             style: TextStyle(color: Colors.white),
             maxLines: 2,

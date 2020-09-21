@@ -10,12 +10,12 @@ class MilestoneReflectionViewModel extends BaseModel {
   bool completedMilestone = false;
   String questionOne;
   String questionTwo;
-  double currentAutomaticity;
+  var currentAutomaticity;
 
   Future completeMilestone(
       Habit habit, int value, int value2, int motivation) async {
     setBusy(true);
-    currentAutomaticity = (value + value2) / 2;
+    currentAutomaticity = (((value + value2) / 2) * 10).toInt();
 
     await _firestoreService.updateHabit(
         Habit(

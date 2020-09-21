@@ -14,7 +14,7 @@ class Habit {
   IconData habitIcon;
   int repetitions;
   var wasDone;
-  double automaticity;
+  int automaticity;
   int motivation;
 
   Habit(
@@ -76,7 +76,7 @@ class Habit {
       reminderType: map['reminderType'],
       wasDone: map['wasDone'],
       automaticity: map['automaticity'],
-      motivation: map['motiviation'],
+      motivation: map['motivation'],
     );
   }
 }
@@ -123,7 +123,7 @@ class HabitList {
     return _habitList[index].repetitions;
   }
 
-  void updateListHabit(int index, double automaticity, int motivation) {
+  void updateListHabit(int index, var automaticity, int motivation) {
     _habitList[index].wasDone = DateTime.now();
     _habitList[index].automaticity = automaticity;
     _habitList[index].motivation = motivation;

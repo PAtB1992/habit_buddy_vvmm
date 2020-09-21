@@ -19,7 +19,7 @@ class HabitTile extends StatelessWidget {
   final int reminderID;
   final bool wasDone;
   final String reminderType;
-  final double automaticity;
+  final int automaticity;
 
   HabitTile({
     this.customName,
@@ -116,7 +116,7 @@ class HabitTile extends StatelessWidget {
                               size: 40,
                             ),
                             AutoSizeText(
-                              '${(automaticity * 10).toInt()}%',
+                              '${(automaticity)}%',
                               textAlign: TextAlign.center,
                               style:
                                   TextStyle(color: Colors.white, fontSize: 20),
