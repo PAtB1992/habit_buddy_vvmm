@@ -31,7 +31,9 @@ class MilestoneReflectionViewModel extends BaseModel {
             automaticity: currentAutomaticity,
             motivation: motivation),
         currentUser);
-    habitList.updateListHabit(habit.listIndex, currentAutomaticity, motivation);
+    habitList.updateListHabit(habit.listIndex, currentAutomaticity, motivation,
+        habit.repetitions + 1);
+    print(habit.repetitions);
     notifyListeners();
     setBusy(false);
   }

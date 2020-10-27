@@ -54,45 +54,48 @@ class BuddyView extends StatelessWidget {
           ),
         ),
         body: SafeArea(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              SizedBox(
-                height: 15,
-              ),
-              Container(
-                height: 350,
-                child: PageView(
-                  onPageChanged: model.onPageChanged,
-                  controller: model.pageViewController,
-                  children: <Widget>[
-                    ProfileSubView(
-                      habitBuddy: habitBuddy,
-                    ),
-                    BuddyChartSubView(
-                      habitBuddy: model.habitBuddy,
-                    ),
-                  ],
+          child: Scaffold(
+            backgroundColor: backgroundColor,
+            body: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                SizedBox(
+                  height: 15,
                 ),
-              ),
-              Expanded(
-                child: model.messages.length != 0
-                    ? ListView.builder(
-                        itemCount: model.messages.length,
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) => MessageBubble(
-                              message: model.messages[index],
-                              isMe: model.isMe(index: index),
-                            ))
-                    : Center(
-                        child: CircularProgressIndicator(
-                          valueColor: AlwaysStoppedAnimation(
-                              Theme.of(context).primaryColor),
-                        ),
+                Container(
+                  height: 350,
+                  child: PageView(
+                    onPageChanged: model.onPageChanged,
+                    controller: model.pageViewController,
+                    children: <Widget>[
+                      ProfileSubView(
+                        habitBuddy: habitBuddy,
                       ),
-              ),
-            ],
+                      BuddyChartSubView(
+                        habitBuddy: model.habitBuddy,
+                      ),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: model.messages.length != 0
+                      ? ListView.builder(
+                          itemCount: model.messages.length,
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) => MessageBubble(
+                                message: model.messages[index],
+                                isMe: model.isMe(index: index),
+                              ))
+                      : Center(
+                          child: CircularProgressIndicator(
+                            valueColor: AlwaysStoppedAnimation(
+                                Theme.of(context).primaryColor),
+                          ),
+                        ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

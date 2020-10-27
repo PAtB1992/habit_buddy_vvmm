@@ -72,9 +72,7 @@ class BuddyViewModel extends BaseModel {
           children: <TextSpan>[
             TextSpan(
               text: 'sehr unmotiviert',
-              style: TextStyle(
-                color: accentColor,
-              ),
+              style: TextStyle(color: accentColor, fontWeight: FontWeight.bold),
             ),
             TextSpan(
               text: ', Du solltest versuchen ihn zu motivieren!',
@@ -96,9 +94,9 @@ class BuddyViewModel extends BaseModel {
             TextSpan(
               text: 'etwas unmotiviert',
               style: TextStyle(
-                fontSize: 16,
-                color: accentColor,
-              ),
+                  fontSize: 16,
+                  color: accentColor,
+                  fontWeight: FontWeight.bold),
             ),
             TextSpan(
               text:
@@ -121,9 +119,9 @@ class BuddyViewModel extends BaseModel {
             TextSpan(
               text: 'relativ motiviert',
               style: TextStyle(
-                fontSize: 16,
-                color: accentColor,
-              ),
+                  fontSize: 16,
+                  color: accentColor,
+                  fontWeight: FontWeight.bold),
             ),
             TextSpan(
               text: '. Vielleicht könnt Ihr Euch mehr unterstützen.',
@@ -145,9 +143,9 @@ class BuddyViewModel extends BaseModel {
             TextSpan(
               text: 'sehr motiviert',
               style: TextStyle(
-                fontSize: 16,
-                color: accentColor,
-              ),
+                  fontSize: 16,
+                  color: accentColor,
+                  fontWeight: FontWeight.bold),
             ),
             TextSpan(
               text: '. Ihr seid ein klasse Team!',
@@ -169,9 +167,9 @@ class BuddyViewModel extends BaseModel {
             TextSpan(
               text: 'super motiviert',
               style: TextStyle(
-                fontSize: 16,
-                color: accentColor,
-              ),
+                  fontSize: 16,
+                  color: accentColor,
+                  fontWeight: FontWeight.bold),
             ),
             TextSpan(
               text: '. Ihr seid ein starkes Team!',
@@ -299,9 +297,12 @@ class BuddyViewModel extends BaseModel {
     }
     if (habitBuddy.myHabitBuddy.buddyLevel < 3 &&
         habitBuddy.myHabitBuddy.timestampIncreased != null) {
-      var lastSet = habitBuddy.myHabitBuddy.lastSet.toDate();
+      var lastSet = habitBuddy.myHabitBuddy.lastSet;
+      if (lastSet is! DateTime) {
+        lastSet = lastSet.toDate();
+      }
       var thresholdDay = DateTime.now().subtract(Duration(days: 1));
-
+      print('here1?');
       if (lastSet.isBefore(thresholdDay)) {
         habitBuddy.myHabitBuddy.buddyLevel += 1;
         habitBuddy.myHabitBuddy.timestampIncreased = DateTime.now();
@@ -310,47 +311,11 @@ class BuddyViewModel extends BaseModel {
             habitBuddy.myHabitBuddy, currentUser.id);
       }
     } else {
+      print('here?');
       habitBuddy.myHabitBuddy.timestampIncreased = DateTime.now();
       await _firestoreService.updateBuddyTimestamp(
           habitBuddy.myHabitBuddy, currentUser.id);
       notifyListeners();
-    }
-    setBusy(false);
-  }
-
-  Future reduceBuddyLevel() async {
-    setBusy(true);
-    if (habitBuddy.myHabitBuddy.buddyLevel > 0 &&
-        habitBuddy.myHabitBuddy.timestampReduced == null) {
-      var lastIncrease = habitBuddy.myHabitBuddy.timestampIncreased
-          .toDate()
-          .add(Duration(days: 1));
-      var thresholdDay = new DateTime.now();
-      if (lastIncrease.isBefore(thresholdDay)) {
-        habitBuddy.myHabitBuddy.timestampReduced = DateTime.now();
-        habitBuddy.myHabitBuddy.buddyLevel -= 1;
-        notifyListeners();
-        await _firestoreService.updateBuddyTimestamp(
-            habitBuddy.myHabitBuddy, currentUser.id);
-      }
-    }
-    if (habitBuddy.myHabitBuddy.buddyLevel > 0 &&
-        habitBuddy.myHabitBuddy.timestampReduced != null) {
-      var reduceDate = habitBuddy.myHabitBuddy.timestampReduced
-          .toDate()
-          .add(Duration(days: 1));
-      var increaseDate = habitBuddy.myHabitBuddy.timestampIncreased
-          .toDate()
-          .add(Duration(days: 1));
-      var thresholdDay = DateTime.now();
-      if (reduceDate.isBefore(thresholdDay) &&
-          increaseDate.isBefore(thresholdDay)) {
-        habitBuddy.myHabitBuddy.timestampReduced = DateTime.now();
-        habitBuddy.myHabitBuddy.buddyLevel -= 1;
-        notifyListeners();
-        await _firestoreService.updateBuddyTimestamp(
-            habitBuddy.myHabitBuddy, currentUser.id);
-      }
     }
     setBusy(false);
   }

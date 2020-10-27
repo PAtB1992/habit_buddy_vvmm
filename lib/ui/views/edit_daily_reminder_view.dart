@@ -14,7 +14,7 @@ class EditDailyReminderView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<EditReminderViewModel>.reactive(
       builder: (context, model, child) => ReusableCard(
-        color1: primaryBlue,
+        color1: secondaryBlue,
         color2: primaryBlue,
         cardChild: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,

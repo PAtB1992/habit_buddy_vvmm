@@ -25,14 +25,14 @@ class _ProfileSubViewState extends State<ProfileSubView> {
   Widget build(BuildContext context) {
     return ViewModelBuilder<BuddyViewModel>.reactive(
       viewModelBuilder: () => BuddyViewModel(),
-      onModelReady: (model) => model.reduceBuddyLevel(),
+//      onModelReady: (model) => model.reduceBuddyLevel(),
       disposeViewModel: false,
       builder: (context, model, child) => Container(
         child: Stack(
           children: <Widget>[
             ReusableCard(
-              color1: Color(0xFF303f9f),
-              color2: Color(0xFF3f51b5),
+              color1: primaryBlue,
+              color2: secondaryBlue,
               cardChild: Container(
                 padding: EdgeInsets.all(9),
                 child: Column(
@@ -58,7 +58,7 @@ class _ProfileSubViewState extends State<ProfileSubView> {
                       ],
                     ),
                     Divider(
-                      color: accentColor,
+                      color: Colors.white,
                       thickness: 0.8,
                     ),
                     Row(

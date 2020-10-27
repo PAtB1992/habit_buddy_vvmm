@@ -20,10 +20,8 @@ class HabitDetailViewModel extends BaseModel {
   List get chartItems => _chartItems;
   int repetitions;
 
-  void getRepetitions(index) {
-    setBusy(true);
-    repetitions = habitList.populateRepetitions(index);
-    setBusy(false);
+  int getRepetitions(index) {
+    return habitList.habitList[index].repetitions;
   }
 
   String initialRepetitions(index) {

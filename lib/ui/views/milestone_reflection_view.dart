@@ -73,13 +73,14 @@ class _MilestoneReflectionViewState extends State<MilestoneReflectionView> {
                 ),
               ),
             ),
-            backgroundColor: Colors.white,
+            backgroundColor: backgroundColor,
             body: ListView(
               children: <Widget>[
                 SizedBox(
                   height: 30,
                 ),
                 ReusableCard(
+                  boxShadow: false,
                   center: true,
                   height: 80,
                   color1: primaryBlue,
@@ -96,7 +97,7 @@ class _MilestoneReflectionViewState extends State<MilestoneReflectionView> {
                 Text(
                   _value.toString(),
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 60, color: primaryBlue),
+                  style: TextStyle(fontSize: 60, color: Colors.white),
                 ),
                 Column(
                   children: <Widget>[
@@ -142,8 +143,14 @@ class _MilestoneReflectionViewState extends State<MilestoneReflectionView> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          Text('Stimme nicht zu'),
-                          Text('Stimme zu')
+                          Text(
+                            'Stimme nicht zu',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          Text(
+                            'Stimme zu',
+                            style: TextStyle(color: Colors.white),
+                          )
                         ],
                       ),
                     ),
@@ -153,6 +160,7 @@ class _MilestoneReflectionViewState extends State<MilestoneReflectionView> {
                   height: 30,
                 ),
                 ReusableCard(
+                  boxShadow: false,
                   center: true,
                   height: 80,
                   color1: primaryBlue,
@@ -169,7 +177,7 @@ class _MilestoneReflectionViewState extends State<MilestoneReflectionView> {
                 Text(
                   _value2.toString(),
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 60, color: primaryBlue),
+                  style: TextStyle(fontSize: 60, color: Colors.white),
                 ),
                 Column(
                   children: <Widget>[
@@ -215,8 +223,14 @@ class _MilestoneReflectionViewState extends State<MilestoneReflectionView> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          Text('Stimme nicht zu'),
-                          Text('Stimme zu')
+                          Text(
+                            'Stimme nicht zu',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          Text(
+                            'Stimme zu',
+                            style: TextStyle(color: Colors.white),
+                          )
                         ],
                       ),
                     ),
@@ -226,6 +240,7 @@ class _MilestoneReflectionViewState extends State<MilestoneReflectionView> {
                   height: 30,
                 ),
                 ReusableCard(
+                  boxShadow: false,
                   center: true,
                   height: 80,
                   color1: primaryBlue,
@@ -242,7 +257,7 @@ class _MilestoneReflectionViewState extends State<MilestoneReflectionView> {
                 Text(
                   _value3.toString(),
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 60, color: primaryBlue),
+                  style: TextStyle(fontSize: 60, color: Colors.white),
                 ),
                 Column(
                   children: <Widget>[
@@ -287,7 +302,16 @@ class _MilestoneReflectionViewState extends State<MilestoneReflectionView> {
                       padding: const EdgeInsets.symmetric(horizontal: 30.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[Text('Gar nicht'), Text('sehr')],
+                        children: <Widget>[
+                          Text(
+                            'Gar nicht',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          Text(
+                            'sehr',
+                            style: TextStyle(color: Colors.white),
+                          )
+                        ],
                       ),
                     ),
                   ],

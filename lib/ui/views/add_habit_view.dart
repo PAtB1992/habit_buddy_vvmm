@@ -16,6 +16,7 @@ class AddHabitView extends StatelessWidget {
     return ViewModelBuilder<AddHabitViewModel>.reactive(
       viewModelBuilder: () => AddHabitViewModel(),
       builder: (context, model, child) => Scaffold(
+        backgroundColor: backgroundColor,
         appBar: AppBar(
           title: RichText(
             textAlign: TextAlign.center,
@@ -53,7 +54,7 @@ class AddHabitView extends StatelessWidget {
                   textAlign: TextAlign.justify,
                   style: TextStyle(
                     fontSize: 16.0,
-                    color: primaryText,
+                    color: Colors.white,
                   ),
                 ),
                 SizedBox(
@@ -69,7 +70,7 @@ class AddHabitView extends StatelessWidget {
                     crossAxisCount: 2,
                     children: <Widget>[
                       HabitSelectionCard(
-                        color: primaryBlue,
+                        color: secondaryBlue,
                         onPress: () {
                           model.navigateToReflectionViewAndWaitForPop(
                               context, 'gesünder-ernähren');
@@ -78,7 +79,7 @@ class AddHabitView extends StatelessWidget {
                         cardText: 'Ich möchte mich gesünder ernähren.',
                       ),
                       HabitSelectionCard(
-                        color: primaryBlue,
+                        color: secondaryBlue,
                         onPress: () {
                           model.navigateToReflectionViewAndWaitForPop(
                               context, 'besser-organisieren');
@@ -87,7 +88,7 @@ class AddHabitView extends StatelessWidget {
                         cardText: 'Ich möchte mich besser organisieren.',
                       ),
                       HabitSelectionCard(
-                        color: thirdrateBlue,
+                        color: primaryBlue,
                         onPress: () {
                           model.navigateToReflectionViewAndWaitForPop(
                               context, "fähigkeiten-lernen");
@@ -97,7 +98,7 @@ class AddHabitView extends StatelessWidget {
                             'Ich möchte eine bestimmte Fähigkeit verbessern.',
                       ),
                       HabitSelectionCard(
-                        color: thirdrateBlue,
+                        color: primaryBlue,
                         onPress: () {
                           model.navigateToReflectionViewAndWaitForPop(
                               context, "sich-mehr-bewegen");
@@ -106,7 +107,7 @@ class AddHabitView extends StatelessWidget {
                         cardText: 'Ich möchte mich mehr bewegen.',
                       ),
                       HabitSelectionCard(
-                        color: fourthrateBlue,
+                        color: thirdrateBlue,
                         onPress: () {
                           model.navigateToReflectionViewAndWaitForPop(
                               context, "mehr-wasser-trinken");
@@ -115,7 +116,7 @@ class AddHabitView extends StatelessWidget {
                         cardText: 'Ich möchte mehr Wasser trinken.',
                       ),
                       HabitSelectionCard(
-                        color: fourthrateBlue,
+                        color: thirdrateBlue,
                         onPress: () {
                           model.navigateToReflectionViewAndWaitForPop(
                               context, "am-charakter-arbeiten");

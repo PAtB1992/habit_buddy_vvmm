@@ -37,7 +37,9 @@ class ReusableCard extends StatelessWidget {
           boxShadow: boxShadow
               ? [
                   BoxShadow(
-                      color: Colors.grey, blurRadius: 3, offset: Offset(0, 2))
+                      color: Colors.black54,
+                      blurRadius: 5,
+                      offset: Offset(0, 3))
                 ]
               : [],
           gradient: LinearGradient(

@@ -19,7 +19,7 @@ class HabitTile extends StatelessWidget {
   final int reminderID;
   final bool wasDone;
   final String reminderType;
-  final int automaticity;
+  final automaticity;
 
   HabitTile({
     this.customName,
@@ -88,7 +88,7 @@ class HabitTile extends StatelessWidget {
                     width: 200,
                     child: Divider(
                       thickness: 0.8,
-                      color: accentColor,
+                      color: Colors.white,
                     ),
                   ),
                 ],
@@ -136,7 +136,7 @@ class HabitTile extends StatelessWidget {
                       wasDone
                           ? Icon(
                               CupertinoIcons.circle_filled,
-                              color: test1,
+                              color: test3,
                               size: 53,
                             )
                           : Icon(
@@ -178,7 +178,8 @@ class HabitTile extends StatelessWidget {
         margin: EdgeInsets.all(5.0),
         decoration: BoxDecoration(
           boxShadow: [
-            BoxShadow(color: Colors.grey, blurRadius: 3, offset: Offset(0, 2))
+            BoxShadow(
+                color: Colors.black12, blurRadius: 3, offset: Offset(0, 2))
           ],
           gradient: LinearGradient(
               colors: [primaryBlue, secondaryBlue],

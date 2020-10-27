@@ -62,6 +62,7 @@ class HomeViewModel extends BaseModel {
   void homeViewInitialization(bool hasHabitBuddy) {
     fetchHabits();
     if (hasHabitBuddy) {
+      reduceBuddyLevel();
       setBusy(true);
 
       _firestoreService.listenToBuddyRealTime().listen((milestonesData) {
@@ -117,7 +118,7 @@ class HomeViewModel extends BaseModel {
             children: <Widget>[
               Icon(
                 Icons.sentiment_dissatisfied,
-                color: accentColorGradient,
+                color: Colors.white,
                 size: 30,
               ),
               SizedBox(
@@ -163,7 +164,7 @@ class HomeViewModel extends BaseModel {
             children: <Widget>[
               Icon(
                 Icons.sentiment_satisfied,
-                color: test1,
+                color: Colors.white,
                 size: 30,
               ),
               SizedBox(
@@ -186,7 +187,7 @@ class HomeViewModel extends BaseModel {
             children: <Widget>[
               Icon(
                 Icons.sentiment_very_satisfied,
-                color: test1,
+                color: test3,
                 size: 30,
               ),
               SizedBox(
@@ -299,7 +300,7 @@ class HomeViewModel extends BaseModel {
             ),
             Flexible(
               child: AutoSizeText(
-                'Du bist auf einem guten Weg',
+                'Denk an Dein Ziel!',
                 textAlign: TextAlign.center,
                 style: TextStyle(color: Colors.white),
                 maxLines: 2,
@@ -337,7 +338,7 @@ class HomeViewModel extends BaseModel {
             ),
             Flexible(
               child: AutoSizeText(
-                'Stark, weiter so!',
+                'Du bist auf einem guten Weg',
                 textAlign: TextAlign.center,
                 style: TextStyle(color: Colors.white),
                 maxLines: 2,
@@ -375,7 +376,7 @@ class HomeViewModel extends BaseModel {
             ),
             Flexible(
               child: AutoSizeText(
-                'Dein Buddy ist motiviert',
+                'Stark, weiter so!!',
                 textAlign: TextAlign.center,
                 style: TextStyle(color: Colors.white),
                 maxLines: 2,
@@ -548,5 +549,49 @@ class HomeViewModel extends BaseModel {
     }
 
     return habitDone;
+  }
+
+  Future reduceBuddyLevel() async {
+    setBusy(true);
+    if (habitBuddy.myHabitBuddy.buddyLevel > 0 &&
+        habitBuddy.myHabitBuddy.timestampReduced == null) {
+      var lastIncrease = habitBuddy.myHabitBuddy.timestampIncreased
+          .toDate()
+          .add(Duration(days: 1));
+      var thresholdDay = new DateTime.now();
+      if (lastIncrease.isBefore(thresholdDay)) {
+        habitBuddy.myHabitBuddy.timestampReduced = DateTime.now();
+        habitBuddy.myHabitBuddy.buddyLevel -= 1;
+        notifyListeners();
+        await _firestoreService.updateBuddyTimestamp(
+            habitBuddy.myHabitBuddy, currentUser.id);
+      }
+    }
+    if (habitBuddy.myHabitBuddy.buddyLevel > 0 &&
+        habitBuddy.myHabitBuddy.timestampReduced != null) {
+      var reduceDate = habitBuddy.myHabitBuddy.timestampReduced;
+      if (reduceDate is! DateTime) {
+        reduceDate = reduceDate.toDate().add(Duration(days: 1));
+      } else {
+        reduceDate = reduceDate.add(Duration(days: 1));
+      }
+
+      var increaseDate = habitBuddy.myHabitBuddy.timestampIncreased;
+      if (increaseDate is! DateTime) {
+        increaseDate = increaseDate.toDate().add(Duration(days: 1));
+      } else {
+        increaseDate = increaseDate.add(Duration(days: 1));
+      }
+      var thresholdDay = DateTime.now();
+      if (reduceDate.isBefore(thresholdDay) &&
+          increaseDate.isBefore(thresholdDay)) {
+        habitBuddy.myHabitBuddy.timestampReduced = DateTime.now();
+        habitBuddy.myHabitBuddy.buddyLevel -= 1;
+        notifyListeners();
+        await _firestoreService.updateBuddyTimestamp(
+            habitBuddy.myHabitBuddy, currentUser.id);
+      }
+    }
+    setBusy(false);
   }
 }

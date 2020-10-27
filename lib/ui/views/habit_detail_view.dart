@@ -23,6 +23,7 @@ class HabitDetailView extends StatelessWidget {
         color: primaryBlue,
         child: SafeArea(
           child: Scaffold(
+            backgroundColor: backgroundColor,
             appBar: PreferredSize(
               preferredSize: Size.fromHeight(80),
               child: AppBar(
@@ -97,8 +98,8 @@ class HabitDetailView extends StatelessWidget {
                       ReusableCard(
                         center: true,
                         height: 100,
-                        color1: accentColor,
-                        color2: accentColorGradient,
+                        color1: accentColorGradient,
+                        color2: accentColor,
                         cardChild: Text(
                           'Trage hier deinen Meilenstein ein',
                           style: TextStyle(
@@ -110,7 +111,7 @@ class HabitDetailView extends StatelessWidget {
 //                      await _navigationService.navigateTo(
 //                          MilestoneReflectionViewRoute,
 //                          arguments: habit);
-                          model.navigateToReflectionViewAndWaitForPop(
+                          await model.navigateToReflectionViewAndWaitForPop(
                               context, habit);
                           model.getRepetitions(habit.listIndex);
                         },
@@ -130,9 +131,7 @@ class HabitDetailView extends StatelessWidget {
                               textAlign: TextAlign.center,
                             ),
                             Text(
-                              model.repetitions.toString() == null
-                                  ? model.getRepetitions
-                                  : model.initialRepetitions(habit.listIndex),
+                              model.getRepetitions(habit.listIndex).toString(),
                               style:
                                   TextStyle(fontSize: 70, color: Colors.white),
                             ),
@@ -146,8 +145,8 @@ class HabitDetailView extends StatelessWidget {
                       ReusableCard(
                         center: true,
                         height: 60,
-                        color1: accentColor,
-                        color2: accentColorGradient,
+                        color1: accentColorGradient,
+                        color2: accentColor,
                         cardChild: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
@@ -168,7 +167,7 @@ class HabitDetailView extends StatelessWidget {
                           ],
                         ),
                         onPress: () {
-                          print(habit.wasDone);
+                          print(habit.motivation);
                           model.navigateToEditReminderView(habit);
                         },
                       ),

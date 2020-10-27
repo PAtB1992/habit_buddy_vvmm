@@ -18,7 +18,7 @@ class _DeleteReminderViewState extends State<DeleteReminderView> {
   @override
   Widget build(BuildContext context) {
     return ReusableCard(
-      color1: primaryBlue,
+      color1: secondaryBlue,
       color2: primaryBlue,
       cardChild: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16),

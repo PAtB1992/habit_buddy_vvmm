@@ -35,6 +35,7 @@ class _AddHabitReflectionViewState extends State<AddHabitReflectionView> {
       viewModelBuilder: () => AddHabitReflectionViewModel(),
       builder: (context, model, child) => KeyboardDismisser(
         child: Scaffold(
+          backgroundColor: backgroundColor,
           appBar: appBarStyle(widget.habitName),
           body: SafeArea(
             child: MediaQuery.removePadding(
@@ -52,7 +53,7 @@ class _AddHabitReflectionViewState extends State<AddHabitReflectionView> {
                   ReusableCard(
                     center: true,
                     color1: primaryBlue,
-                    color2: primaryBlue,
+                    color2: secondaryBlue,
                     cardChild: Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 8.0, vertical: 16),
@@ -92,8 +93,8 @@ class _AddHabitReflectionViewState extends State<AddHabitReflectionView> {
                       decoration: BoxDecoration(
                           boxShadow: [
                             BoxShadow(
-                                color: Colors.grey,
-                                blurRadius: 3,
+                                color: Colors.black54,
+                                blurRadius: 5,
                                 offset: Offset(0, 2))
                           ],
                           color: primaryBlue,

@@ -27,10 +27,12 @@ class UserChart extends StatelessWidget {
           aspectRatio: 1.70,
           child: Container(
               decoration: const BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(
-                        color: Colors.grey, blurRadius: 3, offset: Offset(0, 2))
-                  ],
+//                  boxShadow: [
+//                    BoxShadow(
+//                        color: Colors.black54,
+//                        blurRadius: 5,
+//                        offset: Offset(0, 2))
+//                  ],
                   borderRadius: BorderRadius.all(
                     Radius.circular(10),
                   ),

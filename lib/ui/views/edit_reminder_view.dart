@@ -41,6 +41,7 @@ class _EditReminderViewState extends State<EditReminderView> {
       viewModelBuilder: () => EditReminderViewModel(),
       builder: (context, model, child) => KeyboardDismisser(
         child: Scaffold(
+          backgroundColor: backgroundColor,
           appBar: AppBar(
             title: AutoSizeText.rich(
               TextSpan(
@@ -75,9 +76,10 @@ class _EditReminderViewState extends State<EditReminderView> {
                       padding: const EdgeInsets.all(8.0),
                       child: dynamicImage(widget.habit.name)),
                   ReusableCard(
+                    boxShadow: false,
                     center: true,
                     color1: primaryBlue,
-                    color2: primaryBlue,
+                    color2: secondaryBlue,
                     cardChild: Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 8.0, vertical: 16),
@@ -102,8 +104,8 @@ class _EditReminderViewState extends State<EditReminderView> {
                       decoration: BoxDecoration(
                           boxShadow: [
                             BoxShadow(
-                                color: Colors.grey,
-                                blurRadius: 3,
+                                color: Colors.black54,
+                                blurRadius: 5,
                                 offset: Offset(0, 2))
                           ],
                           color: primaryBlue,

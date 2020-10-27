@@ -36,6 +36,7 @@ class EditReminderViewModel extends BaseModel {
   }
 
   void setReminder(Habit habit) async {
+    print(habit.motivation);
     if (pageViewController.page == 0) {
       _firestoreService.updateHabit(
           Habit(
@@ -48,6 +49,8 @@ class EditReminderViewModel extends BaseModel {
             reminderType: 'daily',
             repetitions: habit.repetitions,
             wasDone: habit.wasDone,
+            automaticity: habit.automaticity,
+            motivation: habit.motivation,
           ),
           currentUser);
       await _pushNotificationService.showDailyNotification(
@@ -69,6 +72,8 @@ class EditReminderViewModel extends BaseModel {
             reminderType: 'no reminder',
             repetitions: habit.repetitions,
             wasDone: habit.wasDone,
+            automaticity: habit.automaticity,
+            motivation: habit.motivation,
           ),
           currentUser);
 
@@ -88,6 +93,8 @@ class EditReminderViewModel extends BaseModel {
             reminderType: 'weekly',
             repetitions: habit.repetitions,
             wasDone: habit.wasDone,
+            automaticity: habit.automaticity,
+            motivation: habit.motivation,
           ),
           currentUser);
       habitList.setReminderType(habit.listIndex, 'weekly');

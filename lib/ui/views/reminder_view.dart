@@ -18,7 +18,8 @@ class _ReminderViewState extends State<ReminderView> {
   @override
   Widget build(BuildContext context) {
     return ReusableCard(
-      color1: primaryBlue,
+      boxShadow: false,
+      color1: secondaryBlue,
       color2: primaryBlue,
       cardChild: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16),

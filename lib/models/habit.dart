@@ -14,8 +14,8 @@ class Habit {
   IconData habitIcon;
   int repetitions;
   var wasDone;
-  int automaticity;
-  int motivation;
+  var automaticity;
+  var motivation;
 
   Habit(
       {@required this.name,
@@ -123,10 +123,12 @@ class HabitList {
     return _habitList[index].repetitions;
   }
 
-  void updateListHabit(int index, var automaticity, int motivation) {
+  void updateListHabit(
+      int index, var automaticity, int motivation, int repetitions) {
     _habitList[index].wasDone = DateTime.now();
     _habitList[index].automaticity = automaticity;
     _habitList[index].motivation = motivation;
+    _habitList[index].repetitions = repetitions;
   }
 
   void setReminderType(int index, String reminderType) {

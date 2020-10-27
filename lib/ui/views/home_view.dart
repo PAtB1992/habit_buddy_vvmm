@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:habitbuddyvvmm/ui/components/habit_tile.dart';
 import 'package:habitbuddyvvmm/constants/app_colors.dart';
@@ -35,7 +36,7 @@ class HomeView extends StatelessWidget {
           color: primaryBlue,
           child: SafeArea(
             child: Container(
-              color: Colors.white,
+              color: backgroundColor,
               child: Column(
                 children: <Widget>[
                   Material(
@@ -83,7 +84,7 @@ class HomeView extends StatelessWidget {
                               ),
                               RaisedButton(
                                 color: accentColor,
-                                elevation: 3,
+                                elevation: 5,
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10.0),
                                 ),
@@ -130,7 +131,7 @@ class HomeView extends StatelessWidget {
                               model.habitList.habitCount == 0
                                   ? AutoSizeText(
                                       'Füge auf dem Plusbutton eine Habit hinzu und starte durch!',
-                                      style: TextStyle(color: primaryText),
+                                      style: TextStyle(color: Colors.white),
                                       maxLines: 1,
                                     )
                                   : SizedBox(
@@ -196,7 +197,11 @@ class HomeView extends StatelessWidget {
                                                         habit.reminderID,
                                                     reminderType:
                                                         habit.reminderType,
-                                                    wasDone: habit.wasDone),
+                                                    wasDone: habit.wasDone,
+                                                    motivation:
+                                                        habit.motivation,
+                                                    automaticity:
+                                                        habit.automaticity),
                                               );
                                               model.setBusy(false);
                                             },
