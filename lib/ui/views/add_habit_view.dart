@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:habitbuddyvvmm/constants/route_names.dart';
 import 'package:habitbuddyvvmm/ui/components/habit_selection_card.dart';
 import 'package:habitbuddyvvmm/viewmodels/add_habit_view_model.dart';
-import 'package:stacked/_viewmodel_builder.dart';
+//import 'package:stacked/_viewmodel_builder.dart';
 import 'package:habitbuddyvvmm/constants/app_colors.dart';
 import 'package:habitbuddyvvmm/constants/texts.dart';
 import 'package:habitbuddyvvmm/services/navigation_service.dart';
 import 'package:habitbuddyvvmm/locator.dart';
+import 'package:stacked/stacked.dart';
 
 class AddHabitView extends StatelessWidget {
   final NavigationService _navigationService = locator<NavigationService>();

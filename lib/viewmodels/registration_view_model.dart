@@ -6,7 +6,6 @@ import 'package:habitbuddyvvmm/services/firestore_service.dart';
 import 'package:habitbuddyvvmm/services/navigation_service.dart';
 import 'package:habitbuddyvvmm/locator.dart';
 import 'package:habitbuddyvvmm/viewmodels/base_model.dart';
-import 'package:habitbuddyvvmm/services/push_notification_service.dart';
 
 class RegistrationViewModel extends BaseModel {
   final AuthenticationService _authenticationService =
@@ -14,8 +13,7 @@ class RegistrationViewModel extends BaseModel {
   final FirestoreService _firestoreService = locator<FirestoreService>();
   final DialogService _dialogService = locator<DialogService>();
   final NavigationService _navigationService = locator<NavigationService>();
-  final PushNotificationService _pushNotificationService =
-      locator<PushNotificationService>();
+
   final hasHabitBuddy = false;
 
   Future register({

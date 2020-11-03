@@ -1,21 +1,15 @@
 import 'package:flutter/animation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:habitbuddyvvmm/services/dialog_service.dart';
 import 'package:habitbuddyvvmm/services/navigation_service.dart';
 import 'package:habitbuddyvvmm/services/push_notification_service.dart';
-import 'package:habitbuddyvvmm/ui/components/dynamic_components.dart';
-import 'package:habitbuddyvvmm/viewmodels/add_habit_reflection_view_model.dart';
 import 'package:habitbuddyvvmm/viewmodels/base_model.dart';
 import 'package:habitbuddyvvmm/locator.dart';
 import 'package:habitbuddyvvmm/services/firestore_service.dart';
 import 'package:habitbuddyvvmm/models/habit.dart';
-import 'package:habitbuddyvvmm/constants/texts.dart';
 
 class EditReminderViewModel extends BaseModel {
   final FirestoreService _firestoreService = locator<FirestoreService>();
-  final DialogService _dialogService = locator<DialogService>();
-  final HabitList _habitList = locator<HabitList>();
   final NavigationService _navigationService = locator<NavigationService>();
   final PushNotificationService _pushNotificationService =
       locator<PushNotificationService>();

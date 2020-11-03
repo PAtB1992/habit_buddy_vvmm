@@ -1,13 +1,13 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:habitbuddyvvmm/constants/texts.dart';
 import 'package:habitbuddyvvmm/ui/components/reusable_card.dart';
 import 'package:habitbuddyvvmm/ui/components/user_chart.dart';
 import 'package:habitbuddyvvmm/viewmodels/habit_detail_view_model.dart';
-import 'package:stacked/_viewmodel_builder.dart';
+//import 'package:stacked/_viewmodel_builder.dart';
 import 'package:habitbuddyvvmm/models/habit.dart';
 import 'package:habitbuddyvvmm/constants/app_colors.dart';
+import 'package:stacked/stacked.dart';
 
 class HabitDetailView extends StatelessWidget {
   final Habit habit;

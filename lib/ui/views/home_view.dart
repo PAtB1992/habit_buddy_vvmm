@@ -7,9 +7,10 @@ import 'package:habitbuddyvvmm/viewmodels/home_view_model.dart';
 import 'package:habitbuddyvvmm/services/navigation_service.dart';
 import 'package:habitbuddyvvmm/locator.dart';
 import 'package:habitbuddyvvmm/constants/route_names.dart';
-import 'package:stacked/_viewmodel_builder.dart';
+//import 'package:stacked/_viewmodel_builder.dart';
 import 'package:habitbuddyvvmm/models/habit.dart';
 import 'package:habitbuddyvvmm/ui/components/dynamic_components.dart';
+import 'package:stacked/stacked.dart';
 
 // ignore: must_be_immutable
 class HomeView extends StatelessWidget {

@@ -1,11 +1,6 @@
-import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:habitbuddyvvmm/constants/app_colors.dart';
-import 'package:habitbuddyvvmm/models/chart_data.dart';
-import 'package:habitbuddyvvmm/models/habit_buddy.dart';
 import 'package:habitbuddyvvmm/models/message.dart';
 import 'package:habitbuddyvvmm/models/stats.dart';
 import 'package:habitbuddyvvmm/services/dialog_service.dart';
@@ -307,6 +302,10 @@ class BuddyViewModel extends BaseModel {
         habitBuddy.myHabitBuddy.buddyLevel += 1;
         habitBuddy.myHabitBuddy.timestampIncreased = DateTime.now();
         habitBuddy.myHabitBuddy.lastSet = DateTime.now();
+        await _firestoreService.updateBuddyTimestamp(
+            habitBuddy.myHabitBuddy, currentUser.id);
+      } else {
+        habitBuddy.myHabitBuddy.timestampIncreased = DateTime.now();
         await _firestoreService.updateBuddyTimestamp(
             habitBuddy.myHabitBuddy, currentUser.id);
       }

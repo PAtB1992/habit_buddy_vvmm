@@ -25,9 +25,17 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.crashlytics'
+
+def keystoreProperties = new Properties()
+def keystorePropertiesFile = rootProject.file('key.properties')
+if (keystorePropertiesFile.exists()) {
+  keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+}
 
 android {
-  compileSdkVersion 28
+  compileSdkVersion 29
+  //TODO hier war auf 28
 
   sourceSets {
     main.java.srcDirs += 'src/main/kotlin'
@@ -44,12 +52,22 @@ android {
     versionCode flutterVersionCode.toInteger()
     versionName flutterVersionName
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+//    mutliDexEnable true
+  }
+
+  signingConfigs {
+    release {
+      keyAlias keystoreProperties['keyAlias']
+      keyPassword keystoreProperties['keyPassword']
+      storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
+      storePassword keystoreProperties['storePassword']
+    }
   }
 
   buildTypes {
     release {
       // Signing with the debug keys for now, so `flutter run --release` works.
-      signingConfig signingConfigs.debug
+      signingConfig signingConfigs.release
     }
   }
 }
@@ -63,8 +81,8 @@ dependencies {
   testImplementation 'junit:junit:4.12'
   androidTestImplementation 'androidx.test:runner:1.2.0'
   androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-  implementation 'com.google.firebase:firebase-analytics:17.4.0'
-  implementation 'com.google.firebase:firebase-auth:19.3.1'
-  implementation 'com.google.firebase:firebase-firestore:21.4.3'
-  implementation 'com.google.firebase:firebase-messaging:20.1.6'
+  implementation 'com.google.firebase:firebase-analytics:18.0.0'
+  implementation 'com.google.firebase:firebase-crashlytics:17.2.2'
+  implementation 'com.google.firebase:firebase-auth:19.4.0'
+  implementation 'com.google.firebase:firebase-firestore:21.7.1'
 }

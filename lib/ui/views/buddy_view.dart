@@ -6,7 +6,6 @@ import 'package:habitbuddyvvmm/ui/views/profile_sub_view.dart';
 import 'package:stacked/stacked.dart';
 import 'package:habitbuddyvvmm/viewmodels/buddy_view_model.dart';
 import 'package:habitbuddyvvmm/constants/app_colors.dart';
-import 'package:habitbuddyvvmm/models/message.dart';
 
 class BuddyView extends StatelessWidget {
   final HabitBuddy habitBuddy;
