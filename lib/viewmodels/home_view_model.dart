@@ -228,6 +228,29 @@ class HomeViewModel extends BaseModel {
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
       );
+    } else {
+      return Column(
+        children: <Widget>[
+          Icon(
+            Icons.sentiment_neutral,
+            color: Colors.white,
+            size: 30,
+          ),
+          SizedBox(
+            height: 5,
+          ),
+          Flexible(
+            child: AutoSizeText(
+              'Dein Buddy hat diese Rubrik nicht.',
+              textAlign: TextAlign.center,
+              style: TextStyle(color: Colors.white),
+              maxLines: 2,
+            ),
+          ),
+        ],
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      );
     }
   }
 
